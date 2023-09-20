@@ -218,7 +218,7 @@
                     </ul>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
-                    <a class="navbar-brand" href="#">STANCE</a>
+                    <a class="navbar-brand" href="#">VAINOI</a>
                 </div>
                 <div class="col-5 d-flex justify-content-end">
                     <form class="d-flex" role="search">
