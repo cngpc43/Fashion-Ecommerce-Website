@@ -4,15 +4,18 @@
 /* :root {
     --body-font: 'Helvetica Neue', sans-serif;
 } */
+body{
+    margin: 0px 0px 0px 0px;
+}
 @font-face {
     font-family: 'Akzidenz-Grotesk bold';
     /* src: url(./font/akzidenz/Akzidenz-grotesk-bold.ttf); */
-    src: url(/font/akzidenz/Akzidenz-Bold-Condensed.ttf);
+    src: url(../font/akzidenz/Akzidenz-Bold-Condensed.ttf);
 }
 
 @font-face {
     font-family: 'Helvetica';
-    src: url('./font/Helvetica-Bold.ttf') format('truetype');
+    src: url(../font/Helvetica-Bold.ttf);
     font-weight: normal;
     font-style: normal;
 }
@@ -117,7 +120,7 @@
 
 
 .sock-banner {
-    background-image: url(./assets/imgs/10049.png);
+    /* background-image: url(./assets/imgs/10049.png); */
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -127,4 +130,24 @@
     -o-transition: all .5s;
     transition: all .5s;
     /* transition: all 0.75s ease-in-out; */
+}
+.container-fluid .footer{
+    width: 100%;
+    margin-bottom: 0px;
+    height: 1000px;
+    background-color: #1a1a1a;
+    align-items: center;
+    padding: 0px 0px 0px 0px;
+}
+.row .footer{
+    /* height: 500px !important; */
+}
+.join-us-heading{
+    color: white;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    font-style: normal;
+    font-size: 120px;
+    line-height: 110px;
+    font-family: 'Akzidenz-Grotesk bold';
 }
