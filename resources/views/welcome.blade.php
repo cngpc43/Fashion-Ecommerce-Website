@@ -501,7 +501,9 @@
     </body> --}}
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    {{-- @extends('layouts.app') --}}
+    {{-- @yield('layouts.app') --}}
+    {{-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid d-flex justify-content-between">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -598,336 +600,336 @@
                 </div>
             </div>
         </div>
-    </nav>
-    <div id="carouselExampleRide" class="carousel slide">
-        <div class="carousel-inner banner">
-            <div class="carousel-item">
-                <img class="carousel-item-img d-none" src="{{ asset('imgs/10007.jpg') }}" alt="">
-                <div class="carousel-caption ">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
+    </nav> --}}
+    @extends('layouts.app')
+    @section('content')
+        <div id="carouselExampleRide" class="carousel slide">
+            <div class="carousel-inner banner">
+                <div class="carousel-item">
+                    <img class="carousel-item-img d-none" src="{{ asset('imgs/10007.jpg') }}" alt="">
+                    <div class="carousel-caption ">
+                        <h5>First slide label</h5>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item ">
+                    {{-- <div class="carousel-item-img" data-img="{{ asset('imgs/10004.jpg') }}"></div> --}}
+                    <img src="{{ asset('imgs/10004.jpg') }}" class="carousel-item-img d-none" alt="...">
+                    <div class="carousel-caption d-md-block">
+                        <h2>First slide label</h2>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item active">
+                    <img src="{{ asset('imgs/10001.jpg') }}" class="carousel-item-img d-none" alt="...">
+                    <div class="carousel-caption d-md-block" style="bottom: 50%; transform: translateY(-50%);">
+                        <h3>First slide label</h3>
+                        <p>Some representative placeholder content for the first slide.</p>
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item ">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
 
-                <img src="{{ asset('imgs/10004.jpg') }}" class="carousel-item-img d-none" alt="...">
-                <div class="carousel-caption d-md-block">
-                    <h2>First slide label</h2>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item active">
-                <img src="{{ asset('imgs/10001.jpg') }}" class="carousel-item-img d-none" alt="...">
-                <div class="carousel-caption d-md-block" style="bottom: 50%; transform: translateY(-50%);">
-                    <h3>First slide label</h3>
-                    <p>Some representative placeholder content for the first slide.</p>
+
+
+
+
+        {{-- <h1 class="mt-5">DM</h1> --}}
+        <div class="container text-center my-3">
+            <div class="row mx-auto my-auto justify-content-center">
+                <div id="recipeCarousel" class="carousel slide multiple-image" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 1</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 2</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 4</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 5</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 6</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+        <div class="row banner mt-5 mb-5">
+            <div class="col-12 col-lg-6 p-0">
+                <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
+            </div>
+            <div class="col-12 col-lg-6 p-0">
+                <div class="d-flex h-100 align-items-center justify-content-center">
+                    <div class="container">
+                        <h5 class="text-center">
+                            From the icon shop
+                        </h5>
+                        <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
+                            QUARTER HEIGHT
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <a style="letter-spacing: 0.96px;" href="#"
+                                class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">EXPLORE
+                                COLLECTION</a>
+                        </div>
 
-
-
-
-
-    {{-- <h1 class="mt-5">DM</h1> --}}
-    <div class="container text-center my-3">
-        <div class="row mx-auto my-auto justify-content-center">
-            <div id="recipeCarousel" class="carousel slide multiple-image" data-bs-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 2</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 5</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 6</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="row banner mt-5 mb-5">
-        <div class="col-12 col-lg-6 p-0">
-            <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
+
+        <div class="container text-center my-3">
+            <div class="row mx-auto my-auto justify-content-center">
+                <div id="recipeCarousel1" class="carousel slide multiple-image" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 1</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 2</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 4</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 5</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="card-img-overlay">Slide 6</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-12 col-lg-6 p-0">
-            <div class="d-flex h-100 align-items-center justify-content-center">
-                <div class="container">
-                    <h5 class="text-center">
-                        From the icon shop
-                    </h5>
-                    <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
-                        QUARTER HEIGHT
+
+        <div class="row banner mt-5 mb-5">
+            <div class="col-12 col-lg-6 p-0">
+                <div class="banner-frame ">
+
+                    <div class="sock-banner" style="background-image: url({{ url('/imgs/10049.png') }})">
+
+                    </div>
+                </div>
+                <!-- <img src="./assets/imgs/WhiteQTR.jpg" alt="" class="img-responsive"> -->
+            </div>
+            <div class="col-12 col-lg-6 p-0">
+                <div class="d-flex h-100 align-items-center justify-content-center">
+                    <div class="container">
+                        <h5 class="text-center">
+                            New Collaboration
+                        </h5>
+                        <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
+                            AMONGST THE STARS
+                        </p>
+                        <p class="text-center mb-3">
+                            Stance is excited to be partnering with Bethesda Game Studios on Starfield, an exciting new
+                            next-generation rpg where
+                            you embark on a journey to answer humanity’s greatest mystery.
+
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <a style="letter-spacing: 0.96px;" href="#"
+                                class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">SHOP NOW</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid footer d-flex p-0">
+            <!-- Content here -->
+            <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
+                <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
+                    {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY</p> --}}
+                    <h2 class="join-us-heading">JOIN OUR COMMUNITY</h2>
+                    <p style="color: white; font-size:18px">
+                        We'll stitch your inbox differently and you'll receive 20% off your first order.
                     </p>
-                    <div class="d-flex justify-content-center">
-                        <a style="letter-spacing: 0.96px;" href="#"
-                            class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">EXPLORE
-                            COLLECTION</a>
+                    <div class="row">
+                        <div class="col-6">
+
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-lg">
+                            </div>
+                        </div>
+                        <div class="col-2">
+
+                            {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
+                            <button type="button" class="btn btn-outline-light">Light</button>
+
+                        </div>
                     </div>
+                </div>
+                <div class="col-6 col-md-5">
 
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container text-center my-3">
-        <div class="row mx-auto my-auto justify-content-center">
-            <div id="recipeCarousel1" class="carousel slide multiple-image" data-bs-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 2</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 5</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-img">
-                                    <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
-                                        class="img-fluid">
-                                </div>
-                                <div class="card-img-overlay">Slide 6</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-    </div>
+        {{-- <script src="assets/bootstrap-dist/js/bootstrap.bundle.min.js"></script> --}}
+        <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
 
-    <div class="row banner mt-5 mb-5">
-        <div class="col-12 col-lg-6 p-0">
-            <div class="banner-frame ">
+        <script>
+            /* Script to render html element*/
 
-                <div class="sock-banner" style="background-image: url({{ url('/imgs/10049.png') }})">
+            /* Script for multiple image carousel */
+            let items = document.querySelectorAll('.carousel.multiple-image .carousel-item')
 
-                </div>
-            </div>
-            <!-- <img src="./assets/imgs/WhiteQTR.jpg" alt="" class="img-responsive"> -->
-        </div>
-        <div class="col-12 col-lg-6 p-0">
-            <div class="d-flex h-100 align-items-center justify-content-center">
-                <div class="container">
-                    <h5 class="text-center">
-                        New Collaboration
-                    </h5>
-                    <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
-                        AMONGST THE STARS
-                    </p>
-                    <p class="text-center mb-3">
-                        Stance is excited to be partnering with Bethesda Game Studios on Starfield, an exciting new
-                        next-generation rpg where
-                        you embark on a journey to answer humanity’s greatest mystery.
-
-                    </p>
-                    <div class="d-flex justify-content-center">
-                        <a style="letter-spacing: 0.96px;" href="#"
-                            class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">SHOP NOW</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid footer d-flex p-0">
-        <!-- Content here -->
-        <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
-            <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
-                {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY</p> --}}
-                <h2 class="join-us-heading">JOIN OUR COMMUNITY</h2>
-                <p style="color: white; font-size:18px">
-                    We'll stitch your inbox differently and you'll receive 20% off your first order.
-                </p>
-                <div class="row">
-                    <div class="col-6">
-
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-lg">
-                        </div>
-                    </div>
-                    <div class="col-2">
-
-                        {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
-                        <button type="button" class="btn btn-outline-light">Light</button>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-5">
-
-            </div>
-        </div>
-    </div>
-
-    {{-- <script src="assets/bootstrap-dist/js/bootstrap.bundle.min.js"></script> --}}
-    <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
-
-    <script>
-        /* Script to render html element*/
-
-        /* Script for multiple image carousel */
-        let items = document.querySelectorAll('.carousel.multiple-image .carousel-item')
-
-        items.forEach((el) => {
-            const minPerSlide = 4
-            let next = el.nextElementSibling
-            for (var i = 1; i < minPerSlide; i++) {
-                if (!next) {
-                    // wrap carousel by using first child
-                    next = items[0]
+            items.forEach((el) => {
+                const minPerSlide = 4
+                let next = el.nextElementSibling
+                for (var i = 1; i < minPerSlide; i++) {
+                    if (!next) {
+                        // wrap carousel by using first child
+                        next = items[0]
+                    }
+                    let cloneChild = next.cloneNode(true)
+                    el.appendChild(cloneChild.children[0])
+                    next = next.nextElementSibling
                 }
-                let cloneChild = next.cloneNode(true)
-                el.appendChild(cloneChild.children[0])
-                next = next.nextElementSibling
-            }
-        })
-        /* Init carousel items image */
-        document.querySelectorAll('.carousel-item-img').forEach((item) => {
-            item.setAttribute('data-img', item.src)
-            const div = document.createElement('div')
-            div.classList.add('carousel-item-img')
-            div.style.backgroundImage = `url(${item.src})`
-            item.parentNode.insertBefore(div, item)
-            item.remove()
-        });
-    </script>
+            })
+            /* Init carousel items image */
+            document.querySelectorAll('.carousel-item-img').forEach((item) => {
+                const div = document.createElement('div')
+                div.classList.add('carousel-item-img')
+                div.style.backgroundImage = `url(${item.src})`
+                item.parentNode.insertBefore(div, item)
+                item.remove()
+            });
+        </script>
+    @endsection
 </body>
 
 </html>
