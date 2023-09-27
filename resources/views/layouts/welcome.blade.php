@@ -691,15 +691,6 @@
             </div>
         </div>
 
-
-
-
-
-        {{-- <h1 class="mt-5">DM</h1> --}}
-
-
-
-        {{-- <script src="assets/bootstrap-dist/js/bootstrap.bundle.min.js"></script> --}}
     @endsection
 </body>
 
