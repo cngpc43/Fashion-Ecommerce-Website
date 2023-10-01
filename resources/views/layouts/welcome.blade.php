@@ -658,37 +658,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid footer d-flex p-0">
-                <!-- Content here -->
-                <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
-                    <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
-                        {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY</p> --}}
-                        <h2 class="join-us-heading">JOIN OUR COMMUNITY</h2>
-                        <p style="color: white; font-size:18px">
-                            We'll stitch your inbox differently and you'll receive 20% off your first order.
-                        </p>
-                        <div class="row">
-                            <div class="col-6">
 
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-lg">
-                                </div>
-                            </div>
-                            <div class="col-2">
-
-                                {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
-                                <button type="button" class="btn btn-outline-light">Light</button>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-5">
-
-                    </div>
-                </div>
-            </div>
         </div>
 
     @endsection

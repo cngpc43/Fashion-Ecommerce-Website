@@ -28,6 +28,13 @@ body{
     line-height: 38px;
     /* letter-spacing: -0.36px; */
 }
+.normal-text {
+    font-family: 'Akzidenz-Grotesk bold';
+    font-weight: 700;
+    font-size: 36px;
+    /* line-height: 38px; */
+    /* letter-spacing: -0.36px; */
+}
 
 @media (max-width: 767px) {
     .carousel.multiple-image .carousel-inner .carousel-item>div {
@@ -168,5 +175,67 @@ body{
     background-size: cover ;
 }
 .men-prod-row{
-    height: 400px;
+    height: 448px;
+}
+@media (min-width: 1024px) {
+.grid-header.grid-header-filter {
+    top: 72px;
+    box-shadow: 0px 16px 12px -15px #E7E7EF;
+    margin-left: 0;
+    margin-right: 0;
+}
+}
+.grid-header.grid-header-filter {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F6F6FB;
+    position: sticky;
+    top: 56px;
+    z-index: 251;
+}
+@media (min-width: 1024px){
+    .refinement-bar-filters {
+            margin-bottom: 0;
+        }
+} 
+
+.refinement-bar-filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+}
+.refinement-bar-filters li {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    margin-right: 40px;
+}
+.refinement-bar-filters ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.filter-button button{
+    height: 100%;
+    background-color: black;
+    color: white;
+    height: 60px;
+    /* font-family: 'Akzidenz-Grotesk bold'; */
+    width: 100px;
+}
+.filter-row{
+    font-family: 'Akzidenz-Grotesk bold';
+    align-items: center;
+    background-color: #F6F6FB;
+    /* box-shadow: 0px 16px 12px -15px #E7E7EF; */
+    /* font-size: 36px; */
+}
+.product-img {
+    background-position: 75% 50%;
+    background-repeat: no-repeat;
+    min-height: 20vh;
 }

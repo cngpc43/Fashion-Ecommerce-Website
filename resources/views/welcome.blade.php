@@ -435,85 +435,31 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="container text-center my-3">
+            <div class="container-fluid p-0 my-3 mt-5">
                 <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel" class="carousel slide multiple-image" data-bs-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 1</div>
-                                    </div>
-                                </div>
+                    <span>
+                        <p class="normal-text">TRENDING NOW</p>
+                    </span>
+                    <div class="container-fluid p-3">
+                        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 men-prod-row">
+                            <div class="col">
+                                <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
+                                <p class="normal-text mt-2">VAILON</p>
                             </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 2</div>
-                                    </div>
-                                </div>
+                            <div class="col">
+                                <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
+                                <p class="normal-text mt-2">VAILON</p>
                             </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 3</div>
-                                    </div>
-                                </div>
+                            <div class="col">
+                                <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
+                                <p class="normal-text mt-2">VAILON</p>
                             </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 4</div>
-                                    </div>
-                                </div>
+                            <div class="col">
+                                <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
+                                <p class="normal-text mt-2">VAILON</p>
                             </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 5</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 6</div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -543,71 +489,120 @@
 
             <div class="container text-center my-3">
                 <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image" data-bs-ride="carousel">
+                    <div id="recipeCarousel1" class="carousel slide multiple-image">
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 1</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/DDBEA9/333333?text=2"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 2</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/FFE8D6/333333?text=3"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 3</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/B7B7A4/333333?text=4"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 4</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/A5A58D/333333?text=5"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 5</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card border-0">
                                         <div class="card-img">
-                                            <img src="https://via.placeholder.com/700x500.png/6B705C/eeeeee?text=6"
-                                                class="img-fluid">
+                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
                                         </div>
-                                        <div class="card-img-overlay">Slide 6</div>
+                                        <div class="container-fluid card-body">
+                                            <div class="row product-detail">
+                                                <div class="col">
+                                                    <a href="">Socks 3 pack</a>
+                                                </div>
+                                                <div class="col">
+                                                    <p>29,99usd</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -632,7 +627,6 @@
 
                         </div>
                     </div>
-                    <!-- <img src="./assets/imgs/WhiteQTR.jpg" alt="" class="img-responsive"> -->
                 </div>
                 <div class="col-12 col-lg-6 p-0">
                     <div class="d-flex h-100 align-items-center justify-content-center">
@@ -658,37 +652,83 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid footer d-flex p-0">
-                <!-- Content here -->
-                <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
-                    <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
-                        {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY</p> --}}
-                        <h2 class="join-us-heading">JOIN OUR COMMUNITY</h2>
-                        <p style="color: white; font-size:18px">
-                            We'll stitch your inbox differently and you'll receive 20% off your first order.
-                        </p>
-                        <div class="row">
-                            <div class="col-6">
-
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-lg">
+            <div class="container text-center my-3">
+                <div class="row mx-auto my-auto justify-content-center">
+                    <div id="CarouselCollection-2" class="carousel slide multiple-image">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10015.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 1</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-
-                                {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
-                                <button type="button" class="btn btn-outline-light">Light</button>
-
+                            <div class="carousel-item">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10016.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 2</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10017.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10018.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 4</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10019.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 5</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-img">
+                                            <img src="{{ url('/imgs/Home/10019.jpg') }}" class="img-fluid">
+                                        </div>
+                                        <div class="card-img-overlay">Slide 6</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-5">
-
+                        <a class="carousel-control-prev bg-transparent w-aut" href="#CarouselCollection-2" role="button"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next bg-transparent w-aut" href="#CarouselCollection-2" role="button"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
                     </div>
                 </div>
             </div>
+
         </div>
 
 

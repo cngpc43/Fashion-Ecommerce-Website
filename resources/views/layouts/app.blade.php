@@ -114,7 +114,39 @@
         </nav>
     @endguest
     @yield('content')
+    <div class="container-fluid footer d-flex p-0">
+        <!-- Content here -->
+        <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
+            <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
+                {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY</p> --}}
+                <h2 class="join-us-heading">JOIN OUR COMMUNITY</h2>
+                <p style="color: white; font-size:18px">
+                    We'll stitch your inbox differently and you'll receive 20% off your first order.
+                </p>
+                <div class="row">
+                    <div class="col-6">
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-lg">
+                        </div>
+                    </div>
+                    <div class="col-2">
+
+                        {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
+                        <button type="button" class="btn btn-outline-light">Light</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-5">
+
+            </div>
+        </div>
     </div>
+    </div>
+
 </body>
 <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
 
@@ -145,10 +177,24 @@
     /* Init carousel items image */
     document.querySelectorAll('.carousel-item-img').forEach((item) => {
 
-        console.log(item.getAttribute('img-src'))
+        // console.log(item.getAttribute('img-src'))
         item.style.backgroundImage = `url(${item.getAttribute('img-src')})`
 
     });
+    /* Script to remove white background of product pictures*/
+    document.querySelectorAll('.img-fluid').forEach((item1) => {
+        // console.log(item1.getAttribute('src'))
+        item1.style.mixBlendMode = 'multiply'
+
+    })
+    document.querySelectorAll('.product-img').forEach((item2) => {
+        // console.log(item2.getAttribute('src'))
+        // item2.style.mixBlendMode = 'multiply'    
+        item2.style.backgroundImage = `url(${item2.getAttribute('img-src')})`
+        item2.style.width = '100%'
+        item2.style.height = '50vh'
+        // item2.style.display = 'inline-block'
+    })
 </script>
 
 </html>
