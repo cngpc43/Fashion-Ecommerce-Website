@@ -23,5 +23,7 @@ class MenProductController extends Controller
      */
     public function ditmemay()
     {
+
         return view('menproduct');
     }
+}
