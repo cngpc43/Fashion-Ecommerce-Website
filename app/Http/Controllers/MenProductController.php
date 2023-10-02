@@ -25,3 +25,4 @@ class MenProductController extends Controller
     {
         return view('menproduct');
     }
+}
