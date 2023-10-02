@@ -21,8 +21,9 @@ class MenProductController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function ditmemay()
+    public function ditmemay(Request $request)
     {
+
         return view('menproduct');
     }
 }
