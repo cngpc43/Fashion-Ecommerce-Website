@@ -23,12 +23,6 @@ class MenProductController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
-
-        return view('menproduct');
-    }
-}
-=======
         // return view('menproduct');
     }
->>>>>>> Stashed changes
+}
