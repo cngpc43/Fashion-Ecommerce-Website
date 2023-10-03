@@ -18,6 +18,18 @@ Route::get('/', function () {
 })->name('home');
 
 
+// For admin
+Route::middleware('auth.admin')->group(function(){
+
+});
+
+// For customer
+Route::middleware('auth.customer')->group(function(){
+
+});
+
+
+
 Route::get('/abc',function(){echo '3';});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

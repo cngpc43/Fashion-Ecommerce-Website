@@ -19,7 +19,21 @@ Route::get('/find-user',[UserController::class,'findUser']);
 Route::post('/create-new-user',[UserController::class,'createNewUser']);
 Route::put('/update-user',[UserController::class,'updateUser']);
 Route::delete('/delete-user',[UserController::class,'deleteUser']);
+Route::post('/login',[UserController::class,'login']);
+Route::post('/logout',[UserController::class,'logout']);
+// Test api
+Route::get('/abc',[UserController::class,'test']);
+Route::get('/abcd',[UserController::class,'test2']);
 
+
+// Admin authentication
+Route::middleware('auth.admin')->group(function(){
+
+});
+// Customer authentication
+Route::middleware('auth.customer')->group(function(){
+
+});
 
 // For Backend 
 Route::get('menproduct', ['App\Http\Controllers\MenProductController', 'index']);
