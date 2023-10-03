@@ -14,7 +14,7 @@
             </div>
 
         </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
+        <div class="container-fluid mt-5 p-2 mb-5">
 
             <span class="ms-5">
                 <p class="primary-text ps-3">MAKE YOURSELF COMFORTABLE</p>
@@ -23,25 +23,25 @@
                 <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 men-prod-row">
                     <div class="col">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text mt-2 mb-3">VAILON</p>
                     </div>
                     <div class="col">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text mt-2 mb-3">VAILON</p>
                     </div>
                     <div class="col">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text mt-2 mb-3">VAILON</p>
                     </div>
                     <div class="col">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text mt-2 mb-3">VAILON</p>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
+        <div class="container-fluid p-2 mt-5">
             <span>
                 <p class="normal-text">NEW ARRIVALS</p>
             </span>
@@ -404,7 +404,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid p-0 mt-4">
+                    <div class="container-fluid p-2 mt-4">
 
                         <div class="row row-cols-4">
                             <div class="col-6 col-md-3">
