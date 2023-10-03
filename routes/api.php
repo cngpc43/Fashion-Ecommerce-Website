@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+<<<<<<< Updated upstream
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -21,3 +22,9 @@ Route::get('/get-all-users',[UserController::class,'getAllUsers']);
 Route::post('/create-new-user',[UserController::class,'createNewUser']);
 
 // For Backend 
+=======
+Route::get('menproduct', ['App\Http\Controllers\MenProductController', 'index']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+>>>>>>> Stashed changes

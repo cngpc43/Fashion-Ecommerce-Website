@@ -21,9 +21,14 @@ class MenProductController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function ditmemay()
+    public function index()
     {
+<<<<<<< Updated upstream
 
         return view('menproduct');
     }
 }
+=======
+        // return view('menproduct');
+    }
+>>>>>>> Stashed changes
