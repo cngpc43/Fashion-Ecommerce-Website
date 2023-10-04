@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Model
 use App\Models\User;
+use App\Models\Product;
+
+// 
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -180,11 +185,23 @@ class UserController extends Controller
             echo 'no';
         }
     }
-    public function test2(){
-        if (Auth::check()){
-            echo 'ok';
+    public function test2(Request $request){
+        $product = new Product;
+        $product->name = 'Air Force';
+        $product->size = ['M','L','XL','XLL'];
+        $product->save();
+        if ($product){
+            return response()->json([
+                        'err'=>'ok'
+                    ]);
         } else {
-            echo 'no';
+            return response()->json([
+                'err'=>'err'
+            ]);
         }
+    }
+    public function test3(Request $request){
+        $products = Product::all();
+        echo $products;
     }
 }

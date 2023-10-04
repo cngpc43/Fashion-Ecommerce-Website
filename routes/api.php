@@ -23,10 +23,11 @@ Route::post('/login',[UserController::class,'login']);
 Route::post('/logout',[UserController::class,'logout']);
 // Test api
 Route::get('/abc',[UserController::class,'test']);
-Route::get('/abcd',[UserController::class,'test2']);
+Route::post('/abcd',[UserController::class,'test2']);
+Route::get('/abcdf',[UserController::class,'test3']);
 
 
-// Admin authentication
+// Admin authentications
 Route::middleware('auth.admin')->group(function(){
 
 });
