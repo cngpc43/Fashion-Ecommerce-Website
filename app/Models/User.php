@@ -8,7 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Cart;
+use App\Models\Invoice;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -49,5 +53,13 @@ class User extends Authenticatable
     public function role(): HasOne
     {
         return $this->hasOne(Role::class,'id','roleId');
+    }
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class,'customerId','id');
+    }
+    public function invoice(): HasMany
+    {
+        return $this->HasMany(Invoice::class,'customerId','id');
     }
 }
