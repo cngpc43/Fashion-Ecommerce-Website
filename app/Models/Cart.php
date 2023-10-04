@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use App\Models\Product;
 class Cart extends Model
 {
     use HasFactory;
-    protected $fillabel=[
+    protected $fillable=[
         'customerId',
-        'products'
+        'productId',
+        'quantity'
     ];
 
 
@@ -27,5 +30,9 @@ class Cart extends Model
     public function customer(): BelongsTo
     {
         return $this->BelongsTo(User::class,'id','customerId');
+    }
+    public function product(): HasMany
+    {
+        return $this->HasMany(Product::class,'id','productId');
     }
 }

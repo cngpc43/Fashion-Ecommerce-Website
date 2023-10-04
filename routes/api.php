@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +24,21 @@ Route::put('/update-user',[UserController::class,'updateUser']);
 Route::delete('/delete-user',[UserController::class,'deleteUser']);
 Route::post('/login',[UserController::class,'login']);
 Route::post('/logout',[UserController::class,'logout']);
+
+// PRODUCT
+Route::get('/get-all-products',[ProductController::class,'getAllProducts']);
+Route::get('/find-product',[ProductController::class,'findProduct']);
+
+Route::post('/create-new-product',[ProductController::class,'createNewProduct']);
+
+Route::put('/update-product',[ProductController::class,'updateProduct']);
+
+Route::delete('/delete-product',[ProductController::class,'deleteProduct']);
+
+// CART
+Route::get('/get-cart',[CartController::class,'getCart']);
+
+
 // Test api
 Route::get('/abc',[UserController::class,'test']);
 Route::post('/abcd',[UserController::class,'test2']);

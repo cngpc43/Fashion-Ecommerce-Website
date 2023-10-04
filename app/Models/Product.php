@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Cart;
 class Product extends Model
 {
     use HasFactory;
 
 
-
-    protected $fillabel = [
+    protected $fillable=[
         'name',
         'size',
         'type',
@@ -20,7 +20,8 @@ class Product extends Model
         'price',
         'description',
         'spec',
-        'salePercent'
+        'salePercent',
+        'stock'
     ];
 
 
@@ -60,4 +61,8 @@ class Product extends Model
             );
 
         } 
+    public function customer(): BelongsToMany
+    {
+        return $this->BelongsToMany(Cart::class,'id','id');
+    }
 }
