@@ -47,7 +47,8 @@ class ProductController extends Controller
             'price'=>$request->price,
             'description'=>$request->description,
             'spec'=>$request->spec,
-            'salePercent'=>$request->salePercent
+            'salePercent'=>$request->salePercent,
+            'stock'=>$request->stock,
         ]);
         if (!$product){
             return response()->json([

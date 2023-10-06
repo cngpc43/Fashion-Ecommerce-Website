@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 // Model
 use App\Models\User;
 use App\Models\Product;
-
+use App\Models\Cart;
 // 
 
 use Illuminate\Support\Facades\Hash;
@@ -149,6 +149,28 @@ class UserController extends Controller
         if(!$isLogin){
             return redirect()->back()->withErrors(['email' => 'Invalid email or password'])->withInput();
         } else {
+            // Check if we not have cart session . Convert session -> DB 
+            if ($request->session()->has('cart')){
+                $sessionProducts = $request->session()->get('cart');
+                foreach($sessionProducts as $sessionProductId => $sessionQuantity){
+                    // Case user have product in cart before
+                    $ExistProductCart = Cart::where('customerId',Auth::user()->id)
+                    ->where('productId',$sessionProductId)
+                    ->first();
+                    if ($ExistProductCart) {
+                        $ExistProductCart->quantity+=$sessionQuantity['quantity'];
+                        $ExistProductCart->save();
+                    } else {
+                        $newProduct = new Cart();
+                        $newProduct->customerId = Auth::user()->id;
+                        $newProduct->productId = $sessionProductId;
+                        $newProduct->quantity = $sessionQuantity['quantity'];
+                        $newProduct->save();
+                    }
+                }
+                $request->session()->forget('cart');
+            } 
+
             $request->session()->regenerate();
             return response()->json([
                 'errCode'=>200,
@@ -159,18 +181,8 @@ class UserController extends Controller
     }
     public function logout(Request $request){
         Auth::logout();
-        Session::flush();
         $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        // if(Auth::check()){
-        //     return response()->json([
-        //         'err'=>'ok'
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'err'=>'err'
-        //     ]);
-        // }
+        $request->session()->regenerate();
         return redirect('/');
     }
     public function test(Request $request){
@@ -186,14 +198,10 @@ class UserController extends Controller
         }
     }
     public function test2(Request $request){
-        $product = new Product;
-        $product->name = 'Air Force';
-        $product->size = ['M','L','XL','XLL'];
-        $product->save();
-        if ($product){
+        if(Auth::check()){
             return response()->json([
-                        'err'=>'ok'
-                    ]);
+                'err'=>'ok'
+            ]);
         } else {
             return response()->json([
                 'err'=>'err'
@@ -201,7 +209,19 @@ class UserController extends Controller
         }
     }
     public function test3(Request $request){
-        $products = Product::all();
-        echo $products;
+        if(Auth::check()){
+            echo Auth::user();
+        } else {
+            echo 'no';
+        }
+    }
+    public function test4(Request $request){
+        $sessionTest = $request->session()->get('cart');
+        $request->session()->forget('cart');
+    }
+    public function test5(Request $request){
+        $cart = $request->session()->get('cart');
+        echo json_encode($cart);
+        
     }
 }
