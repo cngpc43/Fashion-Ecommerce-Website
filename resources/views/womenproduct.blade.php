@@ -19,24 +19,24 @@
             <span class="ms-5">
                 <p class="primary-text ps-3 display-1">MAKE YOURSELF COMFORTABLE</p>
             </span>
-            <div class="container-fluid text-center p-3">
+            <div class="container-fluid text-center p-3" data-section="category">
                 <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
-                    <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
+                    {{-- <div class="col mb-5">
+                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
                         <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
                     <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
+                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
                         <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
                     <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
+                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
                         <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
                     <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
+                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
                         <p class="normal-text p-2 fs-1">VAILON</p>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -619,5 +619,59 @@
             </div>
         </div>
     </div>
+    <script>
+        const product = { 
+            "category": [
+        
+            {
+                "name": "NEW ARRIVALS",
+                "image":"{{ url('imgs/women_product/10066.jpg') }}"
+            },
+            {
+                "name": "TOPS",
+                "image": "{{ url('imgs/women_product/10101.jpg') }}"
+            },
+            {
+                "name": "BOTTOMS",
+                "image": "{{ url('imgs/women_product/10098.jpg') }}"
+            },
+            {
+                "name": "SOCKS",
+                "image": "{{ url('imgs/women_product/10099.jpg') }}"
+            }
+            ]
+            "banner":[
+                {
+                    "image":""
+                    "caption":""
+                }
+            ]
+            "product":[
+                {
+                    "name":""
+                    "image":""
+                    "price":""
+                    "color":[]
+                }
+
+            ]
+            
+        }
+        console.log('cc')
+        const $category = document.querySelector('[data-section=category] .row')
+        console.log($category)
+        setTimeout(() => {
+            a.forEach(ct => {
+            console.log(ct)
+            $category.innerHTML += `
+                <div class="col mb-5">
+                    <div class="p-4 h-100 category-img" style="background-image: url('${ct.image}');"></div>
+                    <p class="normal-text p-2 fs-1">${ct.name}</p>
+                </div>
+            `
+        })
+        }, 500);
+    </script>
 @endsection
+
 {{-- @include('templates.footer') --}}

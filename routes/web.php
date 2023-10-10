@@ -29,6 +29,9 @@ Route::get('/home', function(){
 Route::get('/menproduct', function () {
     return view('menproduct');
 })->name('menproduct');
+Route::get('/women-product', function () {
+    return view('womenproduct');
+})->name('women-product');
 Route::get('socks', function () {
     return view('socks');
 });

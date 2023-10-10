@@ -26,7 +26,7 @@ body {
     font-weight: 700;
     font-size: 72px;
     line-height: 38px;
-    /* letter-spacing: -0.36px; */
+    letter-spacing: -0.36px;
 }
 .normal-text {
     font-family: "Akzidenz-Grotesk bold";
@@ -170,7 +170,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.men-prod-row {
+.category-row {
     height: 448px;
 }
 @media (min-width: 1024px) {
@@ -234,4 +234,6 @@ body {
     background-position: 75% 50%;
     background-repeat: no-repeat;
     min-height: 20vh;
+    width: 100%;
+    height: 50vh;
 }
