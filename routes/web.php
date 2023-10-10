@@ -18,8 +18,13 @@ Route::get('/', function () {
 })->name('home');
 
 Auth::routes();
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+Route::get('/home', function(){
+    return view('home');
+})->name('home');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/menproduct', [App\Http\Controllers\MenProductController::class, 'ditmemay'])->name('menproduct');
 Route::get('/menproduct', function () {
     return view('menproduct');
