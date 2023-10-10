@@ -24,3 +24,10 @@ Auth::routes();
 Route::get('/menproduct', function () {
     return view('menproduct');
 })->name('menproduct');
+Route::get('socks', function () {
+    return view('socks');
+});
+Route::get('test', function () {
+    return view('test');
+});
+

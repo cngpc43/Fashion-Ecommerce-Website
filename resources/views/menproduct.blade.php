@@ -17,31 +17,31 @@
         <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
 
             <span class="ms-5">
-                <p class="primary-text ps-3">MAKE YOURSELF COMFORTABLE</p>
+                <p class="primary-text ps-3 display-1">MAKE YOURSELF COMFORTABLE</p>
             </span>
             <div class="container-fluid text-center p-3">
                 <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 men-prod-row">
-                    <div class="col">
+                    <div class="col mb-5">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
-                    <div class="col">
+                    <div class="col mb-5">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
-                    <div class="col">
+                    <div class="col mb-5">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
-                    <div class="col">
+                    <div class="col mb-5">
                         <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
-                        <p class="normal-text mt-2">VAILON</p>
+                        <p class="normal-text p-2 fs-1">VAILON</p>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
+        <div class="container-fluid mt-4 p-2 m-0 overflow-hidden">
             <span>
                 <p class="normal-text">NEW ARRIVALS</p>
             </span>

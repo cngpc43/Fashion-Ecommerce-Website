@@ -4,32 +4,32 @@
 /* :root {
     --body-font: 'Helvetica Neue', sans-serif;
 } */
-body{
+body {
     margin: 0px 0px 0px 0px;
     width: 100vw;
 }
 @font-face {
-    font-family: 'Akzidenz-Grotesk bold';
+    font-family: "Akzidenz-Grotesk bold";
     /* src: url(./font/akzidenz/Akzidenz-grotesk-bold.ttf); */
     src: url(../font/akzidenz/Akzidenz-Bold-Condensed.ttf);
 }
 
 @font-face {
-    font-family: 'Helvetica';
+    font-family: "Helvetica";
     src: url(../font/Helvetica-Bold.ttf);
     font-weight: normal;
     font-style: normal;
 }
 
 .primary-text {
-    font-family: 'Akzidenz-Grotesk bold';
+    font-family: "Akzidenz-Grotesk bold";
     font-weight: 700;
     font-size: 72px;
     line-height: 38px;
     /* letter-spacing: -0.36px; */
 }
 .normal-text {
-    font-family: 'Akzidenz-Grotesk bold';
+    font-family: "Akzidenz-Grotesk bold";
     font-weight: 700;
     font-size: 36px;
     /* line-height: 38px; */
@@ -37,11 +37,11 @@ body{
 }
 
 @media (max-width: 767px) {
-    .carousel.multiple-image .carousel-inner .carousel-item>div {
+    .carousel.multiple-image .carousel-inner .carousel-item > div {
         display: none;
     }
 
-    .carousel.multiple-image .carousel-inner .carousel-item>div:first-child {
+    .carousel.multiple-image .carousel-inner .carousel-item > div:first-child {
         display: block;
     }
 }
@@ -54,7 +54,6 @@ body{
 
 /* medium and up screens */
 @media (min-width: 768px) {
-
     .carousel.multiple-image .carousel-inner .carousel-item-end.active,
     .carousel.multiple-image .carousel-inner .carousel-item-next {
         transform: translateX(25%);
@@ -96,7 +95,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-.carousel-item-img .men-product-banner{
+.carousel-item-img .men-product-banner {
     height: var(--slide-height);
     width: 100%;
     background-position: 0% 30%;
@@ -131,22 +130,20 @@ body{
     -webkit-transform: scale(1.2);
     -o-transform: scale(1.2);
     transform: scale(1.2);
-
 }
-
 
 .sock-banner {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -o-transition: all .5s;
-    transition: all .5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
     /* transition: all 0.75s ease-in-out; */
 }
-.container-fluid .footer{
+.container-fluid .footer {
     width: 100%;
     margin-bottom: 0px;
     height: 1000px;
@@ -154,50 +151,49 @@ body{
     align-items: center;
     padding: 0px 0px 0px 0px;
 }
-.row .footer{
+.row .footer {
     /* height: 500px !important; */
 }
-.join-us-heading{
+.join-us-heading {
     color: white;
     font-weight: 700;
-    letter-spacing: -.02em;
+    letter-spacing: -0.02em;
     font-style: normal;
-    font-size: 120px;
+    /* font-size: 120px; */
     line-height: 110px;
-    font-family: 'Akzidenz-Grotesk bold';
+    font-family: "Akzidenz-Grotesk bold";
 }
 
-.p-4
-{
+.p-4 {
     background-image: url(../imgs/Men_product/10099.jpg);
     background-position: center bottom;
     background-repeat: no-repeat;
-    background-size: cover ;
+    background-size: cover;
 }
-.men-prod-row{
+.men-prod-row {
     height: 448px;
 }
 @media (min-width: 1024px) {
-.grid-header.grid-header-filter {
-    top: 72px;
-    box-shadow: 0px 16px 12px -15px #E7E7EF;
-    margin-left: 0;
-    margin-right: 0;
-}
+    .grid-header.grid-header-filter {
+        top: 72px;
+        box-shadow: 0px 16px 12px -15px #e7e7ef;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 .grid-header.grid-header-filter {
     display: flex;
     justify-content: space-between;
-    background-color: #F6F6FB;
+    background-color: #f6f6fb;
     position: sticky;
     top: 56px;
     z-index: 251;
 }
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
     .refinement-bar-filters {
-            margin-bottom: 0;
-        }
-} 
+        margin-bottom: 0;
+    }
+}
 
 .refinement-bar-filters {
     display: flex;
@@ -219,7 +215,7 @@ body{
     margin-bottom: 0;
     list-style: none;
 }
-.filter-button button{
+.filter-button button {
     height: 100%;
     background-color: black;
     color: white;
@@ -227,10 +223,10 @@ body{
     /* font-family: 'Akzidenz-Grotesk bold'; */
     width: 100px;
 }
-.filter-row{
-    font-family: 'Akzidenz-Grotesk bold';
+.filter-row {
+    font-family: "Akzidenz-Grotesk bold";
     align-items: center;
-    background-color: #F6F6FB;
+    background-color: #f6f6fb;
     /* box-shadow: 0px 16px 12px -15px #E7E7EF; */
     /* font-size: 36px; */
 }
