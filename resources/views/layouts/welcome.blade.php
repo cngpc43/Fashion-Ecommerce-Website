@@ -527,7 +527,7 @@
                             <h5 class="text-center">
                                 From the icon shop
                             </h5>
-                            <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
+                            <p  class="primary-text fs-1 text-center">
                                 QUARTER HEIGHT
                             </p>
                             <div class="d-flex justify-content-center">
