@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,13 +39,20 @@ Route::put('/update-product',[ProductController::class,'updateProduct']);
 Route::delete('/delete-product',[ProductController::class,'deleteProduct']);
 
 // CART
-Route::get('/get-all-carts',[CartController::class,'getCarts']);
+Route::get('/get-all-carts',[CartController::class,'getAllCarts']);
 Route::get('/get-customer-cart',[CartController::class,'getCustomerCart']);
 
 Route::post('/add-cart',[CartController::class,'addCart']);
 
 Route::put('/update-cart',[CartController::class,'updateCart']);
 Route::delete('/delete-cart',[CartController::class,'deleteCart']);
+// INVOICE
+Route::get('/get-all-invoices',[InvoiceController::class,'getAllInvoices']);
+Route::get('/get-payment-customer-infor',[InvoiceController::class,'getPaymentInfo']);
+
+Route::post('/create-customer-invoice',[InvoiceController::class,'createInvoice']);
+
+
 
 // Test api
 Route::get('/abc',[UserController::class,'test']);

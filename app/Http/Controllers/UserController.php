@@ -155,7 +155,7 @@ class UserController extends Controller
                 foreach($sessionProducts as $sessionProductId => $sessionQuantity){
                     // Case user have product in cart before
                     $ExistProductCart = Cart::where('customerId',Auth::user()->id)
-                    ->where('productId',$sessionProductId)
+                    ->where('productDetailId',$sessionProductId)
                     ->first();
                     if ($ExistProductCart) {
                         $ExistProductCart->quantity+=$sessionQuantity['quantity'];
@@ -163,7 +163,7 @@ class UserController extends Controller
                     } else {
                         $newProduct = new Cart();
                         $newProduct->customerId = Auth::user()->id;
-                        $newProduct->productId = $sessionProductId;
+                        $newProduct->productDetailId = $sessionProductId;
                         $newProduct->quantity = $sessionQuantity['quantity'];
                         $newProduct->save();
                     }
