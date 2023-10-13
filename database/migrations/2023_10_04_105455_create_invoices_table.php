@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->integer('customerId');
+            $table->integer('customerId')->nullable();
             $table->json('products')->nullable();
             $table->integer('total')->nullable();
             $table->integer('salePercent')->nullable();

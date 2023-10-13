@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class InvoiceDetail extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'invoiceId';
+    public $incrementing = false;
     protected $fillable=[
-        'invoiceId',
         'firstName',
         'lastName',
         'shippingAddress',
-        'phone'
+        'phone',
+        'invoiceId'
     ];
     public function invoice(): BelongsTo
     {

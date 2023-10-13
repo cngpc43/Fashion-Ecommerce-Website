@@ -40,7 +40,7 @@ Route::delete('/delete-product',[ProductController::class,'deleteProduct']);
 
 // CART
 Route::get('/get-all-carts',[CartController::class,'getAllCarts']);
-Route::get('/get-customer-cart',[CartController::class,'getCustomerCart']);
+Route::get('/get-customer-cart/{customerId}',[CartController::class,'getCustomerCart']);
 
 Route::post('/add-cart',[CartController::class,'addCart']);
 

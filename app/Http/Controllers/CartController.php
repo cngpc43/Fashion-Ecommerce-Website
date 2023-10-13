@@ -35,10 +35,10 @@ class CartController extends Controller
     }
 
     // Find cart from specific customerId by customerId
-    public function getCustomerCart(Request $request){
+    public function getCustomerCart($customerId){
         try {
-            $cart = Cart::where('customerId',$request->customerId)->get();
-            if (!$cart){
+            $cart = Cart::where('customerId', $customerId)->with('ProductDetail.Product')->get();            
+            if ($cart->isEmpty()){
                 return response()->json([
                     'errCode'=>400,
                     'errMess'=>'There no product in cart!',
