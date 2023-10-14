@@ -94,11 +94,8 @@ class ProductController extends Controller
                     'spec' => $request->spec,
                     'salePercent' => $request->salePercent ?: 0,
                 ]);
-                // return response()->json([
-                //     'b'=>$product
-                // ]);
                 $productDetail = ProductDetail::create([
-                    'productId'=>$product->id,
+                    'productId'=>$product->productId,
                     'size' => $request->size,
                     'color' => $request->color, 
                     'stock' => $request->stock
