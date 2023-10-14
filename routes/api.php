@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,6 +53,8 @@ Route::get('/get-payment-customer-infor',[InvoiceController::class,'getPaymentIn
 
 Route::post('/create-customer-invoice',[InvoiceController::class,'createInvoice']);
 
+// HOME
+Route::get('/get-trending-product',[HomeController::class,'getTrendingEachCatagory']);
 
 
 // Test api

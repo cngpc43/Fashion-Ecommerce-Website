@@ -13,8 +13,10 @@ class ProductDetail extends Model
 {
     use HasFactory;
     protected $primaryKey = 'productDetailId';
+    public $incrementing = false;
     protected $fillable=[
         'productId',
+        'img',
         'size',
         'color',
         'stock'
