@@ -55,6 +55,10 @@ Route::post('/create-customer-invoice',[InvoiceController::class,'createInvoice'
 
 // HOME
 Route::get('/get-trending-product',[HomeController::class,'getTrendingEachCatagory']);
+Route::get('/get-top-products',[HomeController::class,'getTops']);
+Route::get('/get-sock-products',[HomeController::class,'getSocks']);
+Route::get('/get-bottom-products',[HomeController::class,'getBottoms']);
+Route::get('/get-headwear-products',[HomeController::class,'getHeadwears']);
 
 
 // Test api
