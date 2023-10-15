@@ -88,7 +88,7 @@ class ProductController extends Controller
             if (!$isProductExist){
                 $product = Product::create([
                     'name' => $request->name,
-                    'type' => $request->type,
+                    'category' => $request->category,
                     'price' => $request->price,
                     'description' => $request->description,
                     'spec' => $request->spec,
@@ -168,7 +168,7 @@ class ProductController extends Controller
 
             $product->update([
                 'name' => $request->name,
-                'type' => $request->type,
+                'category' => $request->category,
                 'price' => $request->price,
                 'description' => $request->description,
                 'spec' => $request->spec,

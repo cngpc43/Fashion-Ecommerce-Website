@@ -19,7 +19,8 @@ class ProductDetail extends Model
         'img',
         'size',
         'color',
-        'stock'
+        'stock',
+        'collection'
     ];
     public function cart(): BelongsToMany
     {

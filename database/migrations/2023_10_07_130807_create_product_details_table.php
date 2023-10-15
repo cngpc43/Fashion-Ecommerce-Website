@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('productDetailId');
             $table->integer('productId');
             $table->string('img')->nullable();
+            $table->string('collection')->nullable();
             $table->string('size')->nullable();
             $table->string('color')->nullable();
             $table->unique(['size', 'color','productId']);
