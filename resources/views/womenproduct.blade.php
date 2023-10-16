@@ -4,7 +4,7 @@
         <div id="carouselExampleRide" class="carousel slide men-product">
             <div class="carousel-inner banner">
                 <div class="carousel-item active">
-                    <div class="carousel-item-img men-product-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
+                    <div class="carousel-item-img hero-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
                     </div>
                     {{-- <div class="carousel-caption ">
                             <h5>First slide label</h5>
@@ -41,6 +41,29 @@
                 </div>
             </div>
         </div>
+                    <div class="row banner mt-5 mb-5">
+                <div class="col-12 col-lg-6 p-0">
+                    <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
+                </div>
+                <div class="col-12 col-lg-6 p-0">
+                    <div class="d-flex h-100 align-items-center justify-content-center">
+                        <div class="container">
+                            <h5 class="text-center">
+                                From the icon shop
+                            </h5>
+                            <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
+                                QUARTER HEIGHT
+                            </p>
+                            <div class="d-flex justify-content-center">
+                                <a style="letter-spacing: 0.96px;" href="#"
+                                    class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">EXPLORE
+                                    COLLECTION</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="container-fluid mt-4 p-2 m-0 overflow-hidden">
             <span>
                 <p class="normal-text">NEW ARRIVALS</p>
@@ -620,7 +643,7 @@
         </div>
     </div>
     <script>
-        const product = { 
+        const data = { 
             "category": [
         
             {
@@ -639,39 +662,38 @@
                 "name": "SOCKS",
                 "image": "{{ url('imgs/women_product/10099.jpg') }}"
             }
-            ]
-            "banner":[
+            ],
+            "banner":
                 {
-                    "image":""
+                    "image":"{{ url('imgs/women_product/10097.jpg') }}",
                     "caption":""
                 }
-            ]
+            ,
             "product":[
                 {
-                    "name":""
-                    "image":""
-                    "price":""
-                    "color":[]
+                    "name":"",
+                    "image":"",
+                    "price":"",
+                    "color":["","",""],
                 }
 
             ]
             
         }
-        console.log('cc')
         const $category = document.querySelector('[data-section=category] .row')
-        console.log($category)
+        const $herobanner = document.querySelector('.hero-banner')
+        $herobanner.setAttribute("img-src",data.banner.image)
         setTimeout(() => {
-            a.forEach(ct => {
-            console.log(ct)
+            data.category.forEach(el => {
             $category.innerHTML += `
                 <div class="col mb-5">
-                    <div class="p-4 h-100 category-img" style="background-image: url('${ct.image}');"></div>
-                    <p class="normal-text p-2 fs-1">${ct.name}</p>
+                    <div class="p-4 h-100 category-img" style="background-image: url('${el.image}');"></div>
+                    <p class="normal-text p-2 fs-1">${el.name}</p>
                 </div>
             `
+            
         })
+
         }, 500);
     </script>
 @endsection
-
-{{-- @include('templates.footer') --}}

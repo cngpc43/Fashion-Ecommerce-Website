@@ -22,24 +22,26 @@ Auth::routes();
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
-Route::get('/home', function(){
+Route::get('/home', function () {
     return view('home');
 })->name('home');
 
 
 // For admin
-Route::middleware('auth.admin')->group(function(){
+Route::middleware('auth.admin')->group(function () {
 
 });
 
 // For customer
-Route::middleware('auth.customer')->group(function(){
+Route::middleware('auth.customer')->group(function () {
 
 });
 
 
 
-Route::get('/abc',function(){echo '3';});
+Route::get('/abc', function () {
+    echo '3';
+});
 
 
 // Route::get('/menproduct', [App\Http\Controllers\MenProductController::class, 'ditmemay'])->name('menproduct');
@@ -57,9 +59,10 @@ Route::get('socks', function () {
 Route::get('test', function () {
     return view('test');
 });
-
+Route::get('product-detail', function () {
+    return view('product-detail');
+});
 
 Route::get('/dbconnect', function () {
     return view('dbconnect');
 });
-
