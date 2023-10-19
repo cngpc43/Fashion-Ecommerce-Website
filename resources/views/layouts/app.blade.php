@@ -8,11 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'IS207') }}</title>
     {{-- Font-awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
+        type="text/css" />
     <!-- Fonts -->
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -106,7 +105,7 @@
                     <a class="navbar-brand" href="{{ route('home') }}">VAINOI</a>
                     @endif
                 </div>
-                <div class="col-5 d-flex justify-content-end">
+                <div class="col-5 d-flex justify-content-end align-items-center">
                     <form class="d-flex position-relative " role="search">
                         <input class="form-control me-2 position-relative" type="search" placeholder="Search"
                             aria-label="Search">
@@ -114,7 +113,14 @@
                                 class="fa-solid fa-magnifying-glass"></i></button>
 
                     </form>
+                    <span class="cart me-3">
 
+                        <a href=""><i class="far fa-shopping-cart fa-md"></i></a>
+                    </span>
+                    <span class="user">
+
+                        <a href=""><i class="far fa-user solid fa-md"></i></i></a>
+                    </span>
                 </div>
             </div> 
         </div>
@@ -207,6 +213,7 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -296,12 +303,24 @@
     })
     
     function renderCarousel(image = [],caption = [{}]){
-        console.log('hello')
+        // console.log('hello')
         image.forEach((el,i)=>{
             let carouselItem = document.createElement('div')
             carouselItem.className = 'carousel-item'
+            carouselItem.style.backgroundColor = '#F6F6FB'
+            carouselItem.style.textAlign = 'center'
+            carouselItem.style.height = '70vh'
+            carouselItem.style.width = '100%'
             let carouselItemImage = document.createElement('div')
+            carouselItemImage.style.display = 'inline-block'
+            carouselItemImage.style.position = 'absolute'
+            carouselItemImage.style.top = '50%'
+            carouselItemImage.style.left = '50%'
+            carouselItemImage.style.transform = 'translate(-50%, -50%)'
             carouselItemImage.className = 'carousel-item-img'
+            carouselItemImage.style.height = '500px'
+            carouselItemImage.style.width = '500px'
+
             if(caption){
 
                 let carouselCaption = document.createElement('div')
@@ -311,15 +330,13 @@
                 // captionHeading.innerText = caption[i].heading
                 // captionHeading.innerHTML = caption[i].heading
                 // captionParagraph.innerHTML = caption[i].paragraph
-                carouse Caption.appendChild(captionHeading)
-                carouselCaption.appendChild(captionParagraph)
-                carouselItem.appendChild(carouselCaption)
+                // carouselCaption.appendChild(captionHeading)
+                // carouselCaption.appendChild(captionParagraph)
+                // carouselItem.appendChild(carouselCaption)
             }
             carouselItem.appendChild(carouselItemImage)
             if(!i) carouselItem.classList.add('active')
             carouselItemImage.setAttribute('img-src',el)
-            // img.setAttribute('alt',caption[i])
-            // carouselItem.appendChild(img)
             document.querySelector('.carousel-inner').appendChild(carouselItem)
         })
     }
