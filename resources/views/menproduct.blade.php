@@ -628,5 +628,11 @@
             </div>
         </div>
     </div>
+    <script>
+        var request = {
+            
+        }
+    </script>
 @endsection
+
 {{-- @include('templates.footer') --}}

@@ -57,7 +57,7 @@
                             </a>
                             @endif
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('women-product')}}" role="button" aria-expanded="false">
                                 Women
                             </a>
@@ -119,7 +119,7 @@
                     </span>
                     <span class="user">
 
-                        <a href=""><i class="far fa-user solid fa-md"></i></i></a>
+                        {{-- <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a> --}}
                     </span>
                 </div>
             </div> 
@@ -159,9 +159,8 @@
                             </a>
                             @endif
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('women-product')}}" role="button" aria-expanded="false">
                                 Women
                             </a>
                             <ul class="dropdown-menu">
@@ -205,17 +204,36 @@
                 </div>
                 <div class="col-2 d-flex justify-content-center">
                     @if (Route::has('home'))
-                    <a class="navbar-brand" href="#">VAINOI</a>
+                    <a class="navbar-brand" href="{{ route('home') }}">VAINOI</a>
                     @endif
                 </div>
-                <div class="col-5 d-flex justify-content-end">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                <div class="col-5 d-flex justify-content-end align-items-center">
+                    <form class="d-flex position-relative " role="search">
+                        <input class="form-control me-2 position-relative" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn position-absolute end-0 me-2" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
 
+                    </form>
+                    <span class="cart me-3">
+
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                            aria-expanded="false" aria-controls="collapseExample"><i
+                                class="far fa-shopping-cart fa-md"></i></a>
+                    </span>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but
+                            revealed when the user
+                            activates the relevant trigger.
+                        </div>
+                    </div>
+                    <span class="user">
+
+                        <a href="{{ url('/login') }}"><i class="far fa-user solid fa-md"></i></i></a>
+                    </span>
                 </div>
-            </div>
+            </div> 
         </div>
     </nav>
     @endauth
@@ -223,10 +241,8 @@
     @yield('content')
     <div class="container-fluid footer d-flex p-0">
         <!-- Content here -->
-        <div class="row footer g-0" style="height: 1000px; padding-top: 100px;">
+        <div class="row footer g-0">
             <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
-                {{-- <p style="color: white; font-weight: 500; font-size: 72px; line-height: 80px">JOIN OUR COMMUNITY
-                </p> --}}
                 <h2 class="join-us-heading display-1">JOIN OUR COMMUNITY</h2>
                 <p class="text-white fs-4">
                     We'll stitch your inbox differently and you'll receive 20% off your first order.
@@ -235,7 +251,7 @@
                     <div class="col-6">
 
                         <div class="input-group input-group-lg">
-                            {{-- <span class="input-group-text" id="inputGroup-sizing-lg">Large</span> --}}
+
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                 aria-describedby="inputGroup-sizing-lg" placeholder="Email">
                         </div>
@@ -247,9 +263,27 @@
 
                     </div>
                 </div>
+                <div class="contact-section mt-4">
+
+                    <h2 class="primary-text fs-1 text-white">Call us</h2>
+                    <p class="normal-text fs-2 text-white m-0">Phone number: 0829004003</p>
+                    <p class="normal-text fs-2 text-white m-0">Email: uit@edu.vn</p>
+                </div>
+                <div class="copyright mb-1">
+                    <span>
+                        <p class="normal-text fs-5 text-white">2023PCC All rights reserved</p>
+                    </span>
+                </div>
             </div>
             <div class="col-6 col-md-5">
+                <ul class="footer-options">
+                    <li class="normal-text fs-2"><a class="text-white" href="">Help center</a></li>
+                    <li class="normal-text fs-2"><a class="text-white" href="">Return</a></li>
+                    <li class="normal-text fs-2"><a class="text-white" href="">Order status</a></li>
+                    <li class="normal-text fs-2"><a class="text-white" href="">Policy</a></li>
+                    <li class="normal-text fs-2"><a class="text-white" href="">Find our stores</a></li>
 
+                </ul>
             </div>
         </div>
     </div>
