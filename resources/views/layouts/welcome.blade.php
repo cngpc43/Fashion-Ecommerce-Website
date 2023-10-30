@@ -662,6 +662,16 @@
         </div>
 
     @endsection
+    <script>
+        var data = {
+            category:[
+                {
+                    "name": "SOCKS",
+                    "img": "https://via.placeholder.com/700x500.png/CB997E/333333?text=1"
+                }
+            ]
+        }
+    </script>
 </body>
 
 </html>

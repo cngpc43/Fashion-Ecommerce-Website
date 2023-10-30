@@ -6,6 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
 {
+    public function getDetailbyID(Request $request){
+        $product = Product::where('id',$request->query('id'))->first();
+        if (!$product){
+            return response()->json([
+                'errCode'=>400,
+                'errMess'=>'There no product has this id!',
+            ],400);
+        } else {
+            return response()->json([
+                'errCode'=>200,
+                'errMess'=>'Success!',
+                'data'=>$product
+            ],200);
+        }
+    }
     public function getAllProducts(){
         $products = Product::all();
         if (!$products){
