@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function findProduct(Request $request)
     {
         try {
-            $product = Product::with('ProductDetail')->where('productId', $request->query('productId'))->first();
+            $product = Product::with('ProductDetail','Collection','Category')->where('productId', $request->query('productId'))->first();
             if (!$product) {
                 return response()->json([
                     'errCode' => 400,
@@ -88,7 +88,8 @@ class ProductController extends Controller
             if (!$isProductExist){
                 $product = Product::create([
                     'name' => $request->name,
-                    'category' => $request->category,
+                    'categoryId' => $request->categoryId,
+                    'collectionId'=> $request->collectionId,
                     'price' => $request->price,
                     'description' => $request->description,
                     'spec' => $request->spec,
