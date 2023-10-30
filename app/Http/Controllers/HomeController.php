@@ -45,18 +45,18 @@ class HomeController extends Controller
         }
         
     }
-    public function getSocks(Request $request){
+    public function getProductsByCategoryId(Request $request){
         try{
-            $products = Product::with('ProductDetail')->where('category','sock')->get();
+            $products = Product::with('Category','Collection')->where('categoryId',$request->query('categoryId'))->get();
             if (!$products){
                     return response()->json([
                         'errCode'=>400,
-                        'errMess'=>'There no product in each catagory',
+                        'errMess'=>'There no product!',
                     ],400);
             } else {
                 return response()->json([
                     'errCode'=>200,
-                    'errMess'=>'Get socks product success',
+                    'errMess'=>'Get products success',
                     'data'=>$products
                 ],200);
             }
@@ -67,18 +67,22 @@ class HomeController extends Controller
             'errMess' => $e->getMessage(),
         ], 500);
     }}
-    public function getTops(Request $request){
+    public function getApperalProducts(Request $request){
         try{
-            $products = Product::with('ProductDetail')->where('category','top')->get();
+
+            $products = Product::with('Category','Collection')
+                ->whereIn('categoryId',[1,2,3,5])
+                ->orderBy('created_at','desc')
+                ->take(100)->get();
             if (!$products){
                     return response()->json([
                         'errCode'=>400,
-                        'errMess'=>'There no product in each catagory',
+                        'errMess'=>'There no product!',
                     ],400);
             } else {
                 return response()->json([
                     'errCode'=>200,
-                    'errMess'=>'Get top products success',
+                    'errMess'=>'Get products success',
                     'data'=>$products
                 ],200);
             }
@@ -88,41 +92,20 @@ class HomeController extends Controller
             'errCode' => 500,
             'errMess' => $e->getMessage(),
         ], 500);
-    }}
-    public function getBottoms(Request $request){
+    }
+    }
+    public function getProductsByCollectionId(Request $request){
         try{
-            $products = Product::with('ProductDetail')->where('category','bottom')->get();
+            $products = Product::with('Category','Collection')->where('collectionId',$request->query('collectionId'))->get();
             if (!$products){
                     return response()->json([
                         'errCode'=>400,
-                        'errMess'=>'There no product in each catagory',
+                        'errMess'=>'There no product!',
                     ],400);
             } else {
                 return response()->json([
                     'errCode'=>200,
-                    'errMess'=>'Get bottom product success',
-                    'data'=>$products
-                ],200);
-            }
-        } 
-     catch (\Exception $e){
-        return response()->json([
-            'errCode' => 500,
-            'errMess' => $e->getMessage(),
-        ], 500);
-    }}
-    public function getHeadwears(Request $request){
-        try{
-            $products = Product::with('ProductDetail')->where('category','headwear')->get();
-            if (!$products){
-                    return response()->json([
-                        'errCode'=>400,
-                        'errMess'=>'There no product in each catagory',
-                    ],400);
-            } else {
-                return response()->json([
-                    'errCode'=>200,
-                    'errMess'=>'Get headwear products success',
+                    'errMess'=>'Get products success',
                     'data'=>$products
                 ],200);
             }

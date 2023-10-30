@@ -55,10 +55,9 @@ Route::post('/create-customer-invoice',[InvoiceController::class,'createInvoice'
 
 // HOME
 Route::get('/get-trending-product',[HomeController::class,'getTrendingEachCatagory']);
-Route::get('/get-top-products',[HomeController::class,'getTops']);
-Route::get('/get-sock-products',[HomeController::class,'getSocks']);
-Route::get('/get-bottom-products',[HomeController::class,'getBottoms']);
-Route::get('/get-headwear-products',[HomeController::class,'getHeadwears']);
+Route::get('/get-products-by-category-id',[HomeController::class,'getProductsByCategoryId']);
+Route::get('/get-apperal-products',[HomeController::class,'getApperalProducts']);
+Route::get('/get-products-by-collection-id',[HomeController::class,'getProductsByCollectionId']);
 
 
 // Test api
