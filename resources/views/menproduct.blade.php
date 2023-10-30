@@ -4,7 +4,7 @@
         <div id="carouselExampleRide" class="carousel slide men-product">
             <div class="carousel-inner banner">
                 <div class="carousel-item active">
-                    <div class="carousel-item-img men-product-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
+                    <div class="carousel-item-img hero-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
                     </div>
                     {{-- <div class="carousel-caption ">
                             <h5>First slide label</h5>
@@ -628,5 +628,11 @@
             </div>
         </div>
     </div>
+    <script>
+        var request = {
+            
+        }
+    </script>
 @endsection
+
 {{-- @include('templates.footer') --}}

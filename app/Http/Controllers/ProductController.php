@@ -9,25 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-
-    public function getAllProducts()
-    {
-        try {
-            $products = Product::with('ProductDetail')->get();
-            if (!$products) {
-                return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'There are no products in the database!',
-                ], 400);
-            } else {
-                return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Success!',
-                    'data' => $products
-                ], 200);
-            }
-        } catch (\Exception $e) {
-            // Exception handling
+    public function getAllProducts(){
+        $products = Product::all();
+        if (!$products){
+            return response()->json([
+                'errCode'=>400,
+                'errMess'=>'There no product in db!',
+            ],400);
+        } else {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
