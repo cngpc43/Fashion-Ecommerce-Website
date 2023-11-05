@@ -72,6 +72,13 @@
                     </span>
                     <div class="container-fluid p-3">
                         <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
+                            @foreach ($categories as $category)
+                                <div class="col">
+                                    <div class="p-4 h-100" img-src="{{ url($category->img) }}"></div>
+                                    <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
+
+                                </div>
+                            @endforeach
                             {{-- <div class="col">
                             <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
                             <p class="normal-text mt-2">SOCKS</p>
@@ -93,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row banner mt-5 mb-5">
+            <div class="row banner mt-5 mb-5 me-3 ms-3">
                 {{-- <div class="col-12 col-lg-6 p-0">
                     <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
                 </div>
@@ -117,8 +124,8 @@
                 </div> --}}
             </div>
 
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
+            <div class="container text-center my-3 product-slider" id="quarter height">
+                {{-- <div class="row mx-auto my-auto justify-content-center">
                     <div id="recipeCarousel1" class="carousel slide multiple-image">
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
@@ -246,44 +253,14 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
-            <div class="row banner mt-5 mb-5">
-                <div class="col-12 col-lg-6 p-0">
-                    <div class="banner-frame ">
-
-                        <div class="sock-banner" style="background-image: url({{ url('/imgs/10049.png') }})">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 p-0">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        <div class="container">
-                            <h5 class="text-center">
-                                New Collaboration
-                            </h5>
-                            <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
-                                AMONGST THE STARS
-                            </p>
-                            <p class="text-center mb-3">
-                                Stance is excited to be partnering with Bethesda Game Studios on Starfield, an exciting new
-                                next-generation rpg where
-                                you embark on a journey to answer humanity’s greatest mystery.
-
-                            </p>
-                            <div class="d-flex justify-content-center">
-                                <a style="letter-spacing: 0.96px;" href="#"
-                                    class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">SHOP NOW</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> 
+            <div class="row banner mt-5 mb-5 me-3 ms-3">
+                {{-- AMONGST THE STAR COLLECTION --}}
             </div>
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
+            <div class="container text-center my-3 product-slider" id="amongst the star">
+                {{-- <div class="row mx-auto my-auto justify-content-center">
                     <div id="CarouselCollection-2" class="carousel slide multiple-image">
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
@@ -356,7 +333,7 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>
@@ -385,60 +362,126 @@
                         "intro": "From the icon shop",
                         "name": "QUARTER HEIGHT",
                         "img": "imgs/WhiteQTR.jpg",
-
+                        "button-label": "EXPLORE COLLECTION"
                     },
                     {
                         "intro": "New Collaboration",
                         "name": "AMONGST THE STARS",
                         "img": "imgs/10049.png",
                         "description": "Stance is excited to be partnering with Bethesda Game Studios on Starfield, an exciting new next-generation rpg where you embark on a journey to answer humanity’s greatest mystery.",
+                        "button-label": "SHOP NOW"
+                    }
+                ],
+                "product": [{
 
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10003.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10004.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10005.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10006.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10007.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10009.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+                    },
+                    {
+                        "name": "Socks 3 pack",
+                        "img": "imgs/Home/10015.jpg",
+                        "price": "29,99usd",
+                        "collection": "quarter height",
+                    },
+                    {
+                        // "name"
                     }
                 ]
             }
-            data.category.forEach(el => {
-                const category = document.querySelector('.category-row');
-                let col = document.createElement('div');
-                col.classList.add('col');
-                // let img = document.createElement('img');
-                let div = document.createElement('div');
-                div.classList.add('p-4', 'h-100');
-                div.setAttribute("img-src", el.img);
-                let p = document.createElement('p');
-                p.classList.add('normal-text', 'mt-2');
-                p.innerText = el.name;
-                col.appendChild(div);
-                col.appendChild(p);
-                category.appendChild(col);
+            document.querySelectorAll('.product-slider').forEach((slider, i) => {
+                slider.appendChild(RenderProduct(data.product, slider.id, i));
+
             })
-            data.collection.forEach((element, i, j) => {
-                // let j = 0;
+            @json($collection).forEach((element, i) => {
+
                 let banner = document.querySelectorAll('.row.banner');
-                // console.log(banner[i]);
                 let col = document.createElement('div');
                 col.classList.add('col-12', 'col-lg-6', 'p-0');
-                // let img = document.createElement('img');
-                // img.classList.add('img-responsive');
-                // img.setAttribute('src', element.img);
                 let frame = document.createElement('div');
                 frame.classList.add('banner-frame');
                 let div = document.createElement('div');
                 div.classList.add('sock-banner');
                 div.setAttribute('style', `background-image: url(${element.img})`);
                 col.appendChild(frame);
-                // col.appendChild(img);
                 frame.appendChild(div);
-                banner[i].appendChild(col);
-            });
-        </script>
 
-
-
-        {{-- <h1 class="mt-5">DM</h1> --}}
-
+                let div2 = document.createElement('div');
+                div2.classList.add('col-12', 'col-lg-6', 'p-0');
+                let div3 = document.createElement('div');
+                div3.classList.add('d-flex', 'h-100', 'align-items-center', 'justify-content-center');
+                div2.appendChild(div3);
+                let container = document.createElement('div');
+                container.classList.add('container');
+                div3.appendChild(container);
+                let h5 = document.createElement('h5');
+                h5.classList.add('text-center');
+                h5.innerText = element.intro;
+                container.appendChild(h5);
+                let p = document.createElement('p');
+                p.classList.add('primary-text', 'fs-1', 'text-center');
+                p.setAttribute('style', 'letter-spacing: -0.36px;');
+                p.innerText = element.name;
+                container.appendChild(p);
+                if (element.description) {
+                    let p2 = document.createElement('p');
+                    p2.classList.add('text-center', 'mb-3');
+                    p2.innerText = element.description;
+                    container.appendChild(p2);
+                }
 
 
         {{-- <script src="assets/bootstrap-dist/js/bootstrap.bundle.min.js"></script> --}}
+                row.classList.add('row', 'mx-auto', 'my-auto', 'justify-content-center');
+                div.appendChild(div2);
+                    if (el.collection == condition) {
+                let a2 = document.createElement('a');
+                a2.classList.add('carousel-control-next', 'bg-transparent', 'w-aut');
+                a2.href = "#recipeCarousel" + i;
+                a2.role = "button";
+                a2.setAttribute('data-bs-slide', 'next');
+                let span2 = document.createElement('span');
+                span2.classList.add('carousel-control-next-icon');
+                span2.setAttribute('aria-hidden', 'true');
+                a2.appendChild(span2);
+                div.appendChild(a2);
+                return row;
+            };
+        </script>
     @endsection
 </body>
 

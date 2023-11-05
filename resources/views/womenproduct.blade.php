@@ -21,22 +21,7 @@
             </span>
             <div class="container-fluid text-center p-3" data-section="category">
                 <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
-                    {{-- <div class="col mb-5">
-                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="p-4 h-100 category-img" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-                    </div> --}}
+                    
 
                 </div>
             </div>
