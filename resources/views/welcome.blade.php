@@ -463,12 +463,85 @@
                     p2.innerText = element.description;
                     container.appendChild(p2);
                 }
+                let div4 = document.createElement('div');
+                div4.classList.add('d-flex', 'justify-content-center');
+                container.appendChild(div4);
+                let a = document.createElement('a');
+                a.classList.add('btn', 'btn-dark', 'px-lg-4', 'px-3', 'py-lg-2', 'py-1', 'primary-text', 'fs-5',
+                    'fw-bold');
+                a.setAttribute('style', 'letter-spacing: 0.96px;');
+                a.setAttribute('href', '#');
+                a.innerText = element['button-label'];
+                div4.appendChild(a);
+                banner[i].appendChild(col);
+                banner[i].appendChild(div2);
 
-
-        {{-- <script src="assets/bootstrap-dist/js/bootstrap.bundle.min.js"></script> --}}
+            });
+            
+            function RenderProduct(data, condition, i) {
+                let row = document.createElement('div');
                 row.classList.add('row', 'mx-auto', 'my-auto', 'justify-content-center');
+                // container.appendChild(row);
+                let div = document.createElement('div');
+                div.classList.add('carousel', 'slide', 'multiple-image');
+                div.id = "recipeCarousel" + i;
+                row.appendChild(div);
+                let div2 = document.createElement('div');
+                div2.classList.add('carousel-inner');
+                div2.role = "listbox";
                 div.appendChild(div2);
+                data.forEach((el, i) => {
                     if (el.collection == condition) {
+                        let div3 = document.createElement('div');
+                        div3.classList.add('carousel-item');
+                        if (i == 0) {
+                            div3.classList.add('active');
+                        }
+                        let div4 = document.createElement('div');
+                        div4.classList.add('col-md-3');
+                        let div5 = document.createElement('div');
+                        div5.classList.add('card', 'border-0');
+                        let div6 = document.createElement('div');
+                        div6.classList.add('card-img');
+                        let img = document.createElement('img');
+                        img.classList.add('img-fluid');
+                        img.src = el.img;
+                        div6.appendChild(img);
+                        let div7 = document.createElement('div');
+                        div7.classList.add('container-fluid', 'card-body');
+                        let div8 = document.createElement('div');
+                        div8.classList.add('row', 'product-detail');
+                        let div9 = document.createElement('div');
+                        div9.classList.add('col');
+                        let a = document.createElement('a');
+                        a.href = "#";
+                        a.innerText = el.name;
+                        div9.appendChild(a);
+                        let div10 = document.createElement('div');
+                        div10.classList.add('col');
+                        let p = document.createElement('p');
+                        p.innerText = el.price;
+                        div10.appendChild(p);
+                        div8.appendChild(div9);
+                        div8.appendChild(div10);
+                        div7.appendChild(div8);
+                        div5.appendChild(div6);
+                        div5.appendChild(div7);
+                        div4.appendChild(div5);
+                        div3.appendChild(div4);
+                        div2.appendChild(div3);
+                    }
+                });
+                let a = document.createElement('a');
+                a.classList.add('carousel-control-prev', 'bg-transparent', 'w-aut');
+                a.href = "#recipeCarousel" + i;
+                a.role = "button";
+                a.setAttribute('data-bs-slide', 'prev');
+                let span = document.createElement('span');
+                span.classList.add('carousel-control-prev-icon');
+                span.setAttribute('aria-hidden', 'true');
+                a.appendChild(span);
+                div.appendChild(a);
                 let a2 = document.createElement('a');
                 a2.classList.add('carousel-control-next', 'bg-transparent', 'w-aut');
                 a2.href = "#recipeCarousel" + i;
