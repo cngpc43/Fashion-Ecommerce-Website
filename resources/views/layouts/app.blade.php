@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-2 d-flex justify-content-center">
                         @if (Route::has('home'))
-                            <a class="navbar-brand" href="{{ route('home') }}">NO BRAND</a>
+                            <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
                         @endif
                     </div>
                     <div class="col-5 d-flex justify-content-end align-items-center">

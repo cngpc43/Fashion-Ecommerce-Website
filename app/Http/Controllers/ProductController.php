@@ -9,23 +9,46 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function getAllProducts(){
-        $products = Product::all();
-        if (!$products){
+
+    public function getDetailbyID(Request $request)
+    {
+        $product = Product::where('id', $request->query('id'))->first();
+        if (!$product) {
             return response()->json([
-                'errCode'=>400,
-                'errMess'=>'There no product in db!',
-            ],400);
+                'errCode' => 400,
+                'errMess' => 'There no product has this id!',
+            ], 400);
         } else {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
-            ], 500);
+                'errCode' => 200,
+                'errMess' => 'Success!',
+                'data' => $product
+            ], 200);
+        }
+    }
+    public function getAllProducts()
+    {
+
+        $products = Product::all();
+        if (!$products) {
+            return response()->json([
+                'errCode' => 400,
+                'errMess' => 'There no product in db!',
+            ], 400);
+        } else {
+            return response()->json([
+
+                'errCode' => 200,
+                'errMess' => 'Success!',
+                'data' => $products
+            ], 200);
+
         }
     }
 
     public function findProduct(Request $request)
     {
+
         try {
             $product = Product::with('ProductDetail','Collection','Category')->where('productId', $request->query('productId'))->first();
             if (!$product) {
@@ -126,6 +149,7 @@ class ProductController extends Controller
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
+
         }
     }
 
@@ -202,26 +226,20 @@ class ProductController extends Controller
 
     public function deleteProduct(Request $request)
     {
-        try {
-            $product = Product::find($request->query('productId'));
-            if (!$product) {
-                return response()->json([
-                    'errCode' => '400',
-                    'errMess' => 'Cannot find this product in the database'
-                ], 400);
-            } else {
-                $product->delete();
-                return response()->json([
-                    'errCode' => '200',
-                    'errMess' => 'Delete successful'
-                ], 200);
-            }
-        } catch (\Exception $e) {
-            // Exception handling
+
+        $product = Product::find($request->query('id'));
+        if (!$product) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
-            ], 500);
+                'errCode' => '400',
+                'errMess' => 'Cannot find this product in db'
+            ], 400);
+        } else {
+            $product->delete();
+            return response()->json([
+                'errCode' => '200',
+                'errMess' => 'Delete successfully'
+            ], 200);
+
         }
     }
 }
