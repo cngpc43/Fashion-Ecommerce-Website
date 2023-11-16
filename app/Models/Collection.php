@@ -4,21 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
 use App\Models\Product;
 
+
 class Collection extends Model
 {
     use HasFactory;
     protected $fillable = [
+
         'id',
+
         'img',
         'intro',
         'name',
         'description',
+
         'button-label'
     ];
 
@@ -43,4 +48,5 @@ class Collection extends Model
     // {
     //     return $this->HasMany(Product::class, 'id', 'productId');
     // }
+
 }
