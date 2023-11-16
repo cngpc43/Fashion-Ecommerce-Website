@@ -11,7 +11,6 @@ body {
 
 @font-face {
     font-family: "Akzidenz-Grotesk bold";
-    /* src: url(./font/akzidenz/Akzidenz-grotesk-bold.ttf); */
     src: url(../font/akzidenz/Akzidenz-Bold-Condensed.ttf);
 }
 
@@ -50,7 +49,6 @@ body {
 .carousel.multiple-image .carousel-inner .carousel-item-next,
 .carousel.multiple-image .carousel-inner .carousel-item-prev {
     display: flex;
-    /* filter: invert(100%); */
 }
 
 /* medium and up screens */
@@ -89,10 +87,10 @@ body {
     --slide-height: 60vh;
 }
 
-.carousel-inner .banner {
+/* .carousel-inner .banner {
     height: var(--slide-height);
     width: 100%;
-}
+} */
 
 
 .carousel-item-img {
@@ -103,13 +101,13 @@ body {
     background-size: cover;
 }
 
-.carousel-item-img .hero-banner {
+/* .carousel-item-img .hero-banner {
     height: var(--slide-height);
     width: 100%;
     background-position: 0% 30%;
     background-repeat: no-repeat;
     background-size: cover;
-}
+} */
 
 .row .banner .col p {
     font-size: 200px;
@@ -132,10 +130,6 @@ body {
 
 .banner-frame:hover .sock-banner,
 .banner-frame:focus .sock-banner {
-    -ms-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    -o-transform: scale(1.2);
     transform: scale(1.2);
 }
 
@@ -245,8 +239,6 @@ body {
     font-family: "Akzidenz-Grotesk bold";
     align-items: center;
     background-color: #f6f6fb;
-    /* box-shadow: 0px 16px 12px -15px #E7E7EF; */
-    /* font-size: 36px; */
 }
 
 .product-img {
@@ -284,7 +276,6 @@ body {
 }
 
 .size-attribute .btn-check:disabled+label {
-    /* background-color: #1a1a1a; */
     opacity: 0.3;
     cursor: not-allowed !important;
     pointer-events: all !important;
@@ -293,15 +284,11 @@ body {
 .cart a,
 .user a {
     text-decoration: none;
-    /* font-size: 15px; */
     color: #1a1a1a;
     font-weight: 1000;
 }
 
-.far::before {
-    /* font-weight: 600; */
-}
-
+/* 
 .carousel-controller-next,
 .carousel-controller-prev {
     z-index: 1;
@@ -309,7 +296,7 @@ body {
     align-items: center;
     justify-content: center;
 
-}
+} */
 
 
 .control-carousel {
@@ -373,8 +360,7 @@ body {
 
 .form-outline button,
 .form-outline button:hover {
-    /* border: 1px solid #1a1a1a; */
-    /* box-shadow: none; */
+
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -394,4 +380,11 @@ body {
     text-decoration: none;
     cursor: pointer;
 
+}
+.row .product-detail{
+
+
+}
+.name-col a{
+    text-decoration: none;
 }
