@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
 
@@ -19,7 +20,8 @@ class Collection extends Model
         'intro',
         'name',
         'description',
-        'button-label'
+        'button-label',
+        'type'
     ];
 
 
@@ -31,13 +33,29 @@ class Collection extends Model
             set: fn($value) => json_encode($value),
         );
     }
-    // public function product(): BelongsTo
-    // {
-    //     return $this->BelongsTo(User::class, 'id', 'customerId');
-    // }
+
     public static function getByName($name)
     {
         return self::where('name', $name)->first();
+    }
+    public static function getCollectionByType($type)
+    {
+        return self::where('type', $type)->get();
+    }
+    public static function getFirstBannerName()
+    {
+        $response = DB::table('collections')->orderBy('updated_at', 'desc')->first();
+        return $response->name;
+    }
+    public static function getSecondBannerName()
+    {
+        $response = DB::table('collections')->orderBy('updated_at', 'desc')->skip(1)->first();
+        return $response->name;
+    }
+    public static function getFeaturedCollection()
+    {
+        $response = DB::table('collections')->orderBy('updated_at', 'desc')->take(2)->get();
+        return $response;
     }
     // public function product(): HasMany
     // {

@@ -4,12 +4,8 @@
         <div id="carouselExampleRide" class="carousel slide men-product">
             <div class="carousel-inner banner">
                 <div class="carousel-item active">
-                    <div class="carousel-item-img hero-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
+                    <div class="carousel-item-img hero-banner" img-src=`${@json($banner)[0][`img`]}`>
                     </div>
-                    {{-- <div class="carousel-caption ">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
-                        </div> --}}
                 </div>
             </div>
 
@@ -21,29 +17,13 @@
             </span>
             <div class="container-fluid text-center p-3">
                 <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
-                    <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
+                    @foreach ($categories as $category)
+                        <div class="col mb-5">
+                            <div class="p-4 h-100" img-src="{{ url($category->img) }}"></div>
+                            <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
+                        </div>
+                    @endforeach
 
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-
-
-                    </div>
-                    <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-
-                    </div>
-                    <div class="col mb-5">
-                        <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
-
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-
-                    </div>
-                    <div class="col mb-5">
-
-                        <p class="normal-text p-2 fs-1">VAILON</p>
-
-                    </div>
 
                 </div>
             </div>
@@ -629,8 +609,21 @@
         </div>
     </div>
     <script>
+        const banner = @json($banner);
+        const categories = @json($categories);
+        console.log(@json($categories))
+        // document.querySelectorAll('.col.mb-5').forEach((container, i) => {
+        //     container.appendChild(document.createElement('div'));
+        //     container.lastChild.classList.add('p-4', 'h-100');
+        //     container.lastChild.setAttribute('img-src', categories[i].img);
+        //     container.appendChild(document.createElement('p'));
+        //     container.lastChild.classList.add('normal-text', 'p-2', 'fs-1');
+        //     container.lastChild.innerHTML = strtoupper($categories[i].name);
+        // })
+        document.querySelector('.hero-banner').setAttribute('img-src', banner[0].img);
+        // console.log(banner[0].img);
         var request = {
-            
+
         }
     </script>
 @endsection

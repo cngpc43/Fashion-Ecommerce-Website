@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+
 class ProductController extends Controller
 {
     public function getDetailbyID(Request $request)
@@ -22,6 +23,26 @@ class ProductController extends Controller
             ], 200);
         }
     }
+    // public static function ProductByCollection(){
+    //     $products = DB::table
+    // }
+    public static function getProductbyCollection(Request $request)
+    {
+        $product = Product::where('collection', $request->query('collection'))->get();
+        if (!$product) {
+            return response()->json([
+                'errCode' => 400,
+                'errMess' => 'There no product has this collection!',
+            ], 400);
+        } else {
+            return response()->json([
+                'errCode' => 200,
+                'errMess' => 'Success!',
+                'data' => $product
+            ], 200);
+        }
+    }
+    
     public function getAllProducts()
     {
         $products = Product::all();

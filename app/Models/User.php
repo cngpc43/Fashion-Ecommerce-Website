@@ -23,6 +23,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -52,14 +53,18 @@ class User extends Authenticatable
 
     public function role(): HasOne
     {
-        return $this->hasOne(Role::class,'id','roleId');
+        return $this->hasOne(Role::class, 'id', 'roleId');
     }
     public function cart(): HasMany
     {
-        return $this->HasMany(Cart::class,'customerId','id');
+        return $this->HasMany(Cart::class, 'customerId', 'id');
     }
     public function invoice(): HasMany
     {
-        return $this->HasMany(Invoice::class,'customerId','id');
+        return $this->HasMany(Invoice::class, 'customerId', 'id');
+    }
+    public static function findorFail($id)
+    {
+        return self::where('id', $id)->first();
     }
 }
