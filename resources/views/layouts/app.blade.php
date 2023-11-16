@@ -13,19 +13,18 @@
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
         type="text/css" />
     <!-- Fonts -->
-
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-041e359a.css') }}">
+    <link rel="stylesheet" href="{{ asset('/build/assets/app-041e359a.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @vite(['resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
 
 </head>
 
 <body>
 
     @guest
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid d-flex justify-content-between">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,11 +50,11 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                @if (Route::has('home'))
-                                    <a class="nav-link" href="{{ route('menproduct') }}" aria-expanded="false">
-                                        Men
-                                    </a>
-                                @endif
+
+                                <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
+                                    Men
+                                </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('women-product') }}" role="button"
@@ -102,11 +101,12 @@
                         </ul>
                     </div>
                     <div class="col-2 d-flex justify-content-center">
-                        @if (Route::has('home'))
-                            <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
-                        @endif
+
+                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+
                     </div>
-                    <div class="col-5 d-flex justify-content-end align-items-center">
+                    <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
+
                         <form class="d-flex position-relative " role="search">
                             <input class="form-control me-2 position-relative" type="search" placeholder="Search"
                                 aria-label="Search">
@@ -114,17 +114,198 @@
                                     class="fa-solid fa-magnifying-glass"></i></button>
 
                         </form>
+
                         <span class="cart me-3">
 
-                            <a href=""><i class="far fa-shopping-cart fa-md"></i></a>
+                            <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+                                href="#offcanvasScrolling" role="button" aria-controls="offcanvasScrolling"><i
+                                    class="far fa-shopping-cart fa-md"></i></a>
                         </span>
-                        <span class="user">
 
+                        {{-- <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false"
+                            tabindex="-10" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <p>Try scrolling </p>
+                            </div>
+                        </div> --}}
+
+
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="{{ route('women-product') }}" role="button"
+                                aria-expanded="false">
+                                Women
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li> --}}
+                        <li class="nav-item user">
+
+                            <a class="nav-link" role="button" aria-expanded="false"><i
+                                    class="far fa-user solid fa-md"></i></i></a>
                             {{-- <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a> --}}
-                        </span>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="">Orders</a>
+                                </li>
+                                @auth
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-dark">Log out</button>
+                                        </form>
+                                    </li>
+                                @endauth
+
+                            </ul>
+                        </li>
                     </div>
                 </div>
             </div>
+        </nav>
+        {{-- <nav class="navbar navbar-expand-lg navbar bg-light" aria-label="Offcanvas navbar large">
+            <div class="container-fluid">
+                <div class="col-xl-5 col-lg-5 d-none d-sm-block">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Socks
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
+                                Men
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('women-product') }}" role="button" aria-expanded="false">
+                                Women
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Subscription
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Sales
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xl-2">
+
+                    <a class="navbar-brand" href="#">NO BRAND</a>
+                </div>
+                <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
+                    <form class="d-flex position-relative " role="search">
+                        <input class="form-control me-2 position-relative" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn position-absolute end-0 me-2" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+
+                    </form>
+
+                    <span class="cart me-3">
+                        <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" href="#offcanvasScrolling"
+                            role="button" aria-controls="offcanvasScrolling"><i
+                                class="far fa-shopping-cart fa-md"></i></a>
+                    </span>
+                </div>
+            </div> --}}
+        {{-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
+                aria-controls="offcanvasNavbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
+                aria-labelledby="offcanvasNavbar2Label">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex mt-3 mt-lg-0" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div> --}}
+        </div>
         </nav>
     @endguest
     @auth
@@ -205,9 +386,9 @@
                         </ul>
                     </div>
                     <div class="col-2 d-flex justify-content-center">
-                        @if (Route::has('home'))
-                            <a class="navbar-brand" href="{{ route('home') }}">NO BRAND</a>
-                        @endif
+
+                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+
                     </div>
                     <div class="col-5 d-flex justify-content-end align-items-center">
                         <form class="d-flex position-relative " role="search">
@@ -218,26 +399,50 @@
 
                         </form>
                         <span class="cart me-3">
-
-                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                aria-expanded="false" aria-controls="collapseExample"><i
-                                    class="far fa-shopping-cart fa-md"></i></a>
+                            <a href="#collapseExample"role="button" aria-expanded="false"
+                                aria-controls="collapseExample"><i class="far fa-shopping-cart fa-md"></i></a>
                         </span>
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 Some placeholder content for the collapse component. This panel is hidden by default but
-                                revealed when the user
-                                activates the relevant trigger.
+                                revealed when the user activates the relevant trigger.
                             </div>
                         </div>
-                        <span class="user">
+                        <li class="nav-item dropdown user">
 
-                            <a href="{{ url('/login') }}"><i class="far fa-user solid fa-md"></i></i></a>
-                        </span>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                aria-expanded="false"><i class="far fa-user solid fa-md"></i></i></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="">Orders</a>
+                                </li>
+
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-dark">Log out</button>
+                                    </form>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        {{-- <span class="user">
+
+                            <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a>
+                        </span> --}}
+                        {{-- <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-dark">Log out</button>
+                        </form> --}}
                     </div>
                 </div>
             </div>
         </nav>
+
     @endauth
 
     @yield('content')
@@ -290,10 +495,14 @@
         </div>
     </div>
     </div>
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script> --}}
+    <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 </body>
-<script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
-
 <script>
     /* Script to render html element*/
 
@@ -321,13 +530,10 @@
     /* Init carousel items image */
     setTimeout(() => {
         document.querySelectorAll('.carousel-item-img').forEach((item) => {
-
-            // console.log(item.getAttribute('img-src'))
             item.style.backgroundImage = `url(${item.getAttribute('img-src')})`
-
         });
 
-    }, 1000);
+    }, 500);
     /* Script to remove white background of product pictures*/
     document.querySelectorAll('.img-fluid').forEach((item1) => {
         // console.log(item1.getAttribute('src'))
@@ -363,12 +569,7 @@
                 carouselCaption.className = 'carousel-caption d-none d-md-block'
                 let captionHeading = document.createElement('h2')
                 let captionParagraph = document.createElement('p')
-                // captionHeading.innerText = caption[i].heading
-                // captionHeading.innerHTML = caption[i].heading
-                // captionParagraph.innerHTML = caption[i].paragraph
-                // carouselCaption.appendChild(captionHeading)
-                // carouselCaption.appendChild(captionParagraph)
-                // carouselItem.appendChild(carouselCaption)
+
             }
             carouselItem.appendChild(carouselItemImage)
             if (!i) carouselItem.classList.add('active')

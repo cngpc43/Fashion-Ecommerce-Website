@@ -5,12 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>vl</title>
+    <title></title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-041e359a.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     <!-- Styles -->
 
 
@@ -31,14 +30,14 @@
                 <div class="carousel-inner banner">
                     <div class="carousel-item">
                         {{-- <img class="carousel-item-img d-none" src="{{ asset('imgs/10007.jpg') }}" alt=""> --}}
-                        <div class="carousel-item-img" img-src="{{ url('imgs/10007.jpg') }}"></div>
+                        <div class="carousel-item-img"></div>
                         <div class="carousel-caption ">
                             <h5>First slide label</h5>
                             <p>Some representative placeholder content for the first slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="carousel-item-img" img-src="{{ url('imgs/10004.jpg') }}"></div>
+                        <div class="carousel-item-img"></div>
                         {{-- <img src="{{ asset('imgs/10004.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
                         <div class="carousel-caption d-md-block">
                             <h2>First slide label</h2>
@@ -47,7 +46,7 @@
                     </div>
                     <div class="carousel-item active">
                         {{-- <img src="{{ asset('imgs/10001.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
-                        <div class="carousel-item-img" img-src="{{ url('imgs/10001.jpg') }}"></div>
+                        <div class="carousel-item-img"></div>
                         <div class="carousel-caption d-md-block" style="bottom: 50%; transform: translateY(-50%);">
                             <h3>First slide label</h3>
                             <p>Some representative placeholder content for the first slide.</p>
@@ -79,355 +78,110 @@
 
                                 </div>
                             @endforeach
-                            {{-- <div class="col">
-                            <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10099.jpg') }}"></div>
-                            <p class="normal-text mt-2">SOCKS</p>
-                        </div>
-                        <div class="col">
-                            <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10100.jpg') }}"></div>
-                            <p class="normal-text mt-2">UNDERWEAR</p>
-                        </div>
-                        <div class="col">
-                            <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10101.jpeg') }}"></div>
-                            <p class="normal-text mt-2">APPAREL</p>
-                        </div>
-                        <div class="col">
-                            <div class="p-4 h-100" img-src="{{ url('imgs/Men_product/10102.jpg') }}"></div>
-                            <p class="normal-text mt-2">HATS & BEANIES</p>
-                        </div> --}}
+
 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row banner mt-5 mb-5 me-3 ms-3">
-                {{-- <div class="col-12 col-lg-6 p-0">
-                    <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
-                </div>
-                <div class="col-12 col-lg-6 p-0">
-                    <div class="d-flex h-100 align-items-center justify-content-center">
-                        <div class="container">
-                            <h5 class="text-center">
-                                From the icon shop
-                            </h5>
-                            <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
-                                QUARTER HEIGHT
-                            </p>
-                            <div class="d-flex justify-content-center">
-                                <a style="letter-spacing: 0.96px;" href="#"
-                                    class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">EXPLORE
-                                    COLLECTION</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> --}}
+                {{-- QUARTER HEIGHT --}}
             </div>
 
-            <div class="container text-center my-3 product-slider" id="quarter height">
-                {{-- <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image">
+            <div class="container text-center my-3 product-slider">
+                <div class="row mx-auto my-auto justify-content-center">
+                    <div id="Carousel-Collection-1" class="carousel slide multiple-image">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
-                                                </div>
+                            @foreach ($first as $index => $item)
+                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                    <div class="col-md-3">
+                                        <div class="card border-0">
+                                            <div class="card-img">
+                                                <img src="{{ url($item->img) }}" class="img-fluid">
                                             </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
+                                            <div class="container-fluid card-body">
+                                                <div class="row product-detail">
+                                                    <div class="col-8 name-col normal-text fs-5">
+                                                        <a href="#">{{ $item->name }}</a>
+                                                    </div>
+                                                    <div class="col-4 price-col normal-text fs-5 d-flex">
+                                                        <p>{{ $item->price }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="container-fluid card-body">
-                                            <div class="row product-detail">
-                                                <div class="col">
-                                                    <a href="">Socks 3 pack</a>
-                                                </div>
-                                                <div class="col">
-                                                    <p>29,99usd</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
+                        <button class="btn btn-secondary control-center control-carousel" type="button"
+                            data-bs-target="#Carousel-Collection-1" data-bs-slide="prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-secondary control-center control-carousel" type="button"
+                            data-bs-target="#Carousel-Collection-1" data-bs-slide="next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                </div> --}}
+                </div>
             </div>
 
             <div class="row banner mt-5 mb-5 me-3 ms-3">
                 {{-- AMONGST THE STAR COLLECTION --}}
             </div>
-            <div class="container text-center my-3 product-slider" id="amongst the star">
-                {{-- <div class="row mx-auto my-auto justify-content-center">
+            <div class="container text-center my-3 product-slider">
+                <div class="row mx-auto my-auto justify-content-center">
                     <div id="CarouselCollection-2" class="carousel slide multiple-image">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10015.jpg') }}" class="img-fluid">
+                            @foreach ($second as $index => $item)
+                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                    <div class="col-md-3">
+                                        <div class="card border-0">
+                                            <div class="card-img">
+                                                <img src="{{ url($item->img) }}" class="img-fluid">
+                                            </div>
+                                            <div class="container-fluid card-body">
+                                                <div class="row product-detail">
+                                                    <div class="col-8 name-col normal-text fs-5">
+                                                        <a href="#">{{ $item->name }}</a>
+                                                    </div>
+                                                    <div class="col-4 price-col normal-text fs-5 d-flex">
+                                                        <p>{{ $item->price }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-img-overlay">Slide 1</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10016.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 2</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10017.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 3</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10018.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 4</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10019.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 5</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10019.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay">Slide 6</div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#CarouselCollection-2" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#CarouselCollection-2" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
+                        <button class="btn btn-secondary control-center control-carousel" type="button"
+                            data-bs-target="#CarouselCollection-2" data-bs-slide="prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-secondary control-center control-carousel" type="button"
+                            data-bs-target="#CarouselCollection-2" data-bs-slide="next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                </div> --}}
+                </div>
             </div>
 
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
         <script>
-            const data = {
-                "category": [{
-                        "name": "SOCKS",
-                        "img": "imgs/Men_product/10099.jpg",
-                    },
-                    {
-                        "name": "UNDERWEAR",
-                        "img": "imgs/Men_product/10100.jpg",
+            // console.log(@json($second))
+            // console.log(@json($first))
+            const banner = @json($banner);
+            document.querySelectorAll('.carousel-item-img').forEach((el, i) => {
 
-                    },
-                    {
-                        "name": "APPAREL",
-                        'img': "imgs/Men_product/10101.jpeg",
-                    },
-                    {
-                        "name": "HATS & BEANIES",
-                        "img": "imgs/Men_product/10102.jpg",
-                    }
-                ],
-                "collection": [{
-                        "intro": "From the icon shop",
-                        "name": "QUARTER HEIGHT",
-                        "img": "imgs/WhiteQTR.jpg",
-                        "button-label": "EXPLORE COLLECTION"
-                    },
-                    {
-                        "intro": "New Collaboration",
-                        "name": "AMONGST THE STARS",
-                        "img": "imgs/10049.png",
-                        "description": "Stance is excited to be partnering with Bethesda Game Studios on Starfield, an exciting new next-generation rpg where you embark on a journey to answer humanity’s greatest mystery.",
-                        "button-label": "SHOP NOW"
-                    }
-                ],
-                "product": [{
-
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10003.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10004.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10005.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10006.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10007.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10009.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-                    },
-                    {
-                        "name": "Socks 3 pack",
-                        "img": "imgs/Home/10015.jpg",
-                        "price": "29,99usd",
-                        "collection": "quarter height",
-                    },
-                    {
-                        // "name"
-                    }
-                ]
-            }
-            document.querySelectorAll('.product-slider').forEach((slider, i) => {
-                slider.appendChild(RenderProduct(data.product, slider.id, i));
-
+                el.setAttribute('img-src', banner[i].img)
             })
-            @json($collection).forEach((element, i) => {
+            const collection = @json($collection);
+
+            collection.forEach((element, i) => {
 
                 let banner = document.querySelectorAll('.row.banner');
                 let col = document.createElement('div');
@@ -477,7 +231,8 @@
                 banner[i].appendChild(div2);
 
             });
-            
+
+
             function RenderProduct(data, condition, i) {
                 let row = document.createElement('div');
                 row.classList.add('row', 'mx-auto', 'my-auto', 'justify-content-center');

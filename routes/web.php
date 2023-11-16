@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MenProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class, 'index']);
+
 Auth::routes();
 Route::get('/register', function () {
     return view('auth.register');
@@ -39,11 +41,8 @@ Route::get('/abc', function () {
 });
 
 
-// Route::get('/menproduct', [App\Http\Controllers\MenProductController::class, 'ditmemay'])->name('menproduct');
-Route::get('/menproduct', function () {
+Route::get('menproduct', [MenProductController::class, 'index']);
 
-    return view('menproduct');
-})->name('menproduct');
 
 Route::get('/women-product', function () {
     return view('womenproduct');
