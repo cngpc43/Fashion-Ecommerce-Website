@@ -69,6 +69,15 @@ class ProductDetail extends Model
             ->get();
         return $response;
     }
+    public static function GetNewArrival()
+    {
+        $response = DB::table('product_details')->join('products', 'product_details.productId', '=', 'products.productId')
+            ->select('product_details.color', 'product_details.img', 'product_details.size', 'product_details.stock', 'products.name', 'products.price')
+            ->orderBy('products.created_at', 'desc')
+            ->take(8)
+            ->get();
+        return $response;
+    }
     public function customer(): BelongsToMany
     {
         return $this->BelongsToMany(Cart::class, 'id', 'id');

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title></title>
+    <title>Home</title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -172,10 +172,13 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
         <script>
-            // console.log(@json($second))
-            // console.log(@json($first))
+            var first = @json($first);
+            var second = @json($second);
+            console.log(first)
+            console.log(second)
             const banner = @json($banner);
-            document.querySelectorAll('.carousel-item-img').forEach((el, i) => {
+            document.querySelectorAll('.carousel-item-img').forEach((el,
+                i) => {
 
                 el.setAttribute('img-src', banner[i].img)
             })
@@ -236,7 +239,6 @@
             function RenderProduct(data, condition, i) {
                 let row = document.createElement('div');
                 row.classList.add('row', 'mx-auto', 'my-auto', 'justify-content-center');
-                // container.appendChild(row);
                 let div = document.createElement('div');
                 div.classList.add('carousel', 'slide', 'multiple-image');
                 div.id = "recipeCarousel" + i;
