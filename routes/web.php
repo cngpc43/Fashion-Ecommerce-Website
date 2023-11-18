@@ -34,7 +34,9 @@ Route::middleware('auth.customer')->group(function () {
 
 });
 
-
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
 
 Route::get('/abc', function () {
     echo '3';
