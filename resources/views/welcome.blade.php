@@ -96,9 +96,11 @@
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                     <div class="col-md-3">
                                         <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url($item->img) }}" class="img-fluid">
-                                            </div>
+                                            @foreach (json_decode($item->img) as $image)
+                                                <div class="card-img">
+                                                    <img src="{{ url($image) }}" class="img-fluid">
+                                                </div>
+                                            @endforeach
                                             <div class="container-fluid card-body">
                                                 <div class="row product-detail">
                                                     <div class="col-8 name-col normal-text fs-5">
@@ -137,9 +139,11 @@
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                     <div class="col-md-3">
                                         <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url($item->img) }}" class="img-fluid">
-                                            </div>
+                                            @foreach (json_decode($item->img) as $image)
+                                                <div class="card-img">
+                                                    <img src="{{ url($image) }}" class="img-fluid">
+                                                </div>
+                                            @endforeach
                                             <div class="container-fluid card-body">
                                                 <div class="row product-detail">
                                                     <div class="col-8 name-col normal-text fs-5">

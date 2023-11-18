@@ -46,160 +46,42 @@
                 <span>
                     <p class="normal-text">NEW ARRIVALS</p>
                 </span>
-                <div class="container text-center my-3">
+                <div class="container text-center my-3 product-slider">
                     <div class="row mx-auto my-auto justify-content-center">
-                        <div id="recipeCarousel1" class="carousel slide multiple-image">
+                        <div id="Carousel-Collection-1" class="carousel slide multiple-image">
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
+                                @foreach ($newarrival as $index => $item)
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                        <div class="col-md-3">
+                                            <div class="card border-0">
+                                                @foreach (json_decode($item->img) as $image)
+                                                    <div class="card-img">
+                                                        <img src="{{ url($image) }}" class="img-fluid">
+                                                    </div>
+                                                @endforeach
+                                                <div class="container-fluid card-body">
+                                                    <div class="row product-detail">
+                                                        <div class="col-8 name-col normal-text fs-5">
+                                                            <a href="#">{{ $item->name }}</a>
+                                                        </div>
+                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
+                                                            <p>{{ $item->price }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="card-img-overlay"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-                            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            </a>
-                            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-                <span>
-                    <p class="normal-text">NEW ARRIVALS</p>
-                </span>
-                <div class="container text-center my-3">
-                    <div class="row mx-auto my-auto justify-content-center">
-                        <div id="recipeCarousel1" class="carousel slide multiple-image">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="col-md-3">
-                                        <div class="card border-0">
-                                            <div class="card-img">
-                                                <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                            </div>
-                                            <div class="card-img-overlay"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            </a>
-                            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            </a>
+                            <button class="btn btn-secondary control-center control-carousel" type="button"
+                                data-bs-target="#Carousel-Collection-1" data-bs-slide="prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-secondary control-center control-carousel" type="button"
+                                data-bs-target="#Carousel-Collection-1" data-bs-slide="next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -625,10 +507,8 @@
         </script>
     </body>
     <script>
-        const new = @json($newarrival)
-        console.log(new)
-        // var img = JSON.parse(newimg)
-        // JSON.parse(img)
+        const hi = @json($newarrival);
+        console.log(hi)
         const banner = @json($banner);
         const categories = @json($categories);
         document.querySelector('.hero-banner').setAttribute('img-src', banner[0].img);
