@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,3 +104,6 @@ Route::get('menproduct', ['App\Http\Controllers\MenProductController', 'index'])
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Student test 

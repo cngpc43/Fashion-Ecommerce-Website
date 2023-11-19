@@ -104,21 +104,22 @@ class ProductController extends Controller
                     'collectionId'=> $request->collectionId,
                     'price' => $request->price,
                     'description' => $request->description,
-                    'spec' => $request->spec,
                     'salePercent' => $request->salePercent ?: 0,
                 ]);
                 $productDetail = ProductDetail::create([
                     'productId'=>$product->productId,
                     'size' => $request->size,
                     'color' => $request->color, 
-                    'stock' => $request->stock
+                    'stock' => $request->stock,
+                    'img' => $request->img,
                 ]);
             } else {
                 $productDetail = ProductDetail::create([
                     'productId'=>$isProductExist->productId,
                     'size' => $request->size,
                     'color' => $request->color, 
-                    'stock' => $request->stock
+                    'stock' => $request->stock,
+                    'img' => $request->img,
                 ]);
             }
             
@@ -157,9 +158,8 @@ class ProductController extends Controller
     public function updateProduct(Request $request)
     {
         try {
-            $product = Product::findOrFail($request->productId);
-            $productDetail = ProductDetail::where('productId', $request->productId)->where('size', $request->size)->first();
-
+            $productDetail = ProductDetail::where('productDetailId', $request->productDetailId)->first();
+            $product = Product::findOrFail($productDetail->productId);
             // Validator
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -185,7 +185,6 @@ class ProductController extends Controller
                 'category' => $request->category,
                 'price' => $request->price,
                 'description' => $request->description,
-                'spec' => $request->spec,
                 'salePercent' => $request->salePercent ?: 0,
             ]);
 
@@ -227,7 +226,7 @@ class ProductController extends Controller
     public function deleteProduct(Request $request)
     {
 
-        $product = Product::find($request->query('id'));
+        $product = ProductDetail::find($request->query('productDetailId'));
         if (!$product) {
             return response()->json([
                 'errCode' => '400',

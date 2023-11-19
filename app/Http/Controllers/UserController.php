@@ -89,7 +89,8 @@ class UserController extends Controller
                 'password'=>Hash::make($request->password),
                 'phoneNumber'=>$request->phoneNumber,
                 'address'=>$request->address,
-                'roleId'=>$request->roleId
+                'roleId'=>$request->roleId,
+                'name'=>$request->name
             ]);
             if (!$user){
                 return response()->json([
@@ -115,10 +116,10 @@ class UserController extends Controller
     public function updateUser(Request $request){
         try{
             $user = User::where('email', $request->email)->update([
-                'password' => Hash::make($request->password),
                 'phoneNumber' => $request->phoneNumber,
                 'address' => $request->address,
-                'roleId' => $request->roleId
+                'roleId' => $request->roleId,
+                'name'=>$request->name
             ]);
             if (!$user){
                 return response()->json([

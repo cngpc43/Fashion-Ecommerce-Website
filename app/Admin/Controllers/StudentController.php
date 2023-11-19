@@ -28,7 +28,7 @@ class StudentController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
-        $grid->column('img', __('Img'));
+        $grid->column('age', __('Age'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -47,7 +47,7 @@ class StudentController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
-        $show->field('img', __('Img'));
+        $show->field('age', __('Age'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -64,8 +64,18 @@ class StudentController extends AdminController
         $form = new Form(new Student());
 
         $form->text('name', __('Name'));
-        $form->image('img', __('Img'));
+        $form->text('age', __('Age'));  
 
         return $form;
     }
+    public function store()
+    {
+        parent::store();
+        $student = new Student();
+        $student->name = request('name');
+        $student->age = request('age');
+        $student->save();
+        return redirect()->to('http://localhost:8000/admin/students');
+    }
+    
 }
