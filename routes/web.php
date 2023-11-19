@@ -2,10 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\StudentController;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\ProductDetail;
+
+use App\Http\Controllers\MenProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +25,7 @@ use App\Models\ProductDetail;
 
 
 Route::get('/', [HomeController::class, 'index']);
+
 Auth::routes();
 Route::get('/register', function () {
     return view('auth.register');
@@ -36,18 +41,17 @@ Route::middleware('auth.customer')->group(function () {
 
 });
 
-
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
 
 Route::get('/abc', function () {
     echo '3';
 });
 
 
-// Route::get('/menproduct', [App\Http\Controllers\MenProductController::class, 'ditmemay'])->name('menproduct');
-Route::get('/menproduct', function () {
+Route::get('menproduct', [MenProductController::class, 'index']);
 
-    return view('menproduct');
-})->name('menproduct');
 
 Route::get('/women-product', function () {
     return view('womenproduct');

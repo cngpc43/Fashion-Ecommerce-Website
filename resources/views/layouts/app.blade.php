@@ -13,10 +13,9 @@
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
         type="text/css" />
     <!-- Fonts -->
-
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('build/assets/app-041e359a.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('/build/assets/app-041e359a.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite(['resources/js/app.js'])
 
@@ -25,7 +24,7 @@
 <body>
 
     @guest
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid d-flex justify-content-between">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,11 +50,11 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                @if (Route::has('home'))
-                                    <a class="nav-link" href="{{ route('menproduct') }}" aria-expanded="false">
-                                        Men
-                                    </a>
-                                @endif
+
+                                <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
+                                    Men
+                                </a>
+
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('women-product') }}" role="button"
@@ -102,11 +101,12 @@
                         </ul>
                     </div>
                     <div class="col-2 d-flex justify-content-center">
-                        @if (Route::has('home'))
-                            <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
-                        @endif
+
+                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+
                     </div>
-                    <div class="col-5 d-flex justify-content-end align-items-center">
+                    <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
+
                         <form class="d-flex position-relative " role="search">
                             <input class="form-control me-2 position-relative" type="search" placeholder="Search"
                                 aria-label="Search">
@@ -114,17 +114,62 @@
                                     class="fa-solid fa-magnifying-glass"></i></button>
 
                         </form>
+
                         <span class="cart me-3">
 
-                            <a href=""><i class="far fa-shopping-cart fa-md"></i></a>
+                            <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+                                href="{{ url('/cart') }}" role="button" aria-controls="offcanvasScrolling"><i
+                                    class="far fa-shopping-cart fa-md"></i></a>
                         </span>
-                        <span class="user">
 
-                            {{-- <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a> --}}
-                        </span>
+                        <div class="nav-item user" title="Login">
+                            <a href="{{ url('/login') }}" class="nav-link" role="button" aria-expanded="false"><i
+                                    class="far fa-user solid fa-md"></i></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </nav>
+
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
+            aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex mt-3 mt-lg-0" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        </div>
         </nav>
     @endguest
     @auth
@@ -154,14 +199,14 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                @if (Route::has('home'))
-                                    <a class="nav-link" href="{{ route('menproduct') }}" aria-expanded="false">
-                                        Men
-                                    </a>
-                                @endif
+
+                                <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
+                                    Men
+                                </a>
+
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('women-product') }}" role="button"
+                                <a class="nav-link" href="{{ url('/women-product') }}" role="button"
                                     aria-expanded="false">
                                     Women
                                 </a>
@@ -205,9 +250,9 @@
                         </ul>
                     </div>
                     <div class="col-2 d-flex justify-content-center">
-                        @if (Route::has('home'))
-                            <a class="navbar-brand" href="{{ route('home') }}">NO BRAND</a>
-                        @endif
+
+                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+
                     </div>
                     <div class="col-5 d-flex justify-content-end align-items-center">
                         <form class="d-flex position-relative " role="search">
@@ -218,26 +263,52 @@
 
                         </form>
                         <span class="cart me-3">
-
-                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                aria-expanded="false" aria-controls="collapseExample"><i
-                                    class="far fa-shopping-cart fa-md"></i></a>
+                            <a href="{{ url('/cart') }}"role="button" aria-expanded="false"
+                                aria-controls="collapseExample"><i class="far fa-shopping-cart fa-md"></i></a>
                         </span>
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 Some placeholder content for the collapse component. This panel is hidden by default but
-                                revealed when the user
-                                activates the relevant trigger.
+                                revealed when the user activates the relevant trigger.
                             </div>
                         </div>
-                        <span class="user">
 
-                            <a href="{{ url('/login') }}"><i class="far fa-user solid fa-md"></i></i></a>
-                        </span>
+                        <div class="nav-item dropdown user">
+
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
+                                aria-expanded="false"><i class="far fa-user solid fa-md"></i></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="dropdown-item d-flex">
+                                    <a href="">Profile</a>
+                                </li>
+                                <li class="dropdown-item d-flex">
+                                    <a href="">Orders</a>
+                                </li>
+
+                                <li class="dropdown-item d-flex">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-dark">Log out</button>
+                                    </form>
+                                </li>
+
+
+                            </ul>
+                        </div>
+
+                        {{-- <span class="user">
+
+                            <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a>
+                        </span> --}}
+                        {{-- <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-dark">Log out</button>
+                        </form> --}}
                     </div>
                 </div>
             </div>
         </nav>
+
     @endauth
 
     @yield('content')
@@ -290,29 +361,29 @@
         </div>
     </div>
     </div>
-
+    <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
 </body>
-<script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
-
 <script>
     /* Script to render html element*/
 
     /* Script for multiple image carousel */
-    let items = document.querySelectorAll('.carousel.multiple-image .carousel-item')
-
-    items.forEach((el) => {
-        const minPerSlide = 4
-        let next = el.nextElementSibling
-        for (var i = 1; i < minPerSlide; i++) {
-            if (!next) {
-                // wrap carousel by using first child
-                next = items[0]
-            }
-            let cloneChild = next.cloneNode(true)
-            el.appendChild(cloneChild.children[0])
-            next = next.nextElementSibling
-        }
-    })
+    document
+        .querySelectorAll('.carousel.multiple-image').forEach(stack => {
+            let items = stack.querySelectorAll('.carousel-item')
+            items.forEach((item) => {
+                const minPerSlide = 4
+                let next = item.nextElementSibling
+                for (let i = 1; i < minPerSlide; i++) {
+                    if (!next) {
+                        // wrap carousel by using first child
+                        next = items[0]
+                    }
+                    let cloneChild = next.cloneNode(true)
+                    item.appendChild(cloneChild.children[0])
+                    next = next.nextElementSibling
+                }
+            })
+        })
     /* Script set background image for image wrapper */
     let wrapper = document.querySelectorAll('.col .p-4.h-100')
     wrapper.forEach((els) => {
@@ -321,16 +392,13 @@
     /* Init carousel items image */
     setTimeout(() => {
         document.querySelectorAll('.carousel-item-img').forEach((item) => {
-
-            // console.log(item.getAttribute('img-src'))
             item.style.backgroundImage = `url(${item.getAttribute('img-src')})`
-
         });
 
-    }, 1000);
+    }, 500);
     /* Script to remove white background of product pictures*/
     document.querySelectorAll('.img-fluid').forEach((item1) => {
-        // console.log(item1.getAttribute('src'))
+        
         item1.style.mixBlendMode = 'multiply'
 
     })
@@ -339,7 +407,6 @@
     })
 
     function renderCarousel(image = [], caption = [{}]) {
-        // console.log('hello')
         image.forEach((el, i) => {
             let carouselItem = document.createElement('div')
             carouselItem.className = 'carousel-item'
@@ -363,12 +430,7 @@
                 carouselCaption.className = 'carousel-caption d-none d-md-block'
                 let captionHeading = document.createElement('h2')
                 let captionParagraph = document.createElement('p')
-                // captionHeading.innerText = caption[i].heading
-                // captionHeading.innerHTML = caption[i].heading
-                // captionParagraph.innerHTML = caption[i].paragraph
-                // carouselCaption.appendChild(captionHeading)
-                // carouselCaption.appendChild(captionParagraph)
-                // carouselItem.appendChild(carouselCaption)
+
             }
             carouselItem.appendChild(carouselItemImage)
             if (!i) carouselItem.classList.add('active')
