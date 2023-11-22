@@ -26,7 +26,6 @@ class Product extends Model
         'description',
         'salePercent',
     ];
-    ];
 
 
     protected function size(): Attribute
@@ -53,8 +52,7 @@ class Product extends Model
         );
 
     }
-    protected function spec(): Attribute
-    {
+
      protected function spec(): Attribute
         {
 

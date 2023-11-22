@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenProductController;
 
+// use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +18,7 @@ use App\Http\Controllers\MenProductController;
 */
 
 
-
+// Route::get('/product-detail/{id}', [ProductController::class, 'getDetailbyID']);
 Route::get('/', [HomeController::class, 'index']);
 
 Auth::routes();
@@ -55,7 +57,7 @@ Route::get('socks', function () {
 Route::get('test', function () {
     return view('test');
 });
-Route::get('product-detail', function () {
+Route::get('product-detail/{id}', function () {
     return view('product-detail');
 });
 

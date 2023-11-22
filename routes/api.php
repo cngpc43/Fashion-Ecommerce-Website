@@ -27,6 +27,7 @@ use App\Http\Controllers\HomeController;
 // Route::get('/', [HomeController::class, 'index']);
 
 // CATEGORY
+Route::get('/product-detail/{id}', [ProductController::class, 'getDetailbyID']);
 Route::get('/get-all-categories', [CategoryController::class, 'getAllCategories']);
 // USER 
 // Route::get('/get-all-users', [UserController::class, 'getAllUsers']);
@@ -51,26 +52,26 @@ Route::delete('/delete-product', [ProductController::class, 'deleteProduct']);
 
 // CART
 
-Route::get('/get-all-carts',[CartController::class,'getAllCarts']);
-Route::get('/get-customer-cart/{customerId}',[CartController::class,'getCustomerCart']);
+Route::get('/get-all-carts', [CartController::class, 'getAllCarts']);
+Route::get('/get-customer-cart/{customerId}', [CartController::class, 'getCustomerCart']);
 
 
 Route::post('/add-cart', [CartController::class, 'addCart']);
 
 
-Route::put('/update-cart',[CartController::class,'updateCart']);
-Route::delete('/delete-cart',[CartController::class,'deleteCart']);
+Route::put('/update-cart', [CartController::class, 'updateCart']);
+Route::delete('/delete-cart', [CartController::class, 'deleteCart']);
 // INVOICE
-Route::get('/get-all-invoices',[InvoiceController::class,'getAllInvoices']);
-Route::get('/get-payment-customer-infor',[InvoiceController::class,'getPaymentInfo']);
+Route::get('/get-all-invoices', [InvoiceController::class, 'getAllInvoices']);
+Route::get('/get-payment-customer-infor', [InvoiceController::class, 'getPaymentInfo']);
 
-Route::post('/create-customer-invoice',[InvoiceController::class,'createInvoice']);
+Route::post('/create-customer-invoice', [InvoiceController::class, 'createInvoice']);
 
 // HOME
-Route::get('/get-trending-product',[HomeController::class,'getTrendingEachCatagory']);
-Route::get('/get-products-by-category-id',[HomeController::class,'getProductsByCategoryId']);
-Route::get('/get-apperal-products',[HomeController::class,'getApperalProducts']);
-Route::get('/get-products-by-collection-id',[HomeController::class,'getProductsByCollectionId']);
+Route::get('/get-trending-product', [HomeController::class, 'getTrendingEachCatagory']);
+Route::get('/get-products-by-category-id', [HomeController::class, 'getProductsByCategoryId']);
+Route::get('/get-apperal-products', [HomeController::class, 'getApperalProducts']);
+Route::get('/get-products-by-collection-id', [HomeController::class, 'getProductsByCollectionId']);
 
 
 

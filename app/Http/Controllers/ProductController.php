@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -10,14 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-
-    public function getDetailbyID(Request $request)
+    public function getDetailbyID($id)
     {
-        $product = Product::where('id', $request->query('id'))->first();
+        $product = ProductDetail::GetDetailByID($id);
+
         if (!$product) {
             return response()->json([
                 'errCode' => 400,
-                'errMess' => 'There no product has this id!',
+                'errMess' => 'Product not found!',
             ], 400);
         } else {
             return response()->json([
@@ -27,9 +28,7 @@ class ProductController extends Controller
             ], 200);
         }
     }
-    // public static function ProductByCollection(){
-    //     $products = DB::table
-    // }
+
     public static function getProductbyCollection(Request $request)
     {
         $product = Product::where('collection', $request->query('collection'))->get();
@@ -46,7 +45,7 @@ class ProductController extends Controller
             ], 200);
         }
     }
-    
+
     public function getAllProducts()
     {
 
@@ -71,7 +70,7 @@ class ProductController extends Controller
     {
 
         try {
-            $product = Product::with('ProductDetail','Collection','Category')->where('productId', $request->query('productId'))->first();
+            $product = Product::with('ProductDetail', 'Collection', 'Category')->where('productId', $request->query('productId'))->first();
             if (!$product) {
                 return response()->json([
                     'errCode' => 400,
@@ -93,11 +92,12 @@ class ProductController extends Controller
         }
     }
 
-    public function createNewProduct(Request $request){
+    public function createNewProduct(Request $request)
+    {
         try {
             $isProductExist = Product::where('name', $request->name)->first();
-            $product =null;
-            $productDetail=null;
+            $product = null;
+            $productDetail = null;
             // validator
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -112,37 +112,37 @@ class ProductController extends Controller
             ]);
             if ($validator->fails()) {
                 return response([
-                    'errCode'=>400,
-                    'errMess'=>'Missing required parameter'
-                ],400);
+                    'errCode' => 400,
+                    'errMess' => 'Missing required parameter'
+                ], 400);
             }
 
             // Check for product exist
-            if (!$isProductExist){
+            if (!$isProductExist) {
                 $product = Product::create([
                     'name' => $request->name,
                     'categoryId' => $request->categoryId,
-                    'collectionId'=> $request->collectionId,
+                    'collectionId' => $request->collectionId,
                     'price' => $request->price,
                     'description' => $request->description,
                     'spec' => $request->spec,
                     'salePercent' => $request->salePercent ?: 0,
                 ]);
                 $productDetail = ProductDetail::create([
-                    'productId'=>$product->productId,
+                    'productId' => $product->productId,
                     'size' => $request->size,
-                    'color' => $request->color, 
+                    'color' => $request->color,
                     'stock' => $request->stock
                 ]);
             } else {
                 $productDetail = ProductDetail::create([
-                    'productId'=>$isProductExist->productId,
+                    'productId' => $isProductExist->productId,
                     'size' => $request->size,
-                    'color' => $request->color, 
+                    'color' => $request->color,
                     'stock' => $request->stock
                 ]);
             }
-            
+
 
             if (!$productDetail) {
                 return response()->json([
@@ -151,10 +151,10 @@ class ProductController extends Controller
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode'=>200,
-                    'errMess'=>'Create success',
-                    'productData'=>$isProductExist ? $isProductExist : $product,
-                    'productDetailData'=>$productDetail
+                    'errCode' => 200,
+                    'errMess' => 'Create success',
+                    'productData' => $isProductExist ? $isProductExist : $product,
+                    'productDetailData' => $productDetail
                 ]);
             }
         } catch (QueryException $exception) {
@@ -162,9 +162,9 @@ class ProductController extends Controller
             return response()->json([
                 'errCode' => 400,
                 'errMess' => 'Product with the same size and color already exists',
-                'a'=>$exception->getMessage()
+                'a' => $exception->getMessage()
             ], 400);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             // Exception handling
             return response()->json([
                 'errCode' => 500,
@@ -234,7 +234,7 @@ class ProductController extends Controller
             return response()->json([
                 'errCode' => 404,
                 'errMess' => 'Product not found',
-                'a'=>$exception->getMessage()
+                'a' => $exception->getMessage()
             ], 404);
         } catch (\Exception $e) {
             // Exception handling
