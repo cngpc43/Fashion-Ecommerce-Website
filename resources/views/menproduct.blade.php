@@ -55,25 +55,19 @@
                                         <div class="col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
-                                                    @php
-                                                        $i = 0;
-                                                    @endphp
-                                                    @foreach (json_decode($item->img) as $image)
-                                                        <img src="{{ url($image) }}"
-                                                            class="{{ $i == 0 ? 'img-fluid active' : 'img-fluid hover' }}">
-                                                        @php
-                                                            $i++;
-                                                        @endphp
-                                                    @endforeach
+                                                    <img src="{{ url($item['img'][0]) }}"
+                                                        onmouseover="this.src='{{ count($item['img']) > 1 ? url($item['img'][1]) : url($item['img'][0]) }}'"
+                                                        onmouseout="this.src='{{ url($item['img'][0]) }}'"
+                                                        class="img-fluid">
                                                 </div>
                                                 <div class="container-fluid card-body">
                                                     <div class="row product-detail">
                                                         <div class="col-8 name-col normal-text fs-5">
                                                             <a
-                                                                href="{{ url('/product-detail/' . $item->id) }}">{{ $item->name }}</a>
+                                                                href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
                                                         </div>
                                                         <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item->price }}</p>
+                                                            <p>{{ $item['price'] }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -106,14 +100,12 @@
                                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                         <div class="col-md-3">
                                             <div class="card border-0">
-
-
                                                 <div class="card-img">
-                                                    <img src="{{ url($item['img'][0]) }}" class="img-fluid">
-                                                    <img src="{{ url($item['img'][1]) }}" alt="" class="hover-img"
-                                                        style="display: none;">
+                                                    <img id="productImage{{ $index }}"
+                                                        src="{{ url($item['img'][0]) }}" class="img-fluid"
+                                                        onmouseover="this.src='{{ url($item['img'][1]) }}'"
+                                                        onmouseout="this.src='{{ url($item['img'][0]) }}'">
                                                 </div>
-
                                                 <div class="container-fluid card-body">
                                                     <div class="row product-detail">
                                                         <div class="col-8 name-col normal-text fs-5">
@@ -249,23 +241,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    {{-- <div class="col-6 col-md-3">
-                                        <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg">
-                                        <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                        <div class="row title-body">
-                                            <div class="col name">
-                                                <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                            </div>
-                                            <div class="col price text-end">
-                                                <P class="normal-text fs-5">USD 55,00</P>
-                                            </div>
-                                        </div>
-                                        <div class="color-swatches d-flex">
-                                            <span>red</span>
-                                            <span>green</span>
-                                            <span>blue</span>
-                                        </div>
-                                    </div> --}}
+
 
 
 
@@ -282,7 +258,7 @@
     <script>
         // console.log(@json($product));
         console.log(@json($iconcrew));
-
+        console.log(@json($newarrival));
         // const hi = @json($newarrival);
         // console.log(hi);
         const banner = @json($banner);

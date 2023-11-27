@@ -73,12 +73,24 @@ class ProductDetail extends Model
     {
         $response = DB::table('product_details')
             ->join('products', 'product_details.productId', '=', 'products.productId')
-            ->select('products.productId as id', 'product_details.color', 'product_details.img', 'product_details.size', 'product_details.stock', 'products.name', 'products.price')
+            ->select('products.productId as id', 'product_details.color', 'product_details.img as images', 'product_details.size', 'product_details.stock', 'products.name', 'products.price')
             ->whereNotNull('product_details.created_at')
             ->orderBy('products.created_at', 'desc')
             ->take(8)
             ->get();
-        return $response;
+        $grouped = [];
+        foreach ($response as $item) {
+            $images = str_replace(['["', '"]'], '', $item->images);
+            $images = explode('","', $images);
+            $grouped[] = [
+                'productId' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'color' => $item->color,
+                'img' => $images,
+            ];
+        }
+        return $grouped;
     }
     public static function GetByCategory($category)
     {

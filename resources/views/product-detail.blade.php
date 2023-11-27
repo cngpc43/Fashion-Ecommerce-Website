@@ -168,6 +168,7 @@
 
                 carouselItemImage.setAttribute('img-src', el)
                 carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
+                carouselItemImage.style.mixBlendMode = 'multiply'
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
         }
