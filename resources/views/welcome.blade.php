@@ -105,7 +105,7 @@
                                                 <div class="row product-detail">
                                                     <div class="col-8 name-col normal-text fs-5">
                                                         <a
-                                                            href="{{ url('/proudct-detail/' . $item->productId) }}">{{ $item->name }}</a>
+                                                            href="{{ url('/product-detail/' . $item->productId) }}">{{ $item->name }}</a>
                                                     </div>
                                                     <div class="col-4 price-col normal-text fs-5 d-flex">
                                                         <p>{{ $item->price }}</p>

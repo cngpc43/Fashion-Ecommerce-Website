@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
 
-    public function getDetailbyID($id)
+    public function getDetailbyID($id, Request $request)
     {
         $product = ProductDetail::GetDetailByID($id);
+        $detailID = $request->query('detailID');
 
         if (!$product) {
             return response()->json([
@@ -30,7 +31,7 @@ class ProductController extends Controller
         //     ], 200);
         // }
         else {
-            return view('product-detail', ['product' => $product]);
+            return view('product-detail', ['product' => $product, 'detailID' => $detailID]);
         }
     }
 

@@ -115,11 +115,19 @@
 
                         </form>
 
-                        <span class="cart me-3">
+                        {{-- <span class="cart me-3">
 
                             <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
                                 href="{{ url('/cart') }}" role="button" aria-controls="offcanvasScrolling"><i
                                     class="far fa-shopping-cart fa-md"></i></a>
+                        </span> --}}
+                        <span class="cart me-3">
+                            <a href="{{ url('/cart') }}"role="button" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                <i class="far fa-shopping-cart fa-md"></i>
+                                <span class='badge badge-warning' id='lblCartCount'></span>
+
+                            </a>
                         </span>
 
                         <div class="nav-item user" title="Login">
@@ -264,7 +272,15 @@
                         </form>
                         <span class="cart me-3">
                             <a href="{{ url('/cart') }}"role="button" aria-expanded="false"
-                                aria-controls="collapseExample"><i class="far fa-shopping-cart fa-md"></i></a>
+                                aria-controls="collapseExample">
+
+                                <i class="far fa-shopping-cart fa-md"></i>
+                                <span class='badge badge-warning' id='lblCartCount'></span>
+                                <div id="cart-preview">
+
+                                </div>
+
+                            </a>
                         </span>
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
@@ -296,14 +312,6 @@
                             </ul>
                         </div>
 
-                        {{-- <span class="user">
-
-                            <a href="{{ route('login') }}"><i class="far fa-user solid fa-md"></i></i></a>
-                        </span> --}}
-                        {{-- <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-dark">Log out</button>
-                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -365,7 +373,7 @@
 </body>
 <script>
     /* Script to render html element*/
-
+    
     /* Script for multiple image carousel */
     document.querySelectorAll('.carousel.multiple-image').forEach(stack => {
         let items = stack.querySelectorAll('.carousel-item')
@@ -395,7 +403,7 @@
             item.style.backgroundImage = `url(${item.getAttribute('img-src')})`
         });
 
-    }, 250);
+    }, 50);
 
     /* Script to remove white background of product pictures*/
     document.querySelectorAll('.img-fluid').forEach((item1) => {

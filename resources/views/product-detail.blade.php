@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    {{-- <div class="spinner-wrapper d-flex justify-content-center align-items-center">
+
+        <div class="spinner-border" role="status" id="spinner">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div> --}}
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12 col-md-8">
@@ -68,9 +74,12 @@
                         <div class="invalid-feedback p-0"></div>
                     </div>
                 </div>
-                <button class="btn btn-dark mt-3 p-1">Add to cart</button>
-                <button class="btn btn-dark mt-3 p-1">Buy now</button>
 
+                {{-- </form> --}}
+                <form id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
+                    <input type="hidden" name="id" value="{{ $detailID }}">
+                    <button type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add to cart</button>
+                </form>
             </div>
         </div>
         <div class="row-description">
@@ -82,51 +91,126 @@
                 cillum cupidatat sit eu proident exercitation excepteur est minim.</p>
 
         </div>
-        {{-- <img src="{{ url('imgs/Men_product/10029.jpg') }}" alt=""> --}}
-        {{-- <div class="test" style="background-image: url('{{ url('imgs/Men_product/10010.jpg') }}')">
 
-        </div> --}}
     </div>
 
     <script>
-        // console.log(@json($product))
-        // Get the product ID from the URL
-        var IMAGE_SLIDER = []
+        console.log(@json($product))
+        const detailID = @json($detailID)
+        // var IMAGE_SLIDER = []
         let PRODUCT_DETAIL = @json($product)
 
+        let productId = window.location.pathname.split('/').pop();
+        document.getElementById('add-to-cart-form').addEventListener('click', function(event) {
+            // Prevent the form from being submitted
+            event.preventDefault();
 
+            // Get the product data
+            let detailId = detailID;
+            let quantity = document.querySelector('.quantity-attribute input').value;
+            let price = document.querySelector('.price span').innerText;
+            let productName = document.querySelector('.product-name').innerText;
+            let productSize = document.querySelector('.size-attribute input:checked').getAttribute('size');
+            let productColor = document.querySelector('.color-attribute input:checked').getAttribute('color');
+            let productImage = IMAGE_SLIDER
+            // Make an AJAX request to the /api/add-to-cart route
+            fetch('/api/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Include the CSRF token if you're using CSRF protection in Laravel
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify({
+                        detailId: detailId,
+                        quantity: quantity,
+                        price: price,
+                        productName: productName,
+                        productSize: productSize,
+                        productColor: productColor,
+                        productImage: productImage
+
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    // Add the new item to the cart
+                    cart.push(data.data[0]);
+                    console.log(cart)
+                    // Store the updated cart data in local storage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                })
+                .catch(error => console.error('Error:', error));
+        });
 
         function RenderSize(color) {
+            let urlParams = new URLSearchParams(window.location.search);
+            let detailID = urlParams.get('detailID');
+            const selectedColor = document.querySelector('.color-attribute input:checked').getAttribute('color')
             document.querySelector('.size-attribute').innerHTML = ''
             let size = []
             for (i in PRODUCT_DETAIL) {
+
                 if (PRODUCT_DETAIL[i]['color'] == color && !size.includes(PRODUCT_DETAIL[i]['size'])) {
                     size.push(PRODUCT_DETAIL[i]['size'])
-                    let input = document.createElement('input')
-                    input.setAttribute('type', 'radio')
-                    input.className = 'btn-check'
-                    input.setAttribute('name', 'size-options')
-                    input.setAttribute('id', `size-option-${PRODUCT_DETAIL[i]['size']}`)
-                    input.setAttribute('autocomplete', 'off')
-                    input.setAttribute('size', PRODUCT_DETAIL[i]['size'])
-
-                    if (!PRODUCT_DETAIL[i]['stock']) {
-                        input.setAttribute('disabled', '')
-                    }
-                    if (!i) {
-                        input.setAttribute('checked', '')
-                    }
-                    let label = document.createElement('label')
-                    label.setAttribute('for', `size-option-${PRODUCT_DETAIL[i]['size']}`)
-                    label.className = 'btn btn-secondary px-3 py-2 m-2'
-                    label.innerHTML = `${PRODUCT_DETAIL[i]['size']}`
-                    document.querySelector('.size-attribute').appendChild(input)
-                    document.querySelector('.size-attribute').appendChild(label)
+                    size.sort(function(a, b) {
+                        var sizeOrder = ["Freesize", "S", "M", "L", "XL", "XXL"];
+                        return sizeOrder.indexOf(a) - sizeOrder.indexOf(b);
+                    });
                 }
+
             }
+            let j = 0;
 
 
+
+            for (i in size) {
+                console.log(size[i])
+                let input = document.createElement('input')
+                input.setAttribute('type', 'radio')
+                input.className = 'btn-check'
+                input.setAttribute('name', 'size-options')
+                input.setAttribute('id', `size-option-${size[i]}`)
+                input.setAttribute('autocomplete', 'off')
+                input.setAttribute('size', size[i])
+
+                input.addEventListener('click', () => {
+                    var detailID = null;
+                    const selectedColor = document.querySelector('.color-attribute input:checked').getAttribute(
+                        'color')
+
+                    for (i in PRODUCT_DETAIL) {
+
+                        if (PRODUCT_DETAIL[i]['color'] == selectedColor && PRODUCT_DETAIL[i]['size'] == input
+                            .getAttribute('size')) {
+                            detailID = PRODUCT_DETAIL[i]['productDetailId']
+                            console.log(detailID)
+                            window.location.href = '/product-detail/' + productId + '?detailID=' + detailID;
+                        }
+                    }
+                })
+
+
+                if (!PRODUCT_DETAIL[i]['stock']) {
+                    input.setAttribute('disabled', '')
+                }
+                // if (!i) {
+                //     input.setAttribute('checked', '')
+                // }
+
+                let label = document.createElement('label')
+                label.setAttribute('for', `size-option-${size[i]}`)
+                label.className = 'btn btn-secondary px-3 py-2 m-2'
+                label.innerHTML = `${size[i]}`
+                document.querySelector('.size-attribute').appendChild(input)
+                document.querySelector('.size-attribute').appendChild(label)
+
+            }
+            return size;
         }
+
 
         function renderCarousel(image = [], caption = [{}]) {
 
@@ -174,9 +258,12 @@
         }
 
 
+
+
         function QuantityChangeHandler() {
             const $qInput = document.querySelector('.quantity-attribute input')
             const color = document.querySelector('.color-attribute input:checked').getAttribute('color')
+            let size = document.querySelector('.size-attribute input:checked').getAttribute('size')
             if (document.querySelector('.size-attribute input:checked')) {
                 size = document.querySelector('.size-attribute input:checked').id.replace('size-option-', '')
             } else {
@@ -189,13 +276,11 @@
 
                 if (PRODUCT_DETAIL[i]['color'] == color && PRODUCT_DETAIL[i]['size'] == size) {
                     var instock = PRODUCT_DETAIL[i]['stock']
-                    // console.log(instock)
                 }
             }
             const $invalidFeedback = $qInput.parentElement.parentElement.querySelector('.invalid-feedback')
 
             if (size == '') {
-                // console.log('hello')
                 $invalidFeedback.innerHTML = 'Please choose a size'
                 $invalidFeedback.style.display = 'block'
                 $qInput.value = 1
@@ -210,13 +295,15 @@
             } else {
                 $invalidFeedback.style.display = 'none'
             }
+
         }
 
         function createColorRadio() {
             var j = 0;
             var color = []
-            console.log(PRODUCT_DETAIL)
+
             for (i in PRODUCT_DETAIL) {
+
                 if (!color.includes(PRODUCT_DETAIL[i]['color'].toUpperCase())) {
                     color.push(PRODUCT_DETAIL[i]['color'].toUpperCase())
                     let input = document.createElement('input')
@@ -226,23 +313,6 @@
                     input.setAttribute('id', `color-option${j}`)
                     input.setAttribute('autocomplete', 'off')
                     input.setAttribute('color', PRODUCT_DETAIL[i]['color'])
-
-                    if (!j) {
-                        input.setAttribute('checked', '')
-                        document.querySelector('.row [data-attr=current-color] span').innerText =
-                            `Color: ${PRODUCT_DETAIL[i]['color']}`
-                        for (k in PRODUCT_DETAIL) {
-
-                            if (PRODUCT_DETAIL[k]['color'].toUpperCase() == PRODUCT_DETAIL[i]['color'].toUpperCase()) {
-                                IMAGE_SLIDER = PRODUCT_DETAIL[k]['img']
-
-                                console.log(IMAGE_SLIDER)
-                            }
-                        }
-
-                        renderCarousel(IMAGE_SLIDER)
-                        RenderSize(PRODUCT_DETAIL[i]['color'].toUpperCase())
-                    }
                     let label = document.createElement('label')
                     label.setAttribute('for', `color-option${j}`)
                     label.className = 'btn rounded-circle p-3 m-2'
@@ -252,34 +322,87 @@
                     input.addEventListener("click", () => {
 
                         document.querySelector('.row [data-attr=current-color] span').innerHTML =
-                            `Color: ${input.getAttribute('color')}`
+                            `Color: ${input.getAttribute('color').toUpperCase()}`
                         RenderSize(input.getAttribute('color'))
                         document.querySelectorAll('.carousel-item-img').forEach((item, k) => {
                             for (k in PRODUCT_DETAIL) {
                                 if (PRODUCT_DETAIL[k]['color'] == input.getAttribute('color')) {
                                     IMAGE_SLIDER = PRODUCT_DETAIL[k]['img']
-                                    console.log(IMAGE_SLIDER)
                                 }
                             }
-                            // console.log(IMAGE_SLIDER)
                             renderCarousel(IMAGE_SLIDER)
-                            var color = input.getAttribute('color')
-                            // if (!PRODUCT_DETAIL[i]['img'][k]) {
-                            //     item.style.backgroundImage =
-                            //         `url({{ url('${PRODUCT_DETAIL[i][`img`][k]}') }})`
-                            //     return
-                            // }
+
                         })
                     })
                 }
+                const input = document.querySelector(`.color-attribute input[color="${PRODUCT_DETAIL[i]['color']}"]`)
+                if (detailID === null && !j) {
+                    input.setAttribute('checked', '')
+                    document.querySelector('.row [data-attr=current-color] span').innerText =
+                        `Color: ${PRODUCT_DETAIL[i]['color'].toUpperCase()}`
+                    for (k in PRODUCT_DETAIL) {
 
+                        if (PRODUCT_DETAIL[k]['color'].toUpperCase() == PRODUCT_DETAIL[i]['color'].toUpperCase()) {
+                            IMAGE_SLIDER = PRODUCT_DETAIL[k]['img']
+                        }
+                    }
+
+                    renderCarousel(IMAGE_SLIDER)
+                    RenderSize(PRODUCT_DETAIL[i]['color'])
+
+                } else {
+                    // console.log(PRODUCT_DETAIL[i]['productDetailId'], parseInt(detailID))
+                    if (PRODUCT_DETAIL[i]['productDetailId'] == parseInt(detailID)) {
+                        input.setAttribute('checked', '')
+                        document.querySelector('.row [data-attr=current-color] span').innerText =
+                            `Color: ${PRODUCT_DETAIL[i]['color'].toUpperCase()}`
+                        for (k in PRODUCT_DETAIL) {
+
+                            if (PRODUCT_DETAIL[k]['color'].toUpperCase() == PRODUCT_DETAIL[i]['color'].toUpperCase()) {
+                                IMAGE_SLIDER = PRODUCT_DETAIL[k]['img']
+                            }
+                        }
+
+                        renderCarousel(IMAGE_SLIDER)
+                        RenderSize(PRODUCT_DETAIL[i]['color'])
+                    }
+                }
+                input.addEventListener('click', function() {
+                    // Get the selected color
+                    var detailID = null;
+                    let color = input.getAttribute('color');
+                    let sizes = RenderSize(color)
+                    // Find the smallest size for the selected color
+
+                    let smallestSizeDetail = sizes[0];
+
+                    for (i in PRODUCT_DETAIL) {
+                        if (PRODUCT_DETAIL[i]['color'] == color && PRODUCT_DETAIL[i]['size'] ==
+                            smallestSizeDetail) {
+                            detailID = PRODUCT_DETAIL[i]['productDetailId']
+                            console.log(detailID)
+                        }
+                    }
+
+                    // console.log(detailID)
+                    // event.preventDefault();
+
+                    // // Show the Bootstrap spinner
+                    // let spinner = document.querySelector('#spinner');
+                    // spinner.style.display = 'block';
+                    // Update the detailID in the URL
+                    window.location.href = '/product-detail/' + productId + '?detailID=' + detailID;
+                    // input.setAttribute('checked', '')
+
+                });
                 j = j + 1;
-
             }
+
         }
+
         setTimeout(() => {
             createColorRadio()
-        }, 500);
+        }, 100);
 
         document.querySelector('.quantity-input input').addEventListener('input', QuantityChangeHandler)
         document.querySelector('.form-outline.quantity-input .increase').addEventListener('click', () => {
@@ -292,11 +415,33 @@
             $qInput.value = parseInt($qInput.value) - 1
             QuantityChangeHandler()
         })
+        document.querySelector
         document.querySelectorAll('.carousel-item').forEach(frame => {
             frame.backgroundColor = '#F6F6FB'
         })
         document.querySelectorAll('.carousel-item-img').forEach(image => {
 
         })
+        // const spinnerWrapper = document.querySelector('.spinner-wrapper');
+        // console.log(spinnerWrapper)
+        // window.addEventListener('load', () => {
+        //     spinnerWrapper.style.opacity = 0;
+        //     setTimeout(() => {
+        //         spinnerWrapper.style.display = 'none';
+        //         spinnerWrapper.style.zIndex = -1;
+        //     }, 100);
+        // });
+        setTimeout(() => {
+            document.querySelectorAll('.size-attribute input').forEach(a => {
+
+                for (i in PRODUCT_DETAIL) {
+                    if (PRODUCT_DETAIL[i]['productDetailId'] == detailID) {
+                        if (a.getAttribute('size') == PRODUCT_DETAIL[i]['size']) {
+                            a.setAttribute('checked', '')
+                        }
+                    }
+                }
+            })
+        }, 100);
     </script>
 @endsection

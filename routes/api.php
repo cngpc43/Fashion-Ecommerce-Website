@@ -34,8 +34,6 @@ Route::get('/get-all-categories', [CategoryController::class, 'getAllCategories'
 // Route::get('/find-user', [UserController::class, 'findUser']);
 
 // Route::post('/create-new-user', [UserController::class, 'createNewUser']);
-// Route::post('/login', [UserController::class, 'login']);
-// Route::post('/logout', [UserController::class, 'logout']);
 
 // Route::put('/update-user', [UserController::class, 'updateUser']);
 // Route::delete('/delete-user', [UserController::class, 'deleteUser']);
@@ -56,7 +54,8 @@ Route::get('/get-all-carts', [CartController::class, 'getAllCarts']);
 Route::get('/get-customer-cart/{customerId}', [CartController::class, 'getCustomerCart']);
 
 
-Route::post('/add-cart', [CartController::class, 'addCart']);
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
+Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('api.delete-cart');
 
 
 Route::put('/update-cart', [CartController::class, 'updateCart']);
@@ -73,14 +72,6 @@ Route::get('/get-products-by-category-id', [HomeController::class, 'getProductsB
 Route::get('/get-apperal-products', [HomeController::class, 'getApperalProducts']);
 Route::get('/get-products-by-collection-id', [HomeController::class, 'getProductsByCollectionId']);
 
-
-
-// Test api
-// Route::get('/abc', [UserController::class, 'test']);
-// Route::get('/abcd', [UserController::class, 'test2']);
-// Route::get('/abcdf', [UserController::class, 'test3']);
-// Route::get('/abcdfe', [UserController::class, 'test4']);
-// Route::get('/abcdfeg', [UserController::class, 'test5']);
 // Admin authentications
 Route::middleware('auth.admin')->group(function () {
 
@@ -107,6 +98,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/logout', [LogOutController::class, 'logout']);
+// Route::post('/logout', [LogOutController::class, 'logout']);
 
 Route::get('/user/{id}', [UserController::class, 'show']);

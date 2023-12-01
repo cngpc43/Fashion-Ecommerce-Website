@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <section class="h-100 h-custom" style="background-color: #eee;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -10,7 +9,7 @@
 
                             <div class="row">
 
-                                <div class="col-lg-7">
+                                <div class="col-lg-7 cart-list">
                                     <h5 class="mb-3"><a href="#!" class="text-body"><i
                                                 class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
                                     <hr>
@@ -18,7 +17,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
                                             <p class="mb-1">Shopping cart</p>
-                                            <p class="mb-0">You have 4 items in your cart</p>
+                                            {{-- <p class="mb-0">You have 4 items in your cart</p> --}}
                                         </div>
                                         <div>
                                             <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
@@ -26,7 +25,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="card mb-3">
+                                    {{-- <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
                                                 <div class="d-flex flex-row align-items-center">
@@ -136,7 +135,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <div class="col-lg-5">
@@ -170,8 +169,7 @@
                                                 <div class="form-outline form-white mb-4">
                                                     <input type="text" id="typeText"
                                                         class="form-control form-control-lg" siez="17"
-                                                        placeholder="1234 5678 9012 3457" minlength="19"
-                                                        maxlength="19" />
+                                                        placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
                                                     <label class="form-label" for="typeText">Card Number</label>
                                                 </div>
 
@@ -221,7 +219,12 @@
                                                     <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                 </div>
                                             </button>
-
+                                            <form id="delete-cart-form" action="{{ route('api.delete-cart') }}"
+                                                method="POST">
+                                                {{-- <input type="hidden" name="id" value="{{ $detailID }}"> --}}
+                                                <button type="submit" class="btn btn-dark mt-3 p-1 delete-cart">Delete
+                                                    all</button>
+                                            </form>
                                         </div>
                                     </div>
 
@@ -235,4 +238,64 @@
             </div>
         </div>
     </section>
+    <script>
+        var cart = localStorage.getItem('cart');
+        document.querySelector('.delete-cart').addEventListener('click', function(event) {
+            event.preventDefault();
+            fetch('/api/delete-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Include the CSRF token if you're using CSRF protection in Laravel
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response data
+                    console.log(data);
+                    // Clear the cart in local storage
+                    localStorage.removeItem('cart');
+                })
+                .catch(error => console.error('Error:', error));
+        });
+        const list = document.querySelector('.cart-list');
+        const cartItems = JSON.parse(cart);
+        console.log(cartItems);
+        cartItems.forEach(el => {
+            // console.log(el);
+            let div = document.createElement('div');
+            div.classList.add('card', 'mb-3');
+            div.innerHTML = `
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <div>
+                                <img src="${el.productImage}"
+                                    class="img-fluid rounded-3" alt="Shopping item"
+                                    style="width: 65px;">
+                            </div>
+                            <div class="ms-3">
+                                <h5>${el.productName}</h5>
+                                <p class="small mb-0">${el.productColor} ${el.productSize}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                            <div style="width: 50px;">
+                                <h5 class="fw-normal mb-0">${el.quantity}</h5>
+                            </div>
+                            <div style="width: 80px;">
+                                <h5 class="mb-0">${el.price}</h5>
+                            </div>
+                            <a href="#!" style="color: #cecece;"><i
+                                    class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            list.appendChild(div);
+
+        })
+    </script>
 @endsection

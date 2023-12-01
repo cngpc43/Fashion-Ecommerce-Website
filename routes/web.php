@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -38,9 +39,7 @@ Route::middleware('auth.customer')->group(function () {
 
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/abc', function () {
     echo '3';
@@ -61,6 +60,12 @@ Route::get('test', function () {
 });
 Route::get('product-detail/{id}', [ProductController::class, 'getDetailbyID']);
 
+
 Route::get('/dbconnect', function () {
     return view('dbconnect');
+});
+// Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('/cart', function () {
+    $cart = session()->get('cart', []);
+    return view('cart', compact('cart'));
 });

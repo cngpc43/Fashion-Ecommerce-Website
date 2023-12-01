@@ -59,6 +59,15 @@ class ProductDetail extends Model
         );
 
     }
+    public static function GetProductDetailByProductId($productId)
+    {
+        $response = DB::table('product_details')
+            ->join('products', 'product_details.productId', '=', 'products.productId')
+            ->select('product_details.color', 'products.productId', 'product_details.img', 'product_details.size', 'product_details.stock', 'products.name', 'products.price', 'products.description')
+            ->distinct()->where('products.productId', $productId)
+            ->get();
+        return $response;
+    }
     public static function GetProductDetailByCollection($collection)
     {
         $response = DB::table('product_details')
@@ -131,6 +140,7 @@ class ProductDetail extends Model
                 'products.productId',
                 'products.name',
                 'products.description',
+                'product_details.productDetailId',
                 'product_details.stock',
                 'product_details.color',
                 'product_details.size',
@@ -138,7 +148,7 @@ class ProductDetail extends Model
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
             ->where('product_details.productId', $id)
-            ->groupBy('products.productId', 'products.name', 'products.description', 'product_details.stock', 'product_details.color', 'product_details.size', 'products.price')
+            ->groupBy('products.productId', 'products.name', 'products.description', 'product_details.productDetailId', 'product_details.stock', 'product_details.color', 'product_details.size', 'products.price')
             ->get();
 
         $grouped = [];
@@ -147,6 +157,7 @@ class ProductDetail extends Model
             $images = explode('","', $images);
             $grouped[] = [
                 'productId' => $item->productId,
+                'productDetailId' => $item->productDetailId,
                 'name' => $item->name,
                 'description' => $item->description,
                 'price' => $item->price,
