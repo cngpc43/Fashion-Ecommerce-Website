@@ -373,7 +373,7 @@
 </body>
 <script>
     /* Script to render html element*/
-    
+
     /* Script for multiple image carousel */
     document.querySelectorAll('.carousel.multiple-image').forEach(stack => {
         let items = stack.querySelectorAll('.carousel-item')
@@ -415,6 +415,18 @@
         item2.style.backgroundImage = `url(${item2.getAttribute('img-src')})`
     })
 
+    function RenderCartQuantity() {
+        sum = 0
+        // console.log(JSON.parse(localStorage.getItem('cart')))
+        JSON.parse(localStorage
+            .getItem(
+                'cart')).forEach((el) => {
+            sum += parseInt(el.quantity)
+        })
+
+        document.querySelector('#lblCartCount').innerHTML = sum;
+    }
+    RenderCartQuantity()
     // function renderCarousel(image = [], caption = [{}]) {
     //     // console.log('rendering')
     //     image.forEach((el, i) => {

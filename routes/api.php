@@ -101,3 +101,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/logout', [LogOutController::class, 'logout']);
 
 Route::get('/user/{id}', [UserController::class, 'show']);
+
+Route::post('/delete-product-from-cart/{id}', [CartController::class, 'deleteProductFromCart']);

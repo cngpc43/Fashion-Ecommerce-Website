@@ -95,7 +95,7 @@
     </div>
 
     <script>
-        console.log(@json($product))
+        // console.log(@json($product))
         const detailID = @json($detailID)
         // var IMAGE_SLIDER = []
         let PRODUCT_DETAIL = @json($product)
@@ -137,12 +137,43 @@
                 .then(data => {
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     // Add the new item to the cart
-                    cart.push(data.data[0]);
-                    console.log(cart)
+                    let detailID = data.data[0]['detailId']
+                    let found = false;
+
+                    for (let i = 0; i < cart.length; i++) {
+                        if (cart[i].detailId == detailID) {
+                            console.log('exist')
+                            cart[i].quantity = `${parseInt(cart[i].quantity) + parseInt(data.data[0].quantity)}`
+                            console.log(cart)
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        console.log('not exist')
+                        cart.push(data.data[0]);
+                        console.log(cart)
+                    }
+                    // if (!cart.includes(data.data[0])) {
+                    //     console.log('not exist')
+                    //     cart.push(data.data[0]);
+                    // } else {
+                    //     cart.forEach((item, i) => {
+                    //         console.log(item.detailId, data.data[0].detailId)
+                    //         if (item.detailId == data.data[0].detailId) {
+                    //             cart[i].quantity = parseInt(cart[i].quantity) + parseInt(data.data[0]
+                    //                 .quantity)
+                    //         }
+                    //     })
+                    // }
                     // Store the updated cart data in local storage
                     localStorage.setItem('cart', JSON.stringify(cart));
+                    RenderCartQuantity()
+
                 })
                 .catch(error => console.error('Error:', error));
+
         });
 
         function RenderSize(color) {
@@ -167,7 +198,7 @@
 
 
             for (i in size) {
-                console.log(size[i])
+                // console.log(size[i])
                 let input = document.createElement('input')
                 input.setAttribute('type', 'radio')
                 input.className = 'btn-check'

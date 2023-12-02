@@ -210,6 +210,7 @@ class CartController extends Controller
 
 
     // }
+
     public function deleteCart(Request $request)
     {
         try {
@@ -231,6 +232,40 @@ class CartController extends Controller
             return response()->json([
                 'errCode' => 500,
                 'errMess' => 'An error occurred while emptying the cart.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function deleteProductFromCart(Request $request, $detailId)
+    {
+        try {
+            // Get the cart from the session
+            $cart = session()->get('cart', []);
+
+            // Filter out the product with the specified detailId
+            $cart = array_filter($cart, function ($product) use ($detailId) {
+                return intval($product['detailId']) != intval($detailId);
+            });
+
+            // Re-index the array
+            $cart = array_values($cart);
+
+            // Store the updated cart in the session
+            session()->put('cart', $cart);
+            session()->save();
+
+            return response()->json([
+                'statusCode' => 200,
+                'Message' => 'Product removed from cart successfully!',
+                'data' => $cart
+
+            ], 200);
+
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => 'An error occurred while removing product from cart.',
                 'error' => $e->getMessage()
             ], 500);
         }
