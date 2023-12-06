@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogOutController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
@@ -54,8 +53,7 @@ Route::get('/get-all-carts', [CartController::class, 'getAllCarts']);
 Route::get('/get-customer-cart/{customerId}', [CartController::class, 'getCustomerCart']);
 
 
-Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
-Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('api.delete-cart');
+// Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
 
 
 Route::put('/update-cart', [CartController::class, 'updateCart']);
@@ -102,4 +100,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/user/{id}', [UserController::class, 'show']);
 
-Route::post('/delete-product-from-cart/{id}', [CartController::class, 'deleteProductFromCart']);
+
+Route::middleware('web')->group(function () {
+    // Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
+    // Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
+    Route::post('/delete-product-from-cart/{id}', [CartController::class, 'deleteProductFromCart']);
+    Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('api.delete-cart');
+});

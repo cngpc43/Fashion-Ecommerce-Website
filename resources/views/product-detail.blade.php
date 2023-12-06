@@ -76,10 +76,14 @@
                 </div>
 
                 {{-- </form> --}}
+
                 <form id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
-                    <input type="hidden" name="id" value="{{ $detailID }}">
+
+                    <input type="hidden" name="id">
                     <button type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add to cart</button>
+
                 </form>
+
             </div>
         </div>
         <div class="row-description">
@@ -95,85 +99,156 @@
     </div>
 
     <script>
-        // console.log(@json($product))
         const detailID = @json($detailID)
+
         // var IMAGE_SLIDER = []
-        let PRODUCT_DETAIL = @json($product)
-
+        let PRODUCT_DETAIL = @json($product);
         let productId = window.location.pathname.split('/').pop();
-        document.getElementById('add-to-cart-form').addEventListener('click', function(event) {
-            // Prevent the form from being submitted
-            event.preventDefault();
+        // document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     let detailId = detailID;
+        //     let quantity = document.querySelector('.quantity-attribute input').value;
+        //     fetch('{{ route('api.add-to-cart') }}', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+        //                     'content')
+        //             },
+        //             body: JSON.stringify({
+        //                 detailId: detailId,
+        //                 quantity: quantity
+        //             })
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Handle the response
+        //             RenderCart()
+        //             console.log(data.data)
+        //         })
+        //         .catch(error => console.error('Error:', error));
+        // });
+        // document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     let detailId = detailID;
+        //     let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
+        //     let price = document.querySelector('.price span').innerHTML;
+        //     let name = document.querySelector('.product-name').innerText;
+        //     let image = document.querySelector('.carousel-item-img').getAttribute('img-src');
+        //     let color = document.querySelector('.color-attribute input:checked').getAttribute('color')
+        //     let size = document.querySelector('.size-attribute input:checked').getAttribute('size')
 
-            // Get the product data
+        //     // Get the existing cart data from localStorage
+        //     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        //     // Check if the item already exists in the cart
+        //     let existingItem = cart.find(item => item.detailId === detailId);
+
+        //     if (existingItem) {
+        //         for (i in PRODUCT_DETAIL) {
+        //             if (PRODUCT_DETAIL[i]['productDetailId'] == detailId) {
+        //                 var stock = PRODUCT_DETAIL[i]['stock']
+        //             }
+        //         }
+        //         // If the item already exists, increase the quantity
+        //         if (existingItem.quantity + quantity > stock) {
+        //             alert('Cannot add more items than available in stock');
+        //             return;
+        //         }
+        //         existingItem.quantity += quantity;
+        //     } else {
+        //         // If the item doesn't exist, add a new item
+        //         cart.push({
+        //             detailId: detailId,
+        //             quantity: quantity,
+        //             price: price,
+        //             name: name,
+        //             image: image,
+        //             color: color,
+        //             size: size
+        //         });
+        //     }
+
+        //     // Save the updated cart data back to localStorage
+        //     localStorage.setItem('cart', JSON.stringify(cart));
+
+        //     // Handle the response
+        //     RenderCartItems(cart);
+        //     RenderCartQuantity();
+        // });
+        document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+            event.preventDefault();
             let detailId = detailID;
-            let quantity = document.querySelector('.quantity-attribute input').value;
-            let price = document.querySelector('.price span').innerText;
-            let productName = document.querySelector('.product-name').innerText;
-            let productSize = document.querySelector('.size-attribute input:checked').getAttribute('size');
-            let productColor = document.querySelector('.color-attribute input:checked').getAttribute('color');
-            let productImage = IMAGE_SLIDER
-            // Make an AJAX request to the /api/add-to-cart route
-            fetch('/api/add-to-cart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // Include the CSRF token if you're using CSRF protection in Laravel
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    },
-                    body: JSON.stringify({
+            let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
+            let price = document.querySelector('.price span').innerHTML;
+            let name = document.querySelector('.product-name').innerText;
+            let image = document.querySelector('.carousel-item-img').getAttribute('img-src');
+            let color = document.querySelector('.color-attribute input:checked').getAttribute('color')
+            let size = document.querySelector('.size-attribute input:checked').getAttribute('size')
+            axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+            let token = document.head.querySelector('meta[name="csrf-token"]');
+
+            if (token) {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+            } else {
+                console.error('CSRF token not found');
+            }
+
+            @if (Auth::check())
+                // User is authenticated, make an AJAX request to add the item to the cart in the database
+                axios.post('{{ route('api.add-to-cart') }}', {
+                        userId: {{ Auth::user()->id }},
                         detailId: detailId,
                         quantity: quantity,
                         price: price,
-                        productName: productName,
-                        productSize: productSize,
-                        productColor: productColor,
-                        productImage: productImage
-
+                        name: name,
+                        image: image,
+                        color: color,
+                        size: size
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                    // Add the new item to the cart
-                    let detailID = data.data[0]['detailId']
-                    let found = false;
+                    .then(function(response) {
+                        // Handle the response
+                        RenderCustomerCart();
+                        RenderCartQuantity();
+                        console.log(response);
+                    })
+                    .catch(function(error) {
+                        // Handle the error
+                        console.log(error);
+                    });
+            @else
+                // User is not authenticated, add the item to the cart in localStorage
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let existingItem = cart.find(item => item.detailId === detailId);
 
-                    for (let i = 0; i < cart.length; i++) {
-                        if (cart[i].detailId == detailID) {
-                            console.log('exist')
-                            cart[i].quantity = `${parseInt(cart[i].quantity) + parseInt(data.data[0].quantity)}`
-                            console.log(cart)
-                            found = true;
-                            break;
+                if (existingItem) {
+                    for (i in PRODUCT_DETAIL) {
+                        if (PRODUCT_DETAIL[i]['productDetailId'] == detailId) {
+                            var stock = PRODUCT_DETAIL[i]['stock']
                         }
                     }
-
-                    if (!found) {
-                        console.log('not exist')
-                        cart.push(data.data[0]);
-                        console.log(cart)
+                    if (existingItem.quantity + quantity > stock) {
+                        alert('Cannot add more items than available in stock');
+                        return;
                     }
-                    // if (!cart.includes(data.data[0])) {
-                    //     console.log('not exist')
-                    //     cart.push(data.data[0]);
-                    // } else {
-                    //     cart.forEach((item, i) => {
-                    //         console.log(item.detailId, data.data[0].detailId)
-                    //         if (item.detailId == data.data[0].detailId) {
-                    //             cart[i].quantity = parseInt(cart[i].quantity) + parseInt(data.data[0]
-                    //                 .quantity)
-                    //         }
-                    //     })
-                    // }
-                    // Store the updated cart data in local storage
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    RenderCartQuantity()
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        detailId: detailId,
+                        quantity: quantity,
+                        price: price,
+                        name: name,
+                        image: image,
+                        color: color,
+                        size: size
+                    });
+                }
 
-                })
-                .catch(error => console.error('Error:', error));
-
+                localStorage.setItem('cart', JSON.stringify(cart));
+                RenderCartItems(cart);
+                RenderCartQuantity();
+            @endif
         });
 
         function RenderSize(color) {
@@ -201,6 +276,7 @@
                 // console.log(size[i])
                 let input = document.createElement('input')
                 input.setAttribute('type', 'radio')
+
                 input.className = 'btn-check'
                 input.setAttribute('name', 'size-options')
                 input.setAttribute('id', `size-option-${size[i]}`)
@@ -218,7 +294,8 @@
                             .getAttribute('size')) {
                             detailID = PRODUCT_DETAIL[i]['productDetailId']
                             console.log(detailID)
-                            window.location.href = '/product-detail/' + productId + '?detailID=' + detailID;
+                            window.location.href = '/product-detail/' + productId +
+                                '?detailID=' + detailID;
                         }
                     }
                 })
@@ -228,7 +305,7 @@
                     input.setAttribute('disabled', '')
                 }
                 // if (!i) {
-                //     input.setAttribute('checked', '')
+                // input.setAttribute('checked', '')
                 // }
 
                 let label = document.createElement('label')
@@ -287,7 +364,7 @@
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
         }
-
+        var temp = 0;
 
 
 
@@ -306,7 +383,9 @@
             for (i in PRODUCT_DETAIL) {
 
                 if (PRODUCT_DETAIL[i]['color'] == color && PRODUCT_DETAIL[i]['size'] == size) {
+
                     var instock = PRODUCT_DETAIL[i]['stock']
+                    temp = instock
                 }
             }
             const $invalidFeedback = $qInput.parentElement.parentElement.querySelector('.invalid-feedback')
@@ -326,30 +405,27 @@
             } else {
                 $invalidFeedback.style.display = 'none'
             }
-
         }
 
         function createColorRadio() {
             var j = 0;
             var color = []
-
             for (i in PRODUCT_DETAIL) {
-
                 if (!color.includes(PRODUCT_DETAIL[i]['color'].toUpperCase())) {
                     color.push(PRODUCT_DETAIL[i]['color'].toUpperCase())
-                    let input = document.createElement('input')
-                    input.setAttribute('type', 'radio')
-                    input.className = 'btn-check'
-                    input.setAttribute('name', 'color-options')
-                    input.setAttribute('id', `color-option${j}`)
-                    input.setAttribute('autocomplete', 'off')
-                    input.setAttribute('color', PRODUCT_DETAIL[i]['color'])
-                    let label = document.createElement('label')
-                    label.setAttribute('for', `color-option${j}`)
-                    label.className = 'btn rounded-circle p-3 m-2'
-                    label.style.backgroundColor = input.getAttribute('color')
-                    document.querySelector('.color-attribute').appendChild(input)
-                    document.querySelector('.color-attribute').appendChild(label)
+                    let input = document.createElement('input');
+                    input.setAttribute('type', 'radio');
+                    input.className = 'btn-check';
+                    input.setAttribute('name', 'color-options');
+                    input.setAttribute('id', `color-option${j}`);
+                    input.setAttribute('autocomplete', 'off');
+                    input.setAttribute('color', PRODUCT_DETAIL[i]['color']);
+                    let label = document.createElement('label');
+                    label.setAttribute('for', `color-option${j}`);
+                    label.className = 'btn rounded-circle p-3 m-2';
+                    label.style.backgroundColor = input.getAttribute('color');
+                    document.querySelector('.color-attribute').appendChild(input);
+                    document.querySelector('.color-attribute').appendChild(label);
                     input.addEventListener("click", () => {
 
                         document.querySelector('.row [data-attr=current-color] span').innerHTML =
@@ -422,7 +498,8 @@
                     // let spinner = document.querySelector('#spinner');
                     // spinner.style.display = 'block';
                     // Update the detailID in the URL
-                    window.location.href = '/product-detail/' + productId + '?detailID=' + detailID;
+                    window.location.href = '/product-detail/' + productId +
+                        '?detailID=' + detailID;
                     // input.setAttribute('checked', '')
 
                 });
@@ -434,7 +511,11 @@
         setTimeout(() => {
             createColorRadio()
         }, 100);
-
+        document.querySelector('.form-outline.quantity-input .decrease').addEventListener('click', () => {
+            const $qInput = document.querySelector('.quantity-attribute input')
+            $qInput.value = parseInt($qInput.value) - 1
+            QuantityChangeHandler()
+        })
         document.querySelector('.quantity-input input').addEventListener('input', QuantityChangeHandler)
         document.querySelector('.form-outline.quantity-input .increase').addEventListener('click', () => {
             const $qInput = document.querySelector('.quantity-attribute input')
@@ -446,22 +527,14 @@
             $qInput.value = parseInt($qInput.value) - 1
             QuantityChangeHandler()
         })
-        document.querySelector
+        // document.querySelector
         document.querySelectorAll('.carousel-item').forEach(frame => {
             frame.backgroundColor = '#F6F6FB'
         })
         document.querySelectorAll('.carousel-item-img').forEach(image => {
 
         })
-        // const spinnerWrapper = document.querySelector('.spinner-wrapper');
-        // console.log(spinnerWrapper)
-        // window.addEventListener('load', () => {
-        //     spinnerWrapper.style.opacity = 0;
-        //     setTimeout(() => {
-        //         spinnerWrapper.style.display = 'none';
-        //         spinnerWrapper.style.zIndex = -1;
-        //     }, 100);
-        // });
+
         setTimeout(() => {
             document.querySelectorAll('.size-attribute input').forEach(a => {
 

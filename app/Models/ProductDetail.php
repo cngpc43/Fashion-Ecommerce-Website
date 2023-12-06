@@ -35,6 +35,14 @@ class ProductDetail extends Model
         );
 
     }
+    public function product(): BelongsToMany
+    {
+        return $this->BelongsToMany(Product::class, 'productId', 'productId');
+    }
+    public function belong()
+    {
+        return $this->hasMany(Belong::class, 'detailID');
+    }
     protected function color(): Attribute
     {
 
@@ -131,6 +139,27 @@ class ProductDetail extends Model
         }
 
         return $grouped;
+    }
+    public static function GetInfoByDetailID($detailId)
+    {
+        $response = DB::table('product_details')
+            ->join('products', 'product_details.productId', '=', 'products.productId')
+            ->select(
+                'products.productId',
+                'products.name',
+                'products.price as price',
+                'product_details.color',
+                'product_details.size',
+                'product_details.stock',
+                DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as img')
+            )
+            ->where('product_details.productDetailId', $detailId)
+            ->groupBy('products.productId', 'products.name', 'products.price', 'product_details.color', 'product_details.size', 'product_details.stock')
+            ->first();
+
+
+
+        return $response;
     }
     public static function GetDetailByID($id)
     {

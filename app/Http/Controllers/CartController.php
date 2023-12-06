@@ -2,14 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Belong;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class CartController extends Controller
 {
+    public function getCart(Request $request)
+    {
+        if (auth()->check()) {
+            $cart = Cart::CartDetail();
+            return response()->json([
+                'errCode' => 200,
+                'errMess' => 'Success!',
+                'data' => $cart
+            ], 200);
+        } else {
+            $laravelSession = $request->cookie('laravel_session');
+            Log::info('Laravel Session: ' . $laravelSession);
+            $cart = $request->session()->get('cart', []);
+            return response()->json(['cart' => $cart]);
+        }
+    }
     public function getAllCarts()
     {
         try {
@@ -236,30 +257,36 @@ class CartController extends Controller
             ], 500);
         }
     }
-    public function deleteProductFromCart(Request $request, $detailId)
+    public function deleteProductFromCart(Request $request)
     {
         try {
-            // Get the cart from the session
-            $cart = session()->get('cart', []);
+            if (auth()->check()) {
+                $detailId = $request->input('detailId');
+                $userId = $request->input('userId');
 
-            // Filter out the product with the specified detailId
-            $cart = array_filter($cart, function ($product) use ($detailId) {
-                return intval($product['detailId']) != intval($detailId);
-            });
+            } else {
 
-            // Re-index the array
-            $cart = array_values($cart);
+                $cart = session()->get('cart', []);
 
-            // Store the updated cart in the session
-            session()->put('cart', $cart);
-            session()->save();
+                // Filter out the product with the specified detailId
+                $cart = array_filter($cart, function ($product) use ($detailId) {
+                    return intval($product['detailId']) != intval($detailId);
+                });
 
-            return response()->json([
-                'statusCode' => 200,
-                'Message' => 'Product removed from cart successfully!',
-                'data' => $cart
+                // Re-index the array
+                $cart = array_values($cart);
 
-            ], 200);
+                // Store the updated cart in the session
+                session()->put('cart', $cart);
+                session()->save();
+
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Product removed from cart successfully!',
+                    'data' => $cart
+
+                ], 200);
+            }
 
 
         } catch (\Exception $e) {
@@ -269,34 +296,92 @@ class CartController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+        // Get the cart from the session
+    }
+    public static function addToUserCart($userId, $detailId, $quantity)
+    {
+        // Find the user
+        $user = User::FindByID($userId);
+        // Find the user's cart
+        $cart = $user->cart;
+        // Check if the item already exists in the cart
+        $existingItem = $cart->belongs->where('detailID', $detailId)->first();
+
+        if ($existingItem) {
+            // The item already exists in the cart, update the quantity
+            $existingItem->quantity += $quantity;
+            $existingItem->save();
+        } else {
+            // The item does not exist in the cart, add a new item
+            $cart->belongs()->create([
+                'detailID' => $detailId,
+                'quantity' => $quantity,
+            ]);
+        }
     }
     public function addToCart(Request $request)
     {
+
+        $laravelSession = $request->cookie('laravel_session');
+        Log::info('Laravel Session: ' . $laravelSession);
         try {
-            // Get the product data from the request
+            $userId = $request->input('userId');
             $detailId = $request->input('detailId');
             $quantity = $request->input('quantity');
-            $price = $request->input('price');
-            $productName = $request->input('productName');
-            $productSize = $request->input('productSize');
-            $productColor = $request->input('productColor');
-            $productImage = $request->input('productImage')[0]; // Get the first image
+            $detail = ProductDetail::GetInfoByDetailID($detailId);
+            if (auth()->check()) {
+                Log::info('User is logged in');
+                $this->addToUserCart(auth()->id(), $detailId, $quantity);
+            } else {
+                if (!$detail) {
+                    return response()->json([
+                        'errCode' => 404,
+                        'errMess' => 'Product not found.',
+                    ], 404);
+                }
+                if ($quantity > $detail->stock) {
+                    return response()->json([
+                        'errCode' => 400,
+                        'errMess' => 'The requested quantity is not available.',
+                    ], 400);
+                }
+                $cart = session()->get('cart', []);
 
-            // Get the cart from the session, or initialize it as an empty array if it doesn't exist
-            $cart = session()->get('cart', []);
+                // Check if the product is already in the cart
+                foreach ($cart as &$item) {
+                    if ($item['detailId'] == $detailId) {
+                        // Check if the current quantity plus the incoming quantity is less than or equal to the stock
+                        if ($item['quantity'] + $quantity > $detail->stock) {
+                            return response()->json([
+                                'errCode' => 400,
+                                'errMess' => 'The requested quantity is not available.',
+                            ], 400);
+                        }
 
-            // Add the product to the cart
+                        // Update the quantity and exit the method
+                        $item['quantity'] += $quantity;
+                        session()->put('cart', $cart);
+                        return response()->json([
+                            'errCode' => 200,
+                            'errMess' => 'Product quantity updated successfully!',
+                            'data' => $cart
+                        ], 200);
+                    }
+                }
+            }
+
+
+            // If the product is not in the cart, add it
             $cart[] = [
                 'detailId' => $detailId,
                 'quantity' => $quantity,
-                'price' => $price,
-                'productName' => $productName,
-                'productSize' => $productSize,
-                'productColor' => $productColor,
-                'productImage' => $productImage, // Add the image to the cart data
+                'price' => $detail->price,
+                'productName' => $detail->name,
+                'productSize' => $detail->size,
+                'productColor' => $detail->color,
+                'productImage' => $detail->img,
             ];
 
-            // Store the updated cart in the session
             session()->put('cart', $cart);
 
             return response()->json([
@@ -313,10 +398,7 @@ class CartController extends Controller
         }
     }
     // Placeholder function, replace it with your actual code
-    protected function addToUserCart($user, $detailId, $quantity)
-    {
-        // Add the item to the user's cart in the database
-    }
+
 
     public function index()
     {

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Cart;
 
 class RegisterController extends Controller
 {
@@ -64,13 +65,19 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-{
-    return \DB::connection('mysql')->transaction(function () use ($data) {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    });
-}
+    {
+        return \DB::connection('mysql')->transaction(function () use ($data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            // Create a new cart for the user
+            $cart = Cart::create([
+                'customerId' => $user->id,
+            ]);
+            return $user;
+        });
+    }
 }

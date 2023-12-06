@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset('/build/assets/app-041e359a.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('/build/assets/app-041e359a.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite(['resources/js/app.js'])
 
@@ -122,13 +122,14 @@
                                     class="far fa-shopping-cart fa-md"></i></a>
                         </span> --}}
                         <span class="cart me-3">
-                            <a href="{{ url('/cart') }}"role="button" aria-expanded="false"
-                                aria-controls="collapseExample">
+                            <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
+                                aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
                                 <i class="far fa-shopping-cart fa-md"></i>
                                 <span class='badge badge-warning' id='lblCartCount'></span>
-
                             </a>
                         </span>
+
+
 
                         <div class="nav-item user" title="Login">
                             <a href="{{ url('/login') }}" class="nav-link" role="button" aria-expanded="false"><i
@@ -179,6 +180,12 @@
         </div>
         </div>
         </nav>
+        <div class="spinner-wrapper d-flex justify-content-center align-items-center">
+
+            <div class="spinner-border" role="status" id="spinner">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     @endguest
     @auth
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -271,15 +278,10 @@
 
                         </form>
                         <span class="cart me-3">
-                            <a href="{{ url('/cart') }}"role="button" aria-expanded="false"
-                                aria-controls="collapseExample">
-
+                            <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
+                                aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
                                 <i class="far fa-shopping-cart fa-md"></i>
                                 <span class='badge badge-warning' id='lblCartCount'></span>
-                                <div id="cart-preview">
-
-                                </div>
-
                             </a>
                         </span>
                         <div class="collapse" id="collapseExample">
@@ -316,9 +318,29 @@
                 </div>
             </div>
         </nav>
+        <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
+            <div class="spinner-border" role="status" id="spinner">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     @endauth
 
+
+    <div class="offcanvas offcanvas-end custom-offcanvas" data-bs-scroll="true" tabindex="-1"
+        id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title normal-text" id="offcanvasWithBothOptionsLabel">Shopping cart</h5>
+            <h5 class="offcanvas-cart-quantity d-flex align-text-center mb-0 fs-5"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body cart">
+            {{-- <p>Try scrolling the rest of the page to see this option in action.</p> --}}
+        </div>
+        <div class="offcanvas-footer d-flex justify-content-around mb-4 custom-footer">
+
+        </div>
+    </div>
     @yield('content')
     <div class="container-fluid footer d-flex p-0">
         <!-- Content here -->
@@ -369,12 +391,79 @@
         </div>
     </div>
     </div>
+
     <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 </body>
 <script>
     /* Script to render html element*/
-
+    // let cart = @json(session('cart', []));
+    // console.log(cart)
     /* Script for multiple image carousel */
+    function RenderCustomerCart() {
+
+        @if (Auth::check())
+            // User is authenticated, make an AJAX request to add the item to the cart in the database
+            axios.get('{{ route('api.get-cart') }}')
+
+                .then(function(response) {
+                    // Handle the response
+                    // console.log(response.data.data);
+                    let offcanvasCart = document.querySelector('.offcanvas-body.cart');
+                    offcanvasCart.innerHTML = '';
+                    response.data.data.forEach(item => {
+                        // console.log(item)
+                        let cartItem = document.createElement('div');
+                        cartItem.className =
+                            'cart-item d-flex justify-content-between align-items-center';
+                        cartItem.innerHTML = `
+                    <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
+                                             <img src="{{ url('${item.image}') }}"
+                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-muted">${item.name}</h6>
+                                                <h6 class="text-black mb-0">${item.color}</h6>
+                                                <h6 class="text-black mb-0">${item.size}</h6>
+                                            </div>
+                                            <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
+                                                <div class="quantity d-flex justify-content-center align-items-center">
+    
+                                                    <h2 class="text-black mb-0">${item.quantity}</h2>
+    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
+                                                <h6 class="mb-0">USD ${item.price}</h6>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
+                                            </div>
+                    `
+
+                        let hr = document.createElement('hr');
+                        hr.className = 'my-4';
+
+                        offcanvasCart.appendChild(cartItem);
+                        offcanvasCart.appendChild(hr);
+                        RenderCartQuantity();
+                    })
+
+                })
+
+                .catch(function(error) {
+                    // Handle the error
+                    console.log(error);
+                });
+        @else
+            RenderCart();
+            RenderCartQuantity();
+        @endif
+    }
+    RenderCustomerCart();
+
     document.querySelectorAll('.carousel.multiple-image').forEach(stack => {
         let items = stack.querySelectorAll('.carousel-item')
         items.forEach((item) => {
@@ -415,51 +504,222 @@
         item2.style.backgroundImage = `url(${item2.getAttribute('img-src')})`
     })
 
-    function RenderCartQuantity() {
-        sum = 0
-        // console.log(JSON.parse(localStorage.getItem('cart')))
-        JSON.parse(localStorage
-            .getItem(
-                'cart')).forEach((el) => {
-            sum += parseInt(el.quantity)
+
+
+
+    function RenderCartItems(cart) {
+
+        let offcanvasCart = document.querySelector('.offcanvas-body.cart');
+        offcanvasCart.innerHTML = '';
+        cart.forEach(item => {
+            // console.log(item)
+            let cartItem = document.createElement('div');
+            cartItem.className =
+                'cart-item d-flex justify-content-between align-items-center';
+            cartItem.innerHTML = `
+                <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
+                                         <img src="{{ url('${item.image}') }}"
+                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">${item.name}</h6>
+                                            <h6 class="text-black mb-0">${item.color}</h6>
+                                            <h6 class="text-black mb-0">${item.size}</h6>
+                                        </div>
+                                        <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
+                                            <div class="quantity d-flex justify-content-center align-items-center">
+
+                                                <h2 class="text-black mb-0">${item.quantity}</h2>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
+                                            <h6 class="mb-0">USD ${item.price}</h6>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
+                                        </div>
+                `
+
+            let hr = document.createElement('hr');
+            hr.className = 'my-4';
+
+            offcanvasCart.appendChild(cartItem);
+            offcanvasCart.appendChild(hr);
+        })
+    }
+
+    function RenderCart() {
+        console.log('render cart')
+        // Get the cart data from localStorage
+        let data = JSON.parse(localStorage.getItem('cart')) || [];
+        let offcanvasCart = document.querySelector('.offcanvas-body.cart');
+        offcanvasCart.innerHTML = '';
+        data.forEach(item => {
+            // console.log(item)
+            let cartItem = document.createElement('div');
+            cartItem.className =
+                'cart-item d-flex justify-content-between align-items-center';
+            cartItem.innerHTML = `
+                <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
+                                         <img src="{{ url('${item.image}') }}"
+                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">${item.name}</h6>
+                                            <h6 class="text-black mb-0">${item.color}</h6>
+                                            <h6 class="text-black mb-0">${item.size}</h6>
+                                        </div>
+                                        <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
+                                            <div class="quantity d-flex justify-content-center align-items-center">
+
+                                                <h2 class="text-black mb-0">${item.quantity}</h2>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
+                                            <h6 class="mb-0">USD ${item.price}</h6>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
+                                        </div>
+                `
+
+            let hr = document.createElement('hr');
+            hr.className = 'my-4';
+
+            offcanvasCart.appendChild(cartItem);
+            offcanvasCart.appendChild(hr);
+            const footer = document.querySelector('.offcanvas-footer');
+            let button = document.createElement('button');
+            button.className = 'btn btn-dark';
+            button.innerText = 'Delete all';
+            button.addEventListener('click', () => {
+                localStorage.removeItem('cart');
+                RenderCart();
+                RenderCartQuantity();
+            })
+
+            let checkoutButton = document.createElement('button');
+            checkoutButton.className = 'btn btn-dark';
+            checkoutButton.innerText = 'Checkout';
+            checkoutButton.addEventListener('click', () => {
+                window.location.href = ""
+            })
+
+            footer.appendChild(button);
+            footer.appendChild(checkoutButton);
         })
 
-        document.querySelector('#lblCartCount').innerHTML = sum;
+
     }
-    RenderCartQuantity()
-    // function renderCarousel(image = [], caption = [{}]) {
-    //     // console.log('rendering')
-    //     image.forEach((el, i) => {
-    //         let carouselItem = document.createElement('div')
-    //         carouselItem.className = 'carousel-item'
-    //         carouselItem.style.backgroundColor = '#F6F6FB'
-    //         carouselItem.style.textAlign = 'center'
-    //         carouselItem.style.height = '70vh'
-    //         carouselItem.style.width = '100%'
-    //         let carouselItemImage = document.createElement('div')
-    //         carouselItemImage.style.display = 'inline-block'
-    //         carouselItemImage.style.position = 'absolute'
-    //         carouselItemImage.style.top = '50%'
-    //         carouselItemImage.style.left = '50%'
-    //         carouselItemImage.style.transform = 'translate(-50%, -50%)'
-    //         carouselItemImage.className = 'carousel-item-img'
-    //         carouselItemImage.style.height = '500px'
-    //         carouselItemImage.style.width = '500px'
+    setTimeout(() => {
+        document.querySelector('body').addEventListener('click', function(e) {
+            if (e.target.matches('.fas.fa-times') || e.target.matches('.delete-product')) {
+                @if (Auth::check())
 
-    //         if (caption) {
+                    detailId = e.target.closest('.text-muted').getAttribute('target-detail')
+                    axios.post('{{ route('api.delete-from-cart') }}', {
+                        detailId: detailId,
+                        userId: {{ Auth::user()->id }}
+                    }).then((response) => {
+                        console.log(response)
+                        RenderCustomerCart()
+                        RenderCartQuantity()
+                    })
+                @else
+                    console.log('delete')
+                    e.preventDefault()
+                    let cart = JSON.parse(localStorage.getItem('cart'))
+                    console.log(e.target)
+                    let detailId = e.target.closest('.text-muted').getAttribute('target-detail')
+                    cart = cart.filter((el) => {
+                        return el.detailId != detailId
+                    })
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                    RenderCart()
+                    RenderCartQuantity()
+                @endif
+            }
+        });
+    }, 200);
 
-    //             let carouselCaption = document.createElement('div')
-    //             carouselCaption.className = 'carousel-caption d-none d-md-block'
-    //             let captionHeading = document.createElement('h2')
-    //             let captionParagraph = document.createElement('p')
+    function RenderCartQuantity() {
+        @if (Auth::check())
+            {
+                axios.get('{{ route('api.get-cart') }}').then(function(response) {
+                        // Handle the response
+                        // console.log(response.data.data);
+                        let cartQuantity = document.querySelector('#lblCartCount');
+                        const offCanvasCart = document.querySelector('.offcanvas-cart-quantity')
 
-    //         }
-    //         carouselItem.appendChild(carouselItemImage)
-    //         if (!i) carouselItem.classList.add('active')
-    //         carouselItemImage.setAttribute('img-src', el)
-    //         document.querySelector('.carousel-inner').appendChild(carouselItem)
-    //     })
-    // }
+                        if (response.data.data == null) {
+                            cartQuantity.innerText = '';
+                            offCanvasCart.innerHTML = '0 item';
+                            return;
+                        }
+                        if (response.data.data.length == 1) {
+                            offCanvasCart.innerHTML = `${response.data.data.length} item`;
+                            cartQuantity.innerText = response.data.data.length;
+                        } else {
+
+                            offCanvasCart.innerHTML = `${response.data.data.length} items`;
+                            cartQuantity.innerText = response.data.data.length;
+                        }
+                    })
+
+                    .catch(function(error) {
+                        // Handle the error
+                        console.log(error);
+                    });
+            }
+        @else
+            {
+
+                let cart = JSON.parse(localStorage.getItem('cart'))
+                let cartQuantity = document.querySelector('#lblCartCount');
+                const offCanvasCart = document.querySelector('.offcanvas-cart-quantity')
+
+                if (cart == null) {
+                    cartQuantity.innerText = '';
+                    offCanvasCart.innerHTML = '0 item';
+                    return;
+                }
+                if (cart.length == 1) {
+                    offCanvasCart.innerHTML = `${cart.length} item`;
+                    cartQuantity.innerText = cart.length;
+                } else {
+
+                    offCanvasCart.innerHTML = `${cart.length} items`;
+                    cartQuantity.innerText = cart.length;
+                }
+            }
+        @endif
+    }
+    const spinnerWrapper = document.querySelector('.spinner-wrapper');
+    window.addEventListener('load',
+        () => {
+            spinnerWrapper.style.opacity = 0;
+            setTimeout(() => {
+                spinnerWrapper.style.display = 'none';
+                spinnerWrapper.style.zIndex = -1;
+            }, 100);
+        });
+
+    document.querySelector('.cart a').addEventListener('click', (e) => {
+        setTimeout(() => {
+            document.querySelectorAll('.offcanvas-backdrop').forEach((el) => {
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.offcanvas-backdrop').forEach((
+                        element) => {
+                        element.classList.remove('show')
+                    })
+
+                })
+            })
+        }, 100);
+
+    })
 </script>
 
 </html>

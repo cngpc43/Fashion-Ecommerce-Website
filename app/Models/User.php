@@ -50,14 +50,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public static function FindByID($id)
+    {
+        return self::where('id', $id)->first();
+    }
     public function role(): HasOne
     {
         return $this->hasOne(Role::class, 'id', 'roleId');
     }
-    public function cart(): HasMany
+    public function cart(): HasOne
     {
-        return $this->HasMany(Cart::class, 'customerId', 'id');
+        return $this->hasOne(Cart::class, 'userId');
     }
     public function invoice(): HasMany
     {

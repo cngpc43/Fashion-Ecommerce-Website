@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <section class="h-100 h-custom">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12">
@@ -17,7 +17,7 @@
                                         <div class="cart-list">
 
                                         </div>
-                                        {{-- <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
                                             <div class="col-md-2 col-lg-2 col-xl-2">
                                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
                                                     class="img-fluid rounded-3" alt="Cotton T-shirt">
@@ -114,7 +114,7 @@
                                             </div>
                                         </div>
 
-                                        <hr class="my-4"> --}}
+                                        <hr class="my-4">
 
                                         <div class="pt-5">
                                             <h6 class="mb-0"><a href="{{ url()->previous() }}" class="text-body"><i
@@ -173,70 +173,12 @@
         </div>
     </section>
     <script>
-        // document.querySelector('.delete-cart').addEventListener('click', function(event) {
-        //     event.preventDefault();
-        //     fetch('/api/delete-cart', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 // Include the CSRF token if you're using CSRF protection in Laravel
-        //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-        //                     'content')
-        //             }
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Handle the response data
-        //             console.log(data);
-        //             // Clear the cart in local storage
-        //             localStorage.removeItem('cart');
-        //         })
-        //         .catch(error => console.error('Error:', error));
-        // });
-        // Create a MutationObserver instance
-
-        var cart = localStorage.getItem('cart');
-        var cartItems = JSON.parse(cart);
+        // var cartItems = JSON.parse(cart);
         // console.log(cartItems);
         setTimeout(() => {
 
             document.querySelectorAll('.text-muted.delete-product').forEach(el => {
                 console.log(el);
-                // console.log(el.getAttribute('data-detail-id'));
-                // el.addEventListener('click', function(event) {
-                //     // event.preventDefault();
-                //     console.log(el.getAttribute('data-detail-id'));
-                //     // let detailId = el.getAttribute('data-detail-id');
-                //     // console.log(detailId);
-                //     fetch(`/api/delete-product-from-cart/${el.getAttribute('data-detail-id')}`, {
-                //             method: 'POST',
-                //             headers: {
-                //                 'Content-Type': 'application/json',
-                //                 // Include the CSRF token if you're using CSRF protection in Laravel
-                //                 'X-CSRF-TOKEN': document.querySelector(
-                //                     'meta[name="csrf-token"]').getAttribute('content')
-                //             }
-                //         })
-                //         .then(response => {
-                //             return response.json();
-                //         })
-                //         .then(data => {
-                //             var cart = JSON.parse(localStorage.getItem('cart'));
-
-                //             // Filter out the product with the specified detailId
-                //             cart = cart.filter(function(product) {
-                //                 return product.detailId != el.getAttribute(
-                //                     'data-detail-id');
-                //             });
-                //             // Store the updated cart in local storage
-                //             localStorage.setItem('cart', JSON.stringify(cart));
-                //             console.log(JSON.parse(localStorage.getItem('cart')));
-                //             RenderCartQuantity();
-                //             renderCart();
-                //         })
-                //         .catch(error => console.error('Error:', error));
-
-                // });
                 el.addEventListener('click', function(event) {
 
                     if (event.target.matches('.fa-times')) {
@@ -263,8 +205,8 @@
                                     return product.detailId != detailId;
                                 });
                                 // Store the updated cart in local storage
-                                localStorage.setItem('cart', JSON.stringify(cart));
-                                console.log(JSON.parse(localStorage.getItem('cart')));
+                                // localStorage.setItem('cart', JSON.stringify(cart));
+                                // console.log(JSON.parse(localStorage.getItem('cart')));
                                 RenderCartQuantity();
                                 window.location.reload();
                             })

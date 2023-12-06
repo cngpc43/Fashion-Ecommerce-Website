@@ -14,19 +14,20 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends Controller
-{   
-    use Illuminate\View\View;
+use Illuminate\View\View;
 
-    // public function show(string $id): View
-    // {
-    //     return view('user.profile', [
-    //         'user' => User::findOrFail($id)
-    //     ]);
-    // }
+class UserController extends Controller
+{
+
+    public function show(string $id): View
+    {
+        return view('user.profile', [
+            'user' => User::findOrFail($id)
+        ]);
+    }
     public function getAllUsers()
     {
-        try{
+        try {
             $users = User::all();
             if (!$users) {
                 return response()->json([
@@ -40,18 +41,18 @@ class UserController extends Controller
                     'data' => $users
                 ], 200);
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
         }
-        
+
     }
     // Find by email
     public function findUser(Request $request)
     {
-        try{
+        try {
             $user = User::where('email', $request->query('email'))->first();
             if (!$user) {
                 return response()->json([
@@ -65,68 +66,68 @@ class UserController extends Controller
                     'data' => $user
                 ], 200);
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
         }
-        
+
     }
 
-    public function createNewUser(Request $request)
-    {
-        try{
-        // Validation
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required',
-            ], [
-                'email.required' => 'The email field is required.',
-                'email.email' => 'Please enter a valid email address.',
-                'password.required' => 'The password field is required.',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-            // Check email in db
-            $emailExist = User::where('email',$request->query('email'))->first();
-            if($emailExist){
-                return redirect()->back()->withErrors(['email' => 'email has existed in db'])->withInput();
-            }
-    
-    
-            $user = User::create([
-                'email'=>$request->email,
-                'password'=>Hash::make($request->password),
-                'phoneNumber'=>$request->phoneNumber,
-                'address'=>$request->address,
-                'roleId'=>$request->roleId
-            ]);
-            if (!$user){
-                return response()->json([
-                    'errCode'=>400,
-                    'errMess'=>'Cannot create user',
-                ],400);
-            } else {
-                return response()->json([
-                    'errCode'=>200,
-                    'errMess'=>'Ok !',
-                    'data'=>$user
-                ],200);
-            }
-        }catch (\Exception $e){
-            return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
-            ], 500);
-        }
-        
-    }
+    // public function createNewUser(Request $request)
+    // {
+    //     try {
+    //         // Validation
+    //         $validator = Validator::make($request->all(), [
+    //             'email' => 'required|email',
+    //             'password' => 'required',
+    //         ], [
+    //             'email.required' => 'The email field is required.',
+    //             'email.email' => 'Please enter a valid email address.',
+    //             'password.required' => 'The password field is required.',
+    //         ]);
+    //         if ($validator->fails()) {
+    //             return redirect()->back()->withErrors($validator)->withInput();
+    //         }
+    //         // Check email in db
+    //         $emailExist = User::where('email', $request->query('email'))->first();
+    //         if ($emailExist) {
+    //             return redirect()->back()->withErrors(['email' => 'email has existed in db'])->withInput();
+    //         }
+
+
+    //         $user = User::create([
+    //             'email' => $request->email,
+    //             'password' => Hash::make($request->password),
+    //             'phoneNumber' => $request->phoneNumber,
+    //             'address' => $request->address,
+    //             'roleId' => $request->roleId
+    //         ]);
+    //         if (!$user) {
+    //             return response()->json([
+    //                 'errCode' => 400,
+    //                 'errMess' => 'Cannot create user',
+    //             ], 400);
+    //         } else {
+    //             return response()->json([
+    //                 'errCode' => 200,
+    //                 'errMess' => 'Ok !',
+    //                 'data' => $user
+    //             ], 200);
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'errCode' => 500,
+    //             'errMess' => $e->getMessage(),
+    //         ], 500);
+    //     }
+
+    // }
 
     public function updateUser(Request $request)
     {
-        try{
+        try {
             $user = User::where('email', $request->email)->update([
                 'password' => Hash::make($request->password),
                 'phoneNumber' => $request->phoneNumber,
@@ -145,44 +146,44 @@ class UserController extends Controller
                     'data' => $user
                 ], 200);
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
         }
-        
+
     }
     public function deleteUser(Request $request)
     {
-        try{
+        try {
             $user = User::find($request->query('id'));
-        if (!$user) {
-            return response()->json([
-                'errCode' => '400',
-                'errMess' => 'Cannot find this user in db'
-            ], 400);
-        } else {
-            $user->delete();
-            return response()->json([
-                'errCode' => '200',
-                'errMess' => 'Delete successfully'
-            ], 200);
-        }
-        } catch (\Exception $e){
+            if (!$user) {
+                return response()->json([
+                    'errCode' => '400',
+                    'errMess' => 'Cannot find this user in db'
+                ], 400);
+            } else {
+                $user->delete();
+                return response()->json([
+                    'errCode' => '200',
+                    'errMess' => 'Delete successfully'
+                ], 200);
+            }
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
         }
-        
+
     }
 
 
     // LOGIN PART 
     public function login(Request $request)
     {
-        try{
+        try {
             // Validation
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -197,22 +198,22 @@ class UserController extends Controller
             }
 
             $isLogin = Auth::attempt([
-                'email'=>$request->email,
-                'password'=>$request->password
+                'email' => $request->email,
+                'password' => $request->password
             ]);
-            if(!$isLogin){
+            if (!$isLogin) {
                 return redirect()->back()->withErrors(['email' => 'Invalid email or password'])->withInput();
             } else {
                 // Check if we not have cart session . Convert session -> DB 
-                if ($request->session()->has('cart')){
+                if ($request->session()->has('cart')) {
                     $sessionProducts = $request->session()->get('cart');
-                    foreach($sessionProducts as $sessionProductId => $sessionQuantity){
+                    foreach ($sessionProducts as $sessionProductId => $sessionQuantity) {
                         // Case user have product in cart before
-                        $ExistProductCart = Cart::where('customerId',Auth::user()->id)
-                        ->where('productDetailId',$sessionProductId)
-                        ->first();
+                        $ExistProductCart = Cart::where('customerId', Auth::user()->id)
+                            ->where('productDetailId', $sessionProductId)
+                            ->first();
                         if ($ExistProductCart) {
-                            $ExistProductCart->quantity+=$sessionQuantity['quantity'];
+                            $ExistProductCart->quantity += $sessionQuantity['quantity'];
                             $ExistProductCart->save();
                         } else {
                             $newProduct = new Cart();
@@ -223,7 +224,7 @@ class UserController extends Controller
                         }
                     }
                     $request->session()->forget('cart');
-                } 
+                }
 
                 $request->session()->regenerate();
                 return response()->json([
@@ -232,27 +233,27 @@ class UserController extends Controller
                     'data' => Auth::user()
                 ]);
             }
-        }  catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
         }
-       
+
     }
     public function logout(Request $request)
     {
-        try{
+        try {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerate();
             return redirect('/');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'errCode' => 500,
                 'errMess' => $e->getMessage(),
             ], 500);
-        } 
+        }
     }
     public function test(Request $request)
     {

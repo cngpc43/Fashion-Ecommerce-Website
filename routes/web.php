@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenProductController;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\UserController;
 
 // use App\Http\Controllers\ProductController;
 
@@ -21,10 +22,10 @@ use Illuminate\Support\Facades\Http;
 */
 
 
-// Route::get('/product-detail/{id}', [ProductController::class, 'getDetailbyID']);
-Route::get('/', [HomeController::class, 'index']);
 
 Auth::routes();
+Route::get('/', [HomeController::class, 'index']);
+
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
@@ -69,3 +70,7 @@ Route::get('/cart', function () {
     $cart = session()->get('cart', []);
     return view('cart', compact('cart'));
 });
+Route::get('/user/{id}', [UserController::class, 'show']);
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
+Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
+Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');

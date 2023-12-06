@@ -180,8 +180,7 @@
         <script>
             var first = @json($first);
             var second = @json($second);
-            console.log(first)
-            console.log(second)
+
             const banner = @json($banner);
 
             document.querySelectorAll('.carousel-item-img').forEach((el,
@@ -190,7 +189,7 @@
                 el.setAttribute('img-src', banner[i].img)
             })
             const collection = @json($collection);
-            console.log(collection);
+            // console.log(collection);
             collection.forEach((element, i) => {
 
                 let banner = document.querySelectorAll('.row.banner');
