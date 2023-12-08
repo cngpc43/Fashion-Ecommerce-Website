@@ -328,8 +328,8 @@
 
 
     <div class="row d-flex justify-content-end">
-        <div class="col-3">
-            <div class="alert alert-danger visually-hidden" id="alert-success" role="alert">
+        <div class="col-3 me-3">
+            <div class="alert alert-danger visually-hidden" id="alert-danger" role="alert">
                 A simple danger alert—check it out!
             </div>
             <div class="alert alert-success visually-hidden" id="alert-success" role="alert">

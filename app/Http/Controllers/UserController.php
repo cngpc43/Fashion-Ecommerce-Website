@@ -29,6 +29,70 @@ class UserController extends Controller
             'nonDefaultAddress' => Address::GetAllNonDefaultAddress($id),
         ]);
     }
+    public static function updateInformation(Request $request)
+    {
+        try {
+            $user = User::where('id', $request->input('userId'))->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+            ]);
+            if (!$user) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'Message' => 'Cannot update user',
+                ], 400);
+            } else {
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Ok !',
+                    'data' => $user
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+    public static function updateDefaultAddress(Request $request)
+    {
+        try {
+            $user = User::where('id', $request->input('userId'))->first();
+            if (!$user) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'Message' => 'Cannot find user',
+                ], 400);
+            } else {
+                $addressId = $request->input('address_id');
+
+                // Find the address
+                $address = $user->address()->find($addressId);
+
+                if ($address) {
+                    // Update the address with the new values from the request
+                    $address->update($request->all());
+                    return response()->json([
+                        'statusCode' => 200,
+                        'Message' => 'Ok !',
+                        'data' => $user
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'statusCode' => 404,
+                        'Message' => 'Address not found',
+                    ], 404);
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
+            ], 500);
+        }
+    }
     public function getAllUsers()
     {
         try {

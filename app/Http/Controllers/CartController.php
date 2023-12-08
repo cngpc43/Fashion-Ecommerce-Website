@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class CartController extends Controller
-{
+{ 
     public function getCart(Request $request)
     {
         if (auth()->check()) {

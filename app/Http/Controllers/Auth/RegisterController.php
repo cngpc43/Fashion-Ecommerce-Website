@@ -75,7 +75,7 @@ class RegisterController extends Controller
 
             // Create a new cart for the user
             $cart = Cart::create([
-                'customerId' => $user->id,
+                'userId' => $user->id,
             ]);
             return $user;
         });

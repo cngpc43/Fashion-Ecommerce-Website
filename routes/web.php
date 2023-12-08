@@ -76,3 +76,4 @@ Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart'
 Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');
 // Route::post('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
 Route::post('update-address', [UserController::class, 'createNewAddress'])->name('api.create-new-address');
+Route::post('update-profile', [UserController::class, 'updateInformation'])->name('api.update-profile');
