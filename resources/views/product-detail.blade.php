@@ -211,6 +211,23 @@
                         // Handle the response
                         RenderCustomerCart();
                         RenderCartQuantity();
+                        if (response.status === 200) {
+                            var alertSuccess = document.querySelector('.alert-success')
+                            alertSuccess.innerHTML = response.data.Message
+                            alertSuccess.classList.remove('visually-hidden');
+
+                            setTimeout(function() {
+                                alertSuccess.classList.add('visually-hidden');
+                            }, 2000);
+                        } else {
+                            var alertDanger = document.querySelector('.alert-danger')
+                            alertDanger.innerHTML = response.data.Message
+                            alertDanger.classList.remove('visually-hidden');
+
+                            setTimeout(function() {
+                                alertDanger.classList.add('visually-hidden');
+                            }, 2000);
+                        }
                         console.log(response);
                     })
                     .catch(function(error) {

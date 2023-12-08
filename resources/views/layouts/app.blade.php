@@ -281,7 +281,7 @@
                             <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
                                 aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
                                 <i class="far fa-shopping-cart fa-md"></i>
-                                <span class='badge badge-warning' id='lblCartCount'></span>
+                                <span class='badge badge-warning' id='lblCartCount'>0</span>
                             </a>
                         </span>
                         <div class="collapse" id="collapseExample">
@@ -297,7 +297,7 @@
                                 aria-expanded="false"><i class="far fa-user solid fa-md"></i></i></a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li class="dropdown-item d-flex">
-                                    <a href="">Profile</a>
+                                    <a class="d-block w-100" href="/profile/{{ auth()->id() }}">Profile</a>
                                 </li>
                                 <li class="dropdown-item d-flex">
                                     <a href="">Orders</a>
@@ -326,6 +326,17 @@
         </div>
     @endauth
 
+
+    <div class="row d-flex justify-content-end">
+        <div class="col-3">
+            <div class="alert alert-danger visually-hidden" id="alert-success" role="alert">
+                A simple danger alert—check it out!
+            </div>
+            <div class="alert alert-success visually-hidden" id="alert-success" role="alert">
+                A simple success alert—check it out!
+            </div>
+        </div>
+    </div>
 
     <div class="offcanvas offcanvas-end custom-offcanvas" data-bs-scroll="true" tabindex="-1"
         id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -415,6 +426,7 @@
                     offcanvasCart.innerHTML = '';
                     response.data.data.forEach(item => {
                         // console.log(item)
+
                         let cartItem = document.createElement('div');
                         cartItem.className =
                             'cart-item d-flex justify-content-between align-items-center';
@@ -439,7 +451,7 @@
                                                 <h6 class="mb-0">USD ${item.price}</h6>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
+                                                <a href="#!" class="text-muted" target-detail="${item.detailID}"><i class="fas fa-times"></i></a>
                                             </div>
                     `
 
@@ -617,11 +629,10 @@
         document.querySelector('body').addEventListener('click', function(e) {
             if (e.target.matches('.fas.fa-times') || e.target.matches('.delete-product')) {
                 @if (Auth::check())
-
                     detailId = e.target.closest('.text-muted').getAttribute('target-detail')
+                    console.log(detailId)
                     axios.post('{{ route('api.delete-from-cart') }}', {
                         detailId: detailId,
-                        userId: {{ Auth::user()->id }}
                     }).then((response) => {
                         console.log(response)
                         RenderCustomerCart()

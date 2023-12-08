@@ -20,8 +20,8 @@ class CartController extends Controller
         if (auth()->check()) {
             $cart = Cart::CartDetail();
             return response()->json([
-                'errCode' => 200,
-                'errMess' => 'Success!',
+                'statusCode' => 200,
+                'Message' => 'Success!',
                 'data' => $cart
             ], 200);
         } else {
@@ -37,20 +37,20 @@ class CartController extends Controller
             $carts = Cart::all();
             if (!$carts) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'There are no products in the cart!',
+                    'statusCode' => 400,
+                    'Message' => 'There are no products in the cart!',
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Success!',
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
                     'data' => $carts
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => 'An error occurred while retrieving carts.',
+                'statusCode' => 500,
+                'Message' => 'An error occurred while retrieving carts.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -63,20 +63,20 @@ class CartController extends Controller
             $cart = Cart::where('customerId', $customerId)->with('ProductDetail.Product')->get();
             if ($cart->isEmpty()) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'There no product in cart!',
+                    'statusCode' => 400,
+                    'Message' => 'There no product in cart!',
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Success!',
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
                     'data' => $cart
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => 'An error occurred while retrieving carts.',
+                'statusCode' => 500,
+                'Message' => 'An error occurred while retrieving carts.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -92,16 +92,16 @@ class CartController extends Controller
     //         $productDetail = ProductDetail::with('product')->where('productDetailId', $request->productDetailId)->first();
     //         if (!$productDetail) {
     //             return response()->json([
-    //                 'errCode' => 400,
-    //                 'errMess' => 'Cannot find product '
+    //                 'statusCode' => 400,
+    //                 'Message' => 'Cannot find product '
     //             ], 400);
     //         }
 
     //         // Check stock and compare to quantity
     //         if ($productDetail->stock < $request->quantity) {
     //             return response()->json([
-    //                 'errCode' => 400,
-    //                 'errMess' => 'Quantity exceed stock'
+    //                 'statusCode' => 400,
+    //                 'Message' => 'Quantity exceed stock'
     //             ], 400);
     //         }
 
@@ -121,8 +121,8 @@ class CartController extends Controller
     //                 $ExistProductCart->quantity += $request->quantity;
     //                 $ExistProductCart->save();
     //                 return response()->json([
-    //                     'errCode' => 200,
-    //                     'errMess' => 'add quantity successfully!'
+    //                     'statusCode' => 200,
+    //                     'Message' => 'add quantity successfully!'
     //                 ], 200);
     //             } else {
     //                 $cart = Cart::create([
@@ -131,8 +131,8 @@ class CartController extends Controller
     //                     'quantity' => $request->quantity
     //                 ], 200);
     //                 return response()->json([
-    //                     'errCode' => 200,
-    //                     'errMess' => 'add successfully!'
+    //                     'statusCode' => 200,
+    //                     'Message' => 'add successfully!'
     //                 ], 200);
     //             }
     //         } else {
@@ -146,8 +146,8 @@ class CartController extends Controller
     //                 $sessionCart[$request->productDetailId]['quantity'] += $request->quantity;
     //                 $request->session()->put('cart', $sessionCart);
     //                 return response()->json([
-    //                     'errCode' => 200,
-    //                     'errMess' => 'add quantity successfully!'
+    //                     'statusCode' => 200,
+    //                     'Message' => 'add quantity successfully!'
     //                 ], 200);
     //             } else {
     //                 // New product
@@ -156,15 +156,15 @@ class CartController extends Controller
     //                 ];
     //                 $request->session()->put('cart', $sessionCart);
     //                 return response()->json([
-    //                     'errCode' => 200,
-    //                     'errMess' => 'add successfully!'
+    //                     'statusCode' => 200,
+    //                     'Message' => 'add successfully!'
     //                 ], 200);
     //             }
     //         }
     //     } catch (\Exception $e) {
     //         return response()->json([
-    //             'errCode' => 500,
-    //             'errMess' => $e->getMessage(),
+    //             'statusCode' => 500,
+    //             'Message' => $e->getMessage(),
     //         ], 500);
     //     }
 
@@ -181,8 +181,8 @@ class CartController extends Controller
             $cart = Cart::where('id', $request->id)->first();
             if (!$cart) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'Cart Not found!',
+                    'statusCode' => 400,
+                    'Message' => 'Cart Not found!',
                 ], 400);
             } else {
                 $cart->customerId = $request->customerId;
@@ -190,15 +190,15 @@ class CartController extends Controller
                 $cart->quantity = $request->quantity;
                 $cart->save();
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Update Successfully!',
+                    'statusCode' => 200,
+                    'Message' => 'Update Successfully!',
                     'data' => $cart
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => 'An error occurred while retrieving carts.',
+                'statusCode' => 500,
+                'Message' => 'An error occurred while retrieving carts.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -210,21 +210,21 @@ class CartController extends Controller
     //         $cart = Cart::where('id', $request->id)->first();
     //         if (!$cart) {
     //             return response()->json([
-    //                 'errCode' => 400,
-    //                 'errMess' => 'Cart Not found!',
+    //                 'statusCode' => 400,
+    //                 'Message' => 'Cart Not found!',
     //             ], 400);
     //         } else {
     //             $cart->delete();
     //             return response()->json([
-    //                 'errCode' => 200,
-    //                 'errMess' => 'Delete Successfully!',
+    //                 'statusCode' => 200,
+    //                 'Message' => 'Delete Successfully!',
     //                 'data' => $cart
     //             ], 200);
     //         }
     //     } catch (\Exception $e) {
     //         return response()->json([
-    //             'errCode' => 500,
-    //             'errMess' => 'An error occurred while retrieving carts.',
+    //             'statusCode' => 500,
+    //             'Message' => 'An error occurred while retrieving carts.',
     //             'error' => $e->getMessage()
     //         ], 500);
     //     }
@@ -245,14 +245,14 @@ class CartController extends Controller
             session()->put('cart', $cart);
 
             return response()->json([
-                'errCode' => 200,
-                'errMess' => 'Cart emptied successfully!',
+                'statusCode' => 200,
+                'Message' => 'Cart emptied successfully!',
                 'data' => $cart
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => 'An error occurred while emptying the cart.',
+                'statusCode' => 500,
+                'Message' => 'An error occurred while emptying the cart.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -261,9 +261,16 @@ class CartController extends Controller
     {
         try {
             if (auth()->check()) {
+                $userId = auth()->id();
                 $detailId = $request->input('detailId');
-                $userId = $request->input('userId');
+                Belong::where('cartID', auth()->user()->cart->id)
+                    ->where('detailID', $detailId)
+                    ->delete();
 
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Product removed from cart successfully!',
+                ], 200);
             } else {
 
                 $cart = session()->get('cart', []);
@@ -305,15 +312,27 @@ class CartController extends Controller
         // Find the user's cart
         $cart = $user->cart;
         // Check if the item already exists in the cart
-        $existingItem = $cart->belongs->where('detailID', $detailId)->first();
-
+        $existingItem = DB::table('belongs')
+            ->where('cartID', $cart->id)
+            ->where('detailID', $detailId)
+            ->first();
+        $stock = DB::table('product_details')->where('productDetailId', $detailId)->value('stock');
         if ($existingItem) {
             // The item already exists in the cart, update the quantity
-            $existingItem->quantity += $quantity;
-            $existingItem->save();
+            if ($existingItem->quantity + $quantity > $stock) {
+                return response()->json(['error' => 'Quantity exceeds stock'], 400);
+            }
+            DB::table('belongs')
+                ->where('cartID', $cart->id)
+                ->where('detailID', $detailId)
+                ->update(['quantity' => $existingItem->quantity + $quantity]);
         } else {
+            if ($quantity > $stock) {
+                return response()->json(['error' => 'Quantity exceeds stock'], 400);
+            }
             // The item does not exist in the cart, add a new item
-            $cart->belongs()->create([
+            DB::table('belongs')->insert([
+                'cartID' => $cart->id,
                 'detailID' => $detailId,
                 'quantity' => $quantity,
             ]);
@@ -332,17 +351,18 @@ class CartController extends Controller
             if (auth()->check()) {
                 Log::info('User is logged in');
                 $this->addToUserCart(auth()->id(), $detailId, $quantity);
-            } else {
+            } 
+            else {
                 if (!$detail) {
                     return response()->json([
-                        'errCode' => 404,
-                        'errMess' => 'Product not found.',
+                        'statusCode' => 404,
+                        'Message' => 'Product not found.',
                     ], 404);
                 }
                 if ($quantity > $detail->stock) {
                     return response()->json([
-                        'errCode' => 400,
-                        'errMess' => 'The requested quantity is not available.',
+                        'statusCode' => 400,
+                        'Message' => 'The requested quantity is not available.',
                     ], 400);
                 }
                 $cart = session()->get('cart', []);
@@ -353,8 +373,8 @@ class CartController extends Controller
                         // Check if the current quantity plus the incoming quantity is less than or equal to the stock
                         if ($item['quantity'] + $quantity > $detail->stock) {
                             return response()->json([
-                                'errCode' => 400,
-                                'errMess' => 'The requested quantity is not available.',
+                                'statusCode' => 400,
+                                'Message' => 'The requested quantity is not available.',
                             ], 400);
                         }
 
@@ -362,8 +382,8 @@ class CartController extends Controller
                         $item['quantity'] += $quantity;
                         session()->put('cart', $cart);
                         return response()->json([
-                            'errCode' => 200,
-                            'errMess' => 'Product quantity updated successfully!',
+                            'statusCode' => 200,
+                            'Message' => 'Product quantity updated successfully!',
                             'data' => $cart
                         ], 200);
                     }
@@ -385,14 +405,14 @@ class CartController extends Controller
             session()->put('cart', $cart);
 
             return response()->json([
-                'errCode' => 200,
-                'errMess' => 'Product added to cart successfully!',
+                'statusCode' => 200,
+                'Message' => 'Product added to cart successfully!',
                 'data' => $cart
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => 'An error occurred while adding product to cart.',
+                'statusCode' => 500,
+                'Message' => 'An error occurred while adding product to cart.',
                 'error' => $e->getMessage()
             ], 500);
         }

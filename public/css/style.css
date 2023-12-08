@@ -546,3 +546,9 @@ body {
 .custom-offcanvas .custom-footer {
     flex-shrink: 0;
 }
+#alert-success{
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    z-index: 9999;
+}

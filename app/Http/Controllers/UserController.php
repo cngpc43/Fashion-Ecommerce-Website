@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Address;
 // 
 
 use Illuminate\Support\Facades\Hash;
@@ -21,8 +22,11 @@ class UserController extends Controller
 
     public function show(string $id): View
     {
+
         return view('user.profile', [
-            'user' => User::findOrFail($id)
+            'user' => User::findOrFail($id),
+            'address' => Address::GetDefaultAddress($id),
+            'nonDefaultAddress' => Address::GetAllNonDefaultAddress($id),
         ]);
     }
     public function getAllUsers()
@@ -31,20 +35,20 @@ class UserController extends Controller
             $users = User::all();
             if (!$users) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'No user in the table',
+                    'statusCode' => 400,
+                    'Message' => 'No user in the table',
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Success!',
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
                     'data' => $users
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
 
@@ -56,20 +60,20 @@ class UserController extends Controller
             $user = User::where('email', $request->query('email'))->first();
             if (!$user) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'No user in the table',
+                    'statusCode' => 400,
+                    'Message' => 'No user in the table',
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Success!',
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
                     'data' => $user
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
 
@@ -106,20 +110,20 @@ class UserController extends Controller
     //         ]);
     //         if (!$user) {
     //             return response()->json([
-    //                 'errCode' => 400,
-    //                 'errMess' => 'Cannot create user',
+    //                 'statusCode' => 400,
+    //                 'Message' => 'Cannot create user',
     //             ], 400);
     //         } else {
     //             return response()->json([
-    //                 'errCode' => 200,
-    //                 'errMess' => 'Ok !',
+    //                 'statusCode' => 200,
+    //                 'Message' => 'Ok !',
     //                 'data' => $user
     //             ], 200);
     //         }
     //     } catch (\Exception $e) {
     //         return response()->json([
-    //             'errCode' => 500,
-    //             'errMess' => $e->getMessage(),
+    //             'statusCode' => 500,
+    //             'Message' => $e->getMessage(),
     //         ], 500);
     //     }
 
@@ -136,20 +140,20 @@ class UserController extends Controller
             ]);
             if (!$user) {
                 return response()->json([
-                    'errCode' => 400,
-                    'errMess' => 'Cannot update user',
+                    'statusCode' => 400,
+                    'Message' => 'Cannot update user',
                 ], 400);
             } else {
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Ok !',
+                    'statusCode' => 200,
+                    'Message' => 'Ok !',
                     'data' => $user
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
 
@@ -160,20 +164,20 @@ class UserController extends Controller
             $user = User::find($request->query('id'));
             if (!$user) {
                 return response()->json([
-                    'errCode' => '400',
-                    'errMess' => 'Cannot find this user in db'
+                    'statusCode' => '400',
+                    'Message' => 'Cannot find this user in db'
                 ], 400);
             } else {
                 $user->delete();
                 return response()->json([
-                    'errCode' => '200',
-                    'errMess' => 'Delete successfully'
+                    'statusCode' => '200',
+                    'Message' => 'Delete successfully'
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
 
@@ -228,18 +232,55 @@ class UserController extends Controller
 
                 $request->session()->regenerate();
                 return response()->json([
-                    'errCode' => 200,
-                    'errMess' => 'Login successfully',
+                    'statusCode' => 200,
+                    'Message' => 'Login successfully',
                     'data' => Auth::user()
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
 
+    }
+
+    public function createNewAddress(Request $request)
+    {
+        try {
+            $user = User::FindByID($request->input('userId'));
+            if (!$user) {
+                return response()->json([
+                    'statusCode' => '400',
+                    'Message' => 'Cannot find this user in db'
+                ], 400);
+            } else {
+                $isDefault = 0;
+                if ($user->address()->count() == 0) {
+                    $isDefault = 1;
+                }
+                $user->address()->create([
+                    'street' => $request->input('street'),
+                    'ward' => $request->input('ward'),
+                    'city' => $request->input('city'),
+                    'state' => $request->input('state'),
+                    'receiver' => $request->input('receiver'),
+                    'phone' => $request->input('phone'),
+                    'userId' => $request->input('userId'),
+                    'isDefault' => $isDefault
+                ]);
+                return response()->json([
+                    'statusCode' => '200',
+                    'Message' => 'Create successfully'
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
+            ], 500);
+        }
     }
     public function logout(Request $request)
     {
@@ -250,53 +291,10 @@ class UserController extends Controller
             return redirect('/');
         } catch (\Exception $e) {
             return response()->json([
-                'errCode' => 500,
-                'errMess' => $e->getMessage(),
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
             ], 500);
         }
     }
-    public function test(Request $request)
-    {
-        Auth::attempt([
-            'email' => 'jey1@gmail.com',
-            'password' => '123'
-        ]);
-        $request->session()->regenerate();
-        if (Auth::check()) {
-            echo 'ok';
-        } else {
-            echo 'no';
-        }
-    }
-    public function test2(Request $request)
-    {
-        if (Auth::check()) {
-            return response()->json([
-                'err' => 'ok'
-            ]);
-        } else {
-            return response()->json([
-                'err' => 'err'
-            ]);
-        }
-    }
-    public function test3(Request $request)
-    {
-        if (Auth::check()) {
-            echo Auth::user();
-        } else {
-            echo 'no';
-        }
-    }
-    public function test4(Request $request)
-    {
-        $sessionTest = $request->session()->get('cart');
-        $request->session()->forget('cart');
-    }
-    public function test5(Request $request)
-    {
-        $cart = $request->session()->get('cart');
-        echo json_encode($cart);
 
-    }
 }

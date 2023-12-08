@@ -25,7 +25,7 @@ use App\Http\Controllers\UserController;
 
 Auth::routes();
 Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/profile/{id}', [UserController::class, 'show']);
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
@@ -70,7 +70,9 @@ Route::get('/cart', function () {
     $cart = session()->get('cart', []);
     return view('cart', compact('cart'));
 });
-Route::get('/user/{id}', [UserController::class, 'show']);
+// Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
 Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');
+// Route::post('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
+Route::post('update-address', [UserController::class, 'createNewAddress'])->name('api.create-new-address');

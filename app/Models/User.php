@@ -70,4 +70,8 @@ class User extends Authenticatable
     {
         return self::where('id', $id)->first();
     }
+    public function address(): HasMany
+    {
+        return $this->HasMany(Address::class, 'userId', 'id');
+    }
 }

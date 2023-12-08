@@ -45,5 +45,4 @@ class Cart extends Model
 
         return $response;
     }
-
 }
