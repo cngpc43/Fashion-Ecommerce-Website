@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -73,7 +74,14 @@ Route::get('/cart', function () {
 // Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
+// Route::get('/get-cart/{id}', [CartController::class, 'getCustomerCart'])->name('api.get-customer-cart');
 Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');
 // Route::post('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
-Route::post('update-address', [UserController::class, 'createNewAddress'])->name('api.create-new-address');
+Route::post('create-address', [UserController::class, 'createNewAddress'])->name('api.create-new-address');
 Route::post('update-profile', [UserController::class, 'updateInformation'])->name('api.update-profile');
+Route::post('update-address', [UserController::class, 'updateAddress'])->name('api.update-address');
+Route::post('delete-address', [UserController::class, 'deleteAddress'])->name('api.delete-address');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/api/checkout', [OrderController::class, 'CreateOrder'])->name('api.checkout');
+Route::post('/api/clear-cart', [CartController::class, 'clearCart'])->name('api.clear-cart');
+Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);

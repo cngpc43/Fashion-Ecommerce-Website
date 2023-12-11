@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
@@ -35,13 +36,21 @@ class ProductDetail extends Model
         );
 
     }
-    public function product(): BelongsToMany
+    // public function product(): BelongsToMany
+    // {
+    //     return $this->BelongsToMany(Product::class, 'productId', 'productId');
+    // }
+    public function product(): BelongsTo
     {
-        return $this->BelongsToMany(Product::class, 'productId', 'productId');
+        return $this->belongsTo(Product::class, 'productId');
     }
-    public function belong()
+    // public function belongs()
+    // {
+    //     return $this->hasMany(Belong::class, 'detailID');
+    // }
+    public function carts()
     {
-        return $this->hasMany(Belong::class, 'detailID');
+        return $this->belongsToMany(Cart::class, 'belongs', 'detailID', 'cartID');
     }
     protected function color(): Attribute
     {

@@ -10,8 +10,8 @@ use App\Models\Belong;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\ProductDetail;
 use Illuminate\Support\Facades\DB;
+use App\Models\ProductDetail;
 
 class Cart extends Model
 {
@@ -24,11 +24,16 @@ class Cart extends Model
     {
         return $this->hasMany(Belong::class, 'cartID');
     }
+    public function productDetails()
+    {
+        return $this->belongsToMany(ProductDetail::class, 'belongs', 'cartID', 'detailID');
+    }
 
     public function user(): BelongsTo
     {
         return $this->BelongsTo(User::class, 'userId');
     }
+
     public static function CartDetail()
     {
         $response = DB::table('carts')

@@ -12,13 +12,23 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use App\Models\Address;
 
 class CartController extends Controller
-{ 
+{
+    public static function checkout()
+    {
+        return view('checkout', [
+            'cart' => CartController::getCustomerCart(auth()->id()),
+            'address' => Address::GetDefaultAddress(auth()->id()),
+            'nonDefaultAddress' => Address::GetAllNonDefaultAddress(auth()->id()),
+        ]);
+    }
     public function getCart(Request $request)
     {
         if (auth()->check()) {
-            $cart = Cart::CartDetail();
+            $cart = $this->getCustomerCart(auth()->id());
+            // $cart = Cart::CartDetail();
             return response()->json([
                 'statusCode' => 200,
                 'Message' => 'Success!',
@@ -31,36 +41,40 @@ class CartController extends Controller
             return response()->json(['cart' => $cart]);
         }
     }
-    public function getAllCarts()
-    {
-        try {
-            $carts = Cart::all();
-            if (!$carts) {
-                return response()->json([
-                    'statusCode' => 400,
-                    'Message' => 'There are no products in the cart!',
-                ], 400);
-            } else {
-                return response()->json([
-                    'statusCode' => 200,
-                    'Message' => 'Success!',
-                    'data' => $carts
-                ], 200);
-            }
-        } catch (\Exception $e) {
-            return response()->json([
-                'statusCode' => 500,
-                'Message' => 'An error occurred while retrieving carts.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
+    // public function getAllCarts()
+    // {
+    //     try {
+    //         $carts = Cart::all();
+    //         if (!$carts) {
+    //             return response()->json([
+    //                 'statusCode' => 400,
+    //                 'Message' => 'There are no products in the cart!',
+    //             ], 400);
+    //         } else {
+    //             return response()->json([
+    //                 'statusCode' => 200,
+    //                 'Message' => 'Success!',
+    //                 'data' => $carts
+    //             ], 200);
+    //         }
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'statusCode' => 500,
+    //             'Message' => 'An error occurred while retrieving carts.',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 
     // Find cart from specific customerId by customerId
-    public function getCustomerCart($customerId)
+    public static function getCustomerCart($userId)
     {
         try {
-            $cart = Cart::where('customerId', $customerId)->with('ProductDetail.Product')->get();
+            $cart = Cart::where('userId', $userId)->join('belongs', 'carts.id', '=', 'belongs.cartID')
+                ->join('product_details', 'belongs.detailID', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->select('carts.id', 'belongs.detailID', 'belongs.quantity', 'product_details.img as image', 'product_details.size', 'product_details.color', 'product_details.stock', 'products.name', 'products.price')
+                ->get();
             if ($cart->isEmpty()) {
                 return response()->json([
                     'statusCode' => 400,
@@ -231,7 +245,25 @@ class CartController extends Controller
 
 
     // }
+    public static function clearCart(Request $request)
+    {
+        try {
+            $userId = Auth::user()->id;
+            $cart = Cart::where('userId', $userId)->first();
+            Belong::where('cartId', $cart->id)->delete();
+            return response()->json([
+                'statusCode' => 200,
+                'Message' => 'Cart cleared',
 
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => 'An error occurred while clearing the cart.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
     public function deleteCart(Request $request)
     {
         try {
@@ -261,7 +293,6 @@ class CartController extends Controller
     {
         try {
             if (auth()->check()) {
-                $userId = auth()->id();
                 $detailId = $request->input('detailId');
                 Belong::where('cartID', auth()->user()->cart->id)
                     ->where('detailID', $detailId)
@@ -271,29 +302,30 @@ class CartController extends Controller
                     'statusCode' => 200,
                     'Message' => 'Product removed from cart successfully!',
                 ], 200);
-            } else {
-
-                $cart = session()->get('cart', []);
-
-                // Filter out the product with the specified detailId
-                $cart = array_filter($cart, function ($product) use ($detailId) {
-                    return intval($product['detailId']) != intval($detailId);
-                });
-
-                // Re-index the array
-                $cart = array_values($cart);
-
-                // Store the updated cart in the session
-                session()->put('cart', $cart);
-                session()->save();
-
-                return response()->json([
-                    'statusCode' => 200,
-                    'Message' => 'Product removed from cart successfully!',
-                    'data' => $cart
-
-                ], 200);
             }
+            // else {
+
+            //     $cart = session()->get('cart', []);
+
+            //     // Filter out the product with the specified detailId
+            //     $cart = array_filter($cart, function ($product) use ($detailId) {
+            //         return intval($product['detailId']) != intval($detailId);
+            //     });
+
+            //     // Re-index the array
+            //     $cart = array_values($cart);
+
+            //     // Store the updated cart in the session
+            //     session()->put('cart', $cart);
+            //     session()->save();
+
+            //     return response()->json([
+            //         'statusCode' => 200,
+            //         'Message' => 'Product removed from cart successfully!',
+            //         'data' => $cart
+
+            //     ], 200);
+            // }
 
 
         } catch (\Exception $e) {
@@ -351,8 +383,7 @@ class CartController extends Controller
             if (auth()->check()) {
                 Log::info('User is logged in');
                 $this->addToUserCart(auth()->id(), $detailId, $quantity);
-            } 
-            else {
+            } else {
                 if (!$detail) {
                     return response()->json([
                         'statusCode' => 404,
@@ -420,18 +451,18 @@ class CartController extends Controller
     // Placeholder function, replace it with your actual code
 
 
-    public function index()
-    {
-        if (auth()->check()) {
-            // The user is logged in
-            $user = auth()->user();
-            $cart = $user->cart;
-        } else {
-            // The user is not logged in
-            $cart = session()->get('cart', []);
-        }
+    // public function index()
+    // {
+    //     if (auth()->check()) {
+    //         // The user is logged in
+    //         $user = auth()->user();
+    //         $cart = $user->cart;
+    //     } else {
+    //         // The user is not logged in
+    //         $cart = session()->get('cart', []);
+    //     }
 
-        return view('cart', compact('cart'));
-    }
+    //     return view('cart', compact('cart'));
+    // }
 
 }

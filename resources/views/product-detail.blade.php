@@ -196,7 +196,6 @@
             }
 
             @if (Auth::check())
-                // User is authenticated, make an AJAX request to add the item to the cart in the database
                 axios.post('{{ route('api.add-to-cart') }}', {
                         userId: {{ Auth::user()->id }},
                         detailId: detailId,
@@ -209,13 +208,13 @@
                     })
                     .then(function(response) {
                         // Handle the response
+                        
                         RenderCustomerCart();
                         RenderCartQuantity();
                         if (response.status === 200) {
                             var alertSuccess = document.querySelector('.alert-success')
                             alertSuccess.innerHTML = response.data.Message
                             alertSuccess.classList.remove('visually-hidden');
-
                             setTimeout(function() {
                                 alertSuccess.classList.add('visually-hidden');
                             }, 2000);
@@ -376,7 +375,10 @@
                 // console.log(el)
 
                 carouselItemImage.setAttribute('img-src', el)
-                carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
+                setTimeout(() => {
+                    // carouselItemImage.style.backgroundImage = `url(${baseUrl}${el})`
+                    carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
+                }, 100);
                 carouselItemImage.style.mixBlendMode = 'multiply'
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
@@ -475,7 +477,6 @@
                     RenderSize(PRODUCT_DETAIL[i]['color'])
 
                 } else {
-                    // console.log(PRODUCT_DETAIL[i]['productDetailId'], parseInt(detailID))
                     if (PRODUCT_DETAIL[i]['productDetailId'] == parseInt(detailID)) {
                         input.setAttribute('checked', '')
                         document.querySelector('.row [data-attr=current-color] span').innerText =
