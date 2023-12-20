@@ -413,7 +413,7 @@
     // console.log(cart)
     /* Script for multiple image carousel */
 
-
+    // console.log(document.querySelector('.carousel-item-img'))
 
     function RenderCustomerCart() {
 
@@ -563,7 +563,8 @@
         let offcanvasCart = document.querySelector('.offcanvas-body.cart');
         offcanvasCart.innerHTML = '';
         data.forEach(item => {
-            // console.log(item)
+            console.log(item)
+
             let cartItem = document.createElement('div');
             cartItem.className =
                 'cart-item d-flex justify-content-between align-items-center';
@@ -578,14 +579,18 @@
                                             <h6 class="text-black mb-0">${item.size}</h6>
                                         </div>
                                         <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
-                                            <div class="quantity d-flex justify-content-center align-items-center">
-
-                                                <h2 class="text-black mb-0">${item.quantity}</h2>
-
-                                            </div>
+                                            <form class="row d-flex justify-content-center align-items-center">
+                                                <div class="quantity row d-flex justify-content-center align-items-center">
+                                                    <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4">
+                                                        <button class="btn btn-outline-secondary btn-sm decrease custom-width-button" type="button">-</button>
+                                                        <input type="text" id="typeNumber" class="form-control form-control-sm custom-width-input text-center" min="1" value="1" />
+                                                        <button class="btn btn-outline-secondary btn-sm increase custom-width-button" type="button">+</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
-                                            <h6 class="mb-0">USD ${item.price}</h6>
+                                            <h6 class="mb-0 text-center"> ${item.price}</h6>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
@@ -664,7 +669,7 @@
                             return;
                         }
                         if (response.data.data.original.data.length == 1) {
-                            console.log('1')
+
                             offCanvasCart.innerHTML = `${response.data.data.original.data.length} item`;
                             cartQuantity.innerText = response.data.data.original.data.length;
                         } else {

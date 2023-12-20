@@ -85,3 +85,5 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/api/checkout', [OrderController::class, 'CreateOrder'])->name('api.checkout');
 Route::post('/api/clear-cart', [CartController::class, 'clearCart'])->name('api.clear-cart');
 Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);
+Route::get('/collection/{name}', [ProductController::class, 'getProductByCollectionName']);
+Route::get('/category/{categoryName}', [ProductController::class, 'getProductByCategoryName'])->name('category');

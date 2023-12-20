@@ -1,10 +1,6 @@
 @extends('layouts.app')
 <style>
-    .dropdown-menu {
-        height: auto;
-        max-height: 200px;
-        overflow-x: hidden;
-    }
+    
 </style>
 @section('content')
     <section class="vh-100">

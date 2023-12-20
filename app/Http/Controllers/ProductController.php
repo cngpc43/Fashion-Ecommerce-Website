@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -268,5 +270,28 @@ class ProductController extends Controller
             ], 200);
 
         }
+    }
+    public static function getProductByCollectionName($name)
+    {
+        $collection = Collection::getByName($name);
+        $products = Product::where('collectionId', $collection->id)->get();
+        return view('collection', ['products' => $products, 'collection' => $collection]);
+    }
+    public static function getProductByCategoryName($name)
+    {
+        $subQuery = DB::table('product_details')
+            ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
+            ->groupBy('product_details.color');
+
+        $products = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
+            ->mergeBindings($subQuery) // you need to merge bindings
+            ->join('product_details', 'sub.productDetailId', '=', 'product_details.productDetailId')
+            ->join('products', 'product_details.productId', '=', 'products.productId')
+            ->join('categories', 'products.categoryId', '=', 'categories.id')
+            ->where('categories.name', $name)
+            ->select('products.*', 'sub.color', 'product_details.img', 'sub.productDetailId')
+            ->get();
+
+        return view('category', ['products' => $products]);
     }
 }

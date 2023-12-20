@@ -58,7 +58,16 @@ class Collection extends Model
     }
     public static function getFeaturedCollection()
     {
-        $response = DB::table('collections')->orderBy('updated_at', 'desc')->take(2)->get();
+        $latestCollections = DB::table('collections')
+            ->orderBy('updated_at', 'desc')
+            ->take(2)
+            ->pluck('id');
+
+        $response = DB::table('collections')
+            ->select('collections.*')
+            ->whereIn('collections.id', $latestCollections)
+            ->get();
+
         return $response;
     }
     // public function product(): HasMany

@@ -64,15 +64,16 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="container-fluid p-0 my-3 mt-5">
+            <div class="container-fluid p-0 my-5 mt-5">
                 <div class="row mx-auto my-auto justify-content-center">
                     <span>
                         <p class="normal-text">TRENDING NOW</p>
                     </span>
                     <div class="container-fluid p-3">
-                        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
+                        <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row mb-5">
                             @foreach ($categories as $category)
-                                <div class="col">
+                                <div class="col"
+                                    onclick="location.href='{{ route('category', ['categoryName' => $category->name]) }}'">
                                     <div class="p-4 h-100" img-src="{{ url($category['img']) }}"></div>
                                     <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
 
@@ -96,19 +97,23 @@
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                     <div class="col-md-3">
                                         <div class="card border-0">
-                                            @foreach (json_decode($item->img) as $image)
-                                                <div class="card-img">
-                                                    <img src="{{ url($image) }}" class="img-fluid">
-                                                </div>
-                                            @endforeach
+                                            @php
+                                                $images = json_decode($item->img);
+                                            @endphp
+
+                                            <div class="card-img">
+                                                <img src="{{ url($images[0]) }}" class="img-fluid">
+                                                <img src="{{ url($images[1]) }}" class="img-fluid hover-img">
+                                            </div>
                                             <div class="container-fluid card-body">
-                                                <div class="row product-detail">
-                                                    <div class="col-8 name-col normal-text fs-5">
+                                                <div class="row product-detail d-flex justify-content-center">
+                                                    <div class="col-9 name-col normal-text fs-5">
                                                         <a
                                                             href="{{ url('/product-detail/' . $item->productId) }}">{{ $item->name }}</a>
                                                     </div>
-                                                    <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                        <p>{{ $item->price }}</p>
+                                                    <div
+                                                        class="col-3 price-col normal-text fs-5 d-flex justify-content-center align-items-center">
+                                                        <p class="m-0">USD {{ $item->price }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,11 +145,14 @@
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                     <div class="col-md-3">
                                         <div class="card border-0">
-                                            @foreach (json_decode($item->img) as $image)
-                                                <div class="card-img">
-                                                    <img src="{{ url($image) }}" class="img-fluid">
-                                                </div>
-                                            @endforeach
+                                            @php
+                                                $images = json_decode($item->img);
+                                            @endphp
+
+                                            <div class="card-img">
+                                                <img src="{{ url($images[0]) }}" class="img-fluid">
+                                                <img src="{{ url($images[1]) }}" class="img-fluid hover-img">
+                                            </div>
                                             <div class="container-fluid card-body">
                                                 <div class="row product-detail">
                                                     <div class="col-8 name-col normal-text fs-5">
@@ -178,6 +186,8 @@
         <script>
             var first = @json($first);
             var second = @json($second);
+            console.log(first);
+            console.log(second);
 
             const banner = @json($banner);
 
@@ -187,7 +197,7 @@
                 el.setAttribute('img-src', banner[i].img)
             })
             const collection = @json($collection);
-            // console.log(collection);
+            console.log(collection);
             collection.forEach((element, i) => {
 
                 let banner = document.querySelectorAll('.row.banner');
@@ -231,7 +241,7 @@
                 a.classList.add('btn', 'btn-dark', 'px-lg-4', 'px-3', 'py-lg-2', 'py-1', 'primary-text', 'fs-5',
                     'fw-bold');
                 a.setAttribute('style', 'letter-spacing: 0.96px;');
-                a.setAttribute('href', '#');
+                a.setAttribute('href', `http://127.0.0.1:8000/product-detail/${element.productId}`);
                 a.innerText = element['button-label'];
                 div4.appendChild(a);
                 banner[i].appendChild(col);

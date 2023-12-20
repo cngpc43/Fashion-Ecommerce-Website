@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 
@@ -87,38 +88,24 @@ class ProductDetail extends Model
     }
     public static function GetProductDetailByCollection($collection)
     {
+        $subquery = DB::table('product_details')
+            ->select('productId', 'color', DB::raw('MIN(size) as min_size'))
+            ->groupBy('productId', 'color');
+
         $response = DB::table('product_details')
             ->join('products', 'product_details.productId', '=', 'products.productId')
             ->join('collections', 'products.collectionId', '=', 'collections.id')
-            ->select('product_details.color', 'products.productId', 'product_details.img', 'product_details.size', 'product_details.stock', 'products.name', 'products.price', 'products.description', 'collections.name as collectionName')
-            ->distinct()->where('collections.name', $collection)
+            ->joinSub($subquery, 'sub', function ($join) {
+                $join->on('product_details.productId', '=', 'sub.productId')
+                    ->on('product_details.color', '=', 'sub.color')
+                    ->on('product_details.size', '=', 'sub.min_size');
+            })
+            ->select('products.productId', 'product_details.color', 'product_details.img', 'product_details.size', 'product_details.stock', 'products.name', 'products.price', 'products.description', 'collections.name as collectionName')
+            ->where('collections.name', $collection)
             ->get();
         return $response;
     }
     public static function GetNewArrival()
-    {
-        $response = DB::table('product_details')
-            ->join('products', 'product_details.productId', '=', 'products.productId')
-            ->select('products.productId as id', 'product_details.color', 'product_details.img as images', 'product_details.size', 'product_details.stock', 'products.name', 'products.price')
-            ->whereNotNull('product_details.created_at')
-            ->orderBy('products.created_at', 'desc')
-            ->take(8)
-            ->get();
-        $grouped = [];
-        foreach ($response as $item) {
-            $images = str_replace(['["', '"]'], '', $item->images);
-            $images = explode('","', $images);
-            $grouped[] = [
-                'productId' => $item->id,
-                'name' => $item->name,
-                'price' => $item->price,
-                'color' => $item->color,
-                'img' => $images,
-            ];
-        }
-        return $grouped;
-    }
-    public static function GetByCategory($category)
     {
         $response = DB::table('product_details')
             ->join('products', 'product_details.productId', '=', 'products.productId')
@@ -130,8 +117,77 @@ class ProductDetail extends Model
                 'product_details.color',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
-            ->where('categories.name', $category)
+            ->orderBy('products.created_at', 'desc')
             ->groupBy('products.productId', 'products.name', 'products.price', 'product_details.color')
+            ->take(8)->get();
+
+        $grouped = [];
+        foreach ($response as $item) {
+            $images = str_replace(['["', '"]'], '', $item->images);
+            $images = explode('","', $images);
+            $grouped[] = [
+                'productId' => $item->productId,
+                'name' => $item->name,
+                'price' => $item->price,
+                'color' => $item->color,
+                'img' => $images,
+            ];
+        }
+
+        return $grouped;
+    }
+    // public static function GetByCategory($category)
+    // {
+    //     $response = DB::table('product_details')
+    //         ->join('products', 'product_details.productId', '=', 'products.productId')
+    //         ->join('categories', 'products.categoryId', '=', 'categories.id')
+    //         ->select(
+    //             'products.productId',
+    //             'products.name',
+    //             'products.price',
+    //             'product_details.color',
+    //             DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
+    //         )
+    //         ->where('categories.name', $category)
+    //         ->groupBy('products.productId', 'products.name', 'products.price', 'product_details.color')
+    //         ->get();
+
+    //     $grouped = [];
+    //     foreach ($response as $item) {
+    //         $images = str_replace(['["', '"]'], '', $item->images);
+    //         $images = explode('","', $images);
+    //         $grouped[] = [
+    //             'productId' => $item->productId,
+    //             'name' => $item->name,
+    //             'price' => $item->price,
+    //             'color' => $item->color,
+    //             'img' => $images,
+    //         ];
+    //     }
+
+    //     return $grouped;
+    // }
+    public static function GetByCategory($category)
+    {
+        $subQuery = DB::table('product_details')
+            ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
+            ->groupBy('product_details.color');
+
+        $response = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
+            ->mergeBindings($subQuery) // you need to merge bindings
+            ->join('product_details', 'sub.productDetailId', '=', 'product_details.productDetailId')
+            ->join('products', 'product_details.productId', '=', 'products.productId')
+            ->join('categories', 'products.categoryId', '=', 'categories.id')
+            ->select(
+                'products.productId',
+                'products.name',
+                'products.price',
+                'sub.color',
+                'sub.productDetailId',
+                DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
+            )
+            ->where('categories.name', $category)
+            ->groupBy('products.productId', 'products.name', 'products.price', 'sub.color', 'sub.productDetailId')
             ->get();
 
         $grouped = [];
@@ -143,6 +199,7 @@ class ProductDetail extends Model
                 'name' => $item->name,
                 'price' => $item->price,
                 'color' => $item->color,
+                'productDetailId' => $item->productDetailId,
                 'img' => $images,
             ];
         }
@@ -211,16 +268,24 @@ class ProductDetail extends Model
 
     public static function GetAllProductDetail()
     {
-        $response = DB::table('product_details')
+        $subQuery = DB::table('product_details')
+            ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
+            ->groupBy('product_details.color');
+
+        $response = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
+            ->mergeBindings($subQuery)
+            ->join('product_details', 'sub.productDetailId', '=', 'product_details.productDetailId')
             ->join('products', 'product_details.productId', '=', 'products.productId')
             ->join('categories', 'products.categoryId', '=', 'categories.id')
             ->select(
+                'products.productId',
                 'products.name',
                 'products.price',
-                'product_details.color',
+                'sub.color',
+                'sub.productDetailId',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
-            ->groupBy('products.name', 'products.price', 'product_details.color')
+            ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
             ->get();
 
         $grouped = [];
@@ -228,10 +293,11 @@ class ProductDetail extends Model
             $images = str_replace(['["', '"]'], '', $item->images);
             $images = explode('","', $images);
             $grouped[] = [
-
+                'productId' => $item->productId,
                 'name' => $item->name,
                 'price' => $item->price,
                 'color' => $item->color,
+                'productDetailId' => $item->productDetailId,
                 'img' => $images,
             ];
         }

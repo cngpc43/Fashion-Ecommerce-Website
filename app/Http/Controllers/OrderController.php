@@ -7,6 +7,7 @@ use App\Models\Orders;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -63,7 +64,8 @@ class OrderController extends Controller
     public static function getOrderbyID($id)
     {
         try {
-            $order = Orders::where('id', $id)->first();
+            // $order = Orders::where('id', $id)->first();
+            $order = DB::table('orders')->where('orders.id', $id)->join('addresses', 'orders.addressID', '=', 'addresses.id')->select('orders.*', 'addresses.receiver', 'addresses.phone', 'addresses.street', 'addresses.ward', 'addresses.city', 'addresses.state')->first();
             $orderDetail = OrderDetail::where('orderId', $id)->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')->join('products', 'product_details.productId', '=', 'products.productId')->get();
             return view('order', compact('order', 'orderDetail'));
         } catch (QueryException $e) {

@@ -79,6 +79,7 @@ class CartController extends Controller
                 return response()->json([
                     'statusCode' => 400,
                     'Message' => 'There no product in cart!',
+                    'data' => $cart
                 ], 400);
             } else {
                 return response()->json([

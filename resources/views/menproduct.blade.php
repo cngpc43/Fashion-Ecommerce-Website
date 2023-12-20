@@ -30,7 +30,8 @@
                 <div class="container-fluid text-center p-3">
                     <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
                         @foreach ($categories as $category)
-                            <div class="col mb-5">
+                            <div class="col mb-5"
+                                onclick="location.href='{{ route('category', ['categoryName' => $category->name]) }}'">
                                 <div class="p-4 h-100" img-src="{{ url($category->img) }}"></div>
                                 <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
                             </div>
@@ -55,10 +56,8 @@
                                         <div class="col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
-                                                    <img src="{{ url($item['img'][0]) }}"
-                                                        onmouseover="this.src='{{ count($item['img']) > 1 ? url($item['img'][1]) : url($item['img'][0]) }}'"
-                                                        onmouseout="this.src='{{ url($item['img'][0]) }}'"
-                                                        class="img-fluid">
+                                                    <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                    <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
                                                 </div>
                                                 <div class="container-fluid card-body">
                                                     <div class="row product-detail">
@@ -101,16 +100,16 @@
                                         <div class="col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
-                                                    <img id="productImage{{ $index }}"
-                                                        src="{{ url($item['img'][0]) }}" class="img-fluid"
-                                                        onmouseover="this.src='{{ url($item['img'][1]) }}'"
-                                                        onmouseout="this.src='{{ url($item['img'][0]) }}'">
+                                                    <div class="card-img">
+                                                        <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                        <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
+                                                    </div>
                                                 </div>
                                                 <div class="container-fluid card-body">
                                                     <div class="row product-detail">
                                                         <div class="col-8 name-col normal-text fs-5">
                                                             <a
-                                                                href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
+                                                                href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
                                                         </div>
                                                         <div class="col-4 price-col normal-text fs-5 d-flex">
                                                             <p>{{ $item['price'] }}</p>
@@ -151,13 +150,14 @@
 
                                                 <div class="card-img">
                                                     <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                    <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
                                                 </div>
 
                                                 <div class="container-fluid card-body">
                                                     <div class="row product-detail">
                                                         <div class="col-8 name-col normal-text fs-5">
                                                             <a
-                                                                href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
+                                                                href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
                                                         </div>
                                                         <div class="col-4 price-col normal-text fs-5 d-flex">
                                                             <p>{{ $item['price'] }}</p>
@@ -208,14 +208,7 @@
                                             <span class="me-3">SORT BY</span>
                                             <select name="" id=""></select>
                                         </div>
-                                        {{-- <div class="row">
-                                    <div class="col">
-                                        <span>SORT BY</span>
-                                    </div>
-                                    <div class="col">
-                                        <select name="" id=""></select>
-                                    </div>
-                                </div> --}}
+
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +216,7 @@
 
                                 <div class="row row-cols-4">
                                     @foreach ($product as $item)
-                                        <div class="col-6 col-md-3">
+                                        {{-- <div class="col-6 col-md-3">
                                             <div class="product-img" img-src="{{ url($item['img'][0]) }}">
                                             </div>
                                             <div class="row title-body">
@@ -238,6 +231,29 @@
                                                 <span>red</span>
                                                 <span>green</span>
                                                 <span>blue</span>
+                                            </div>
+                                        </div> --}}
+                                        <div class="col-md-3">
+                                            <div class="card border-0">
+                                                <div class="card-img">
+                                                    <div class="card-img">
+                                                        <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                        <img src="{{ url($item['img'][1]) }}"
+                                                            class="img-fluid hover-img">
+                                                    </div>
+                                                </div>
+                                                <div class="container-fluid card-body">
+                                                    <div class="row product-detail">
+                                                        <div class="col-8 name-col normal-text fs-5">
+                                                            <a
+                                                                href="{{ url('/product-detail/' . $item['productId'] . '?detailID=' . $item['productDetailId']) }}">
+                                                                {{ $item['name'] }}</a>
+                                                        </div>
+                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
+                                                            <p>{{ $item['price'] }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -255,10 +271,11 @@
     </body>
     <script>
         // console.log(@json($product));
-        console.log(@json($iconcrew));
-        console.log(@json($newarrival));
-        // const hi = @json($newarrival);
-        // console.log(hi);
+        // console.log(@json($categories));
+        // console.log(@json($iconcrew));
+        // console.log(@json($newarrival));
+        const hi = @json($newarrival);
+        console.log(hi);
         const banner = @json($banner);
         const categories = @json($categories);
         document.querySelector('.hero-banner').setAttribute(

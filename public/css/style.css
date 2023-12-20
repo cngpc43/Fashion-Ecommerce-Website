@@ -6,7 +6,7 @@
 } */
 body {
     margin: 0px 0px 0px 0px;
-    width: 100vw;
+    /* width: 100vw; */
 }
 
 @font-face {
@@ -80,12 +80,12 @@ body {
 }
 
 .carousel {
-    --slide-height: calc(100vh - 56px);
+    /* --slide-height: calc(100vh - 56px); */
 }
-
+/* 
 .carousel .product-slide {
     --slide-height: 60vh;
-}
+} */
 
 /* .carousel-inner .banner {
     height: var(--slide-height);
@@ -94,20 +94,21 @@ body {
 
 
 .carousel-item-img {
-    height: var(--slide-height);
+    /* height: var(--slide-height); */
+    height: 98vh;
     width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/* .carousel-item-img .hero-banner {
-    height: var(--slide-height);
+.carousel-item-img .hero-banner {
+    height: 98vh;
     width: 100%;
     background-position: 0% 30%;
     background-repeat: no-repeat;
     background-size: cover;
-} */
+}
 
 .row .banner .col p {
     font-size: 200px;
@@ -612,4 +613,33 @@ body {
 
 .card-stepper {
     z-index: 0
+}
+tr, th, td{
+    background-color: white !important;
+}
+
+.dropdown-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+.hover-img {
+    display: none;
+}
+
+.card-img:hover .hover-img {
+    display: block;
+}
+
+.card-img:hover .img-fluid:not(.hover-img) {
+    display: none;
+}
+.custom-width-input {
+    width: 30px !important;
+    /* Adjust as needed */
+}
+
+.custom-width-button {
+    width: 20px !important;
+    /* Adjust as needed */
 }

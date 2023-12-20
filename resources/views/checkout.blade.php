@@ -6,126 +6,124 @@
         <div class="container h-100 py-3">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
-                    <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
-                        <div class="card-body p-3 m-1">
-                            <div class="row">
-                                @if ($address != null && $nonDefaultAddress != null)
-                                    <div class="row gutters">
-                                        <div
-                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex align-items-center">
+                    <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; background-color: white">
+                        <div class="card-body m-3 p-3 ">
+
+                            @if ($address != null && $nonDefaultAddress != null)
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex align-items-center">
 
 
-                                            <h6 class="mb-3 normal-text fs-2 mt-3 me-3">My addresses</h6>
-                                            <i data-bs-toggle="modal" data-bs-target="#createAddress"
-                                                class="far fa-map-marker-plus fs-3"></i>
-                                        </div>
-                                        <div class="col-6 d-flex align-items-stretch">
-                                            <div class="card addresses-item mb-4 shadow-sm w-100"
-                                                address="{{ $address->id }}">
-                                                <div class="default-address p-3">
-                                                    <div class="media">
-                                                        <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="row">
-                                                                <div class="col-10">
-                                                                    <p class="fw-bolder">Default</p>
+                                        <h6 class="mb-3 normal-text fs-2 mt-3 me-3">My addresses</h6>
+                                        <i data-bs-toggle="modal" data-bs-target="#createAddress"
+                                            class="far fa-map-marker-plus fs-3"></i>
+                                    </div>
+                                    <div class="col-6 d-flex align-items-stretch">
+                                        <div class="card addresses-item mb-4 shadow-sm w-100" address="{{ $address->id }}">
+                                            <div class="default-address p-3">
+                                                <div class="media">
+                                                    <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p class="fw-bolder">Default</p>
 
-                                                                </div>
-                                                                <div class="col-2 text-end">
-
-                                                                </div>
                                                             </div>
-                                                            <p class="mb-1">{{ $address->receiver }}
-                                                                {{ $address->phone }}</p>
-                                                            <p class="mb-1">{{ $address->street }},
-                                                                {{ $address->ward }}</p>
-                                                            <p>
-                                                                {{ $address->city }},
-                                                                {{ $address->state }}
-                                                            </p>
+                                                            <div class="col-2 text-end">
 
+                                                            </div>
                                                         </div>
+                                                        <p class="mb-1">{{ $address->receiver }}
+                                                            {{ $address->phone }}</p>
+                                                        <p class="mb-1">{{ $address->street }},
+                                                            {{ $address->ward }}</p>
+                                                        <p>
+                                                            {{ $address->city }},
+                                                            {{ $address->state }}
+                                                        </p>
+
                                                     </div>
                                                 </div>
-
                                             </div>
-                                        </div>
-                                        <div class="col-6 d-flex align-items-stretch" data-bs-toggle="modal"
-                                            data-bs-target="#more-addresses">
-                                            <div class="bg-white card addresses-item mb-4 shadow-sm w-100">
-                                                <div
-                                                    class="other-address p-3 d-flex justify-content-center align-items-center h-100">
-                                                    <div class="media">
-                                                        <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
-                                                        </div>
-                                                        <div class="media-body d-flex flex-column align-items-center">
-                                                            <p class="other-address-quantity m-2">
-                                                                {{ $nonDefaultAddress->count() }} address more
-                                                            </p>
 
-                                                            <p>
-                                                                <i class="fal fa-info-circle fs-3"></i>
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-6 d-flex align-items-stretch" data-bs-toggle="modal"
+                                        data-bs-target="#more-addresses">
+                                        <div class="bg-white card addresses-item mb-4 shadow-sm w-100">
+                                            <div
+                                                class="other-address p-3 d-flex justify-content-center align-items-center h-100">
+                                                <div class="media">
+                                                    <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
+                                                    </div>
+                                                    <div class="media-body d-flex flex-column align-items-center">
+                                                        <p class="other-address-quantity m-2">
+                                                            {{ $nonDefaultAddress->count() }} address more
+                                                        </p>
 
-                                    {{-- Modal for more addresses --}}
-                                    <div class="modal fade" id="more-addresses" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">More</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                        <p>
+                                                            <i class="fal fa-info-circle fs-3"></i>
+                                                        </p>
+
+                                                    </div>
                                                 </div>
-                                                <div class="modal-body position-relative other-address-information">
-                                                    <div class="row gutters">
 
-                                                        @foreach ($nonDefaultAddress as $address)
-                                                            <div class="col-6 d-flex align-items-stretch">
-                                                                <div class="card addresses-item mb-4 shadow-sm w-100 other-address-item"
-                                                                    address="{{ $address->id }}" type="modal-item">
-                                                                    <div class="default-address p-3">
-                                                                        <div class="media">
-                                                                            <div class="mr-3"><i
-                                                                                    class="icofont-briefcase icofont-3x"></i>
-                                                                            </div>
-                                                                            <div class="media-body">
-                                                                                <div class="row">
-                                                                                    <div class="col-10">
-                                                                                    </div>
-                                                                                    <div class="col-2 text-end">
+                                            </div>
 
-                                                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Modal for more addresses --}}
+                                <div class="modal fade" id="more-addresses" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">More</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body position-relative other-address-information">
+                                                <div class="row gutters">
+
+                                                    @foreach ($nonDefaultAddress as $address)
+                                                        <div class="col-6 d-flex align-items-stretch">
+                                                            <div class="card addresses-item mb-4 shadow-sm w-100 other-address-item"
+                                                                address="{{ $address->id }}" type="modal-item">
+                                                                <div class="default-address p-3">
+                                                                    <div class="media">
+                                                                        <div class="mr-3"><i
+                                                                                class="icofont-briefcase icofont-3x"></i>
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <div class="row">
+                                                                                <div class="col-10">
                                                                                 </div>
-                                                                                <p class="mb-1">
-                                                                                    {{ $address->receiver }}
-                                                                                    {{ $address->phone }}</p>
-                                                                                <p class="mb-1">
-                                                                                    {{ $address->street }},
-                                                                                    {{ $address->ward }}</p>
-                                                                                <p>
-                                                                                    {{ $address->city }},
-                                                                                    {{ $address->state }}
-                                                                                </p>
+                                                                                <div class="col-2 text-end">
 
+                                                                                </div>
                                                                             </div>
+                                                                            <p class="mb-1">
+                                                                                {{ $address->receiver }}
+                                                                                {{ $address->phone }}</p>
+                                                                            <p class="mb-1">
+                                                                                {{ $address->street }},
+                                                                                {{ $address->ward }}</p>
+                                                                            <p>
+                                                                                {{ $address->city }},
+                                                                                {{ $address->state }}
+                                                                            </p>
+
                                                                         </div>
                                                                     </div>
-
                                                                 </div>
+
                                                             </div>
-                                                            {{-- Update form --}}
-                                                            {{-- <div id="update-form-{{ $address->id }}"
+                                                        </div>
+                                                        {{-- Update form --}}
+                                                        {{-- <div id="update-form-{{ $address->id }}"
                                                                     style="display: none">
                                                                     <div class="modal-body">
                                                                         <div class="media-body">
@@ -219,214 +217,212 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> --}}
-                                                        @endforeach
-                                                    </div>
-
+                                                    @endforeach
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row gutters mt-4">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="text-right">
 
-                                                    <button type="button" id="submit" name="submit"
-                                                        class="btn btn-primary update-information">Update</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- Modal for create address --}}
-                                    <div class="modal fade" id="createAddress" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Create new address
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                    {{-- <div class="row gutters mt-4">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="text-right">
+
+                                                <button type="button" id="submit" name="submit"
+                                                    class="btn btn-primary update-information">Update</button>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                                {{-- Modal for create address --}}
+                                <div class="modal fade" id="createAddress" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Create new address
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h6 class="mt-3 mb-2 normal-text fs-2">Fill in the blank</h6>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                        <h6 class="mt-3 mb-2 normal-text fs-2">Fill in the blank</h6>
-                                                    </div>
-                                                    <div class="row d-flex">
-                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                            <div class="form-floating mb-3">
-                                                                <input type="text" id="new-receiver" class="form-control"
-                                                                    placeholder="inputhere">
-                                                                <label>Receiver</label>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                            <div class="form-floating mb-3">
-                                                                <input type="phone" id="new-phone" class="form-control"
-                                                                    placeholder="inputhere">
-                                                                <label>Phone number</label>
-
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                    <div class="row">
-
-                                                        <div class="col-12">
-
-                                                            <div class="form-floating mb-3">
-                                                                <input id="new-street" class="form-control"
-                                                                    placeholder="inputhere">
-                                                                <label>Đường</label>
-
-                                                            </div>
+                                                <div class="row d-flex">
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" id="new-receiver" class="form-control"
+                                                                placeholder="inputhere">
+                                                            <label>Receiver</label>
 
                                                         </div>
                                                     </div>
-                                                    <div class="row d-flex">
-                                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                                            <div class="form-floating mb-3">
-                                                                <input type="text" id="new-province"
-                                                                    class="form-control province dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" placeholder="inputhere"
-                                                                    oninput="proSearch()">
-                                                                <label>Tỉnh/Thành</label>
-                                                                <ul class="dropdown-menu" id="province_list"></ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                                            <div class="form-floating mb-3">
-
-                                                                <input type="text" id="new-district"
-                                                                    class="form-control district dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" placeholder="inputhere"
-                                                                    oninput="disSearch()">
-                                                                <label>Quận/Huyện</label>
-                                                                <ul class="dropdown-menu" id="district_list"></ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-
-                                                            <div class="form-floating mb-3">
-                                                                <input type="text" id="new-ward"
-                                                                    class="form-control ward dropdown-toggle"
-                                                                    data-bs-toggle="dropdown" placeholder="inputhere"
-                                                                    oninput="warSearch()">
-                                                                <label>Phường/Xã</label>
-                                                                <ul class="dropdown-menu" id="ward_list"></ul>
-                                                            </div>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="phone" id="new-phone" class="form-control"
+                                                                placeholder="inputhere">
+                                                            <label>Phone number</label>
 
                                                         </div>
                                                     </div>
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary create-new-address">Let's
-                                                            go</button>
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-12">
+
+                                                        <div class="form-floating mb-3">
+                                                            <input id="new-street" class="form-control"
+                                                                placeholder="inputhere">
+                                                            <label>Đường</label>
+
+                                                        </div>
+
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row gutters mt-4">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="text-right">
-                                                    {{-- <button type="button" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button> --}}
-                                                    <button type="button" id="submit" name="submit"
-                                                        class="btn btn-primary update-information">Update</button>
+                                                <div class="row d-flex">
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" id="new-province"
+                                                                class="form-control province dropdown-toggle"
+                                                                data-bs-toggle="dropdown" placeholder="inputhere"
+                                                                oninput="proSearch()">
+                                                            <label>Tỉnh/Thành</label>
+                                                            <ul class="dropdown-menu" id="province_list"></ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                                        <div class="form-floating mb-3">
+
+                                                            <input type="text" id="new-district"
+                                                                class="form-control district dropdown-toggle"
+                                                                data-bs-toggle="dropdown" placeholder="inputhere"
+                                                                oninput="disSearch()">
+                                                            <label>Quận/Huyện</label>
+                                                            <ul class="dropdown-menu" id="district_list"></ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" id="new-ward"
+                                                                class="form-control ward dropdown-toggle"
+                                                                data-bs-toggle="dropdown" placeholder="inputhere"
+                                                                oninput="warSearch()">
+                                                            <label>Phường/Xã</label>
+                                                            <ul class="dropdown-menu" id="ward_list"></ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary create-new-address">Let's
+                                                        go</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                @elseif(is_null($address))
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <h6 class="mt-3 mb-2 normal-text fs-2">Default address</h6>
-                                    </div>
-                                    <div class="row d-flex">
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" id="receiver" class="form-control"
-                                                    placeholder="inputhere">
-                                                <label>Receiver</label>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <div class="form-floating mb-3">
-                                                <input type="phone" id="phone" class="form-control"
-                                                    placeholder="inputhere">
-                                                <label>Phone number</label>
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-12">
-
-                                            <div class="form-floating mb-3">
-                                                <input id="street" class="form-control" placeholder="inputhere">
-                                                <label>Đường</label>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="row d-flex">
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" id="province"
-                                                    class="form-control province dropdown-toggle"
-                                                    data-bs-toggle="dropdown" placeholder="inputhere"
-                                                    oninput="proSearch()">
-                                                <label>Tỉnh/Thành</label>
-                                                <ul class="dropdown-menu" id="province_list"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                            <div class="form-floating mb-3">
-
-                                                <input type="text" id="district"
-                                                    class="form-control district dropdown-toggle"
-                                                    data-bs-toggle="dropdown" placeholder="inputhere"
-                                                    oninput="disSearch()">
-                                                <label>Quận/Huyện</label>
-                                                <ul class="dropdown-menu" id="district_list"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-
-                                            <div class="form-floating mb-3">
-                                                <input type="text" id="ward"
-                                                    class="form-control ward dropdown-toggle" data-bs-toggle="dropdown"
-                                                    placeholder="inputhere" oninput="warSearch()">
-                                                <label>Phường/Xã</label>
-                                                <ul class="dropdown-menu" id="ward_list"></ul>
-                                            </div>
-
                                         </div>
                                     </div>
                                     <div class="row gutters mt-4">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="text-right">
-
+                                                {{-- <button type="button" id="submit" name="submit"
+                                            class="btn btn-secondary">Cancel</button> --}}
                                                 <button type="button" id="submit" name="submit"
-                                                    class="btn btn-primary update-new-address">Update</button>
+                                                    class="btn btn-primary update-information">Update</button>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
-                            </div>
+                                </div>
+                            @elseif(is_null($address))
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mt-3 mb-2 normal-text fs-2">Default address</h6>
+                                </div>
+                                <div class="row d-flex">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" id="receiver" class="form-control"
+                                                placeholder="inputhere">
+                                            <label>Receiver</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="phone" id="phone" class="form-control"
+                                                placeholder="inputhere">
+                                            <label>Phone number</label>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-12">
+
+                                        <div class="form-floating mb-3">
+                                            <input id="street" class="form-control" placeholder="inputhere">
+                                            <label>Đường</label>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row d-flex">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" id="province"
+                                                class="form-control province dropdown-toggle" data-bs-toggle="dropdown"
+                                                placeholder="inputhere" oninput="proSearch()">
+                                            <label>Tỉnh/Thành</label>
+                                            <ul class="dropdown-menu" id="province_list"></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="form-floating mb-3">
+
+                                            <input type="text" id="district"
+                                                class="form-control district dropdown-toggle" data-bs-toggle="dropdown"
+                                                placeholder="inputhere" oninput="disSearch()">
+                                            <label>Quận/Huyện</label>
+                                            <ul class="dropdown-menu" id="district_list"></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                                        <div class="form-floating mb-3">
+                                            <input type="text" id="ward"
+                                                class="form-control ward dropdown-toggle" data-bs-toggle="dropdown"
+                                                placeholder="inputhere" oninput="warSearch()">
+                                            <label>Phường/Xã</label>
+                                            <ul class="dropdown-menu" id="ward_list"></ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row gutters mt-4">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="text-right">
+
+                                            <button type="button" id="submit" name="submit"
+                                                class="btn btn-primary update-new-address">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
 
                         </div>
                     </div>
-                    <div class="card shadow-2-strong mt-4 mb-4" style="border-radius: 16px;">
+                    <div class="card shadow-2-strong mt-4 mb-4" style="border-radius: 16px; background-color :white">
 
-                        <div class="table-responsive mt-5 mb-5 p-3 m-1">
+                        <div class="table-responsive mt-5 mb-5 p-5">
                             <table class="table">
                                 <h3 class="normal-text">
                                     Shopping cart
@@ -442,13 +438,26 @@
                                 <tbody class="items-in-cart">
 
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th scope="row">
 
+                                        </th>
+
+                                        <td class="align-middle">
+
+                                        </td>
+                                        <td class="align-middle">
+                                            <p class="mb-0 normal-text total-money fs-2">vcl</p>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
 
-                    <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
-                        <div class="card-body p-3 m-1">
+                    <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; background-color: white">
+                        <div class="card-body m-3 p-3">
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex align-items-center">
 
@@ -537,9 +546,53 @@
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        const updateInformation = document.querySelector('.update-new-address');
+        // console.log
+        if (updateInformation) {
+
+            updateInformation.addEventListener('click', function() {
+                let url = "{{ route('api.update-address') }}";
+                let receiver = document.querySelector('#receiver').value;
+                let phone = document.querySelector('#phone').value;
+                let province = document.querySelector('#province').value;
+                let district = document.querySelector('#district').value;
+                let ward = document.querySelector('#ward').value;
+                let address = document.querySelector('#street').value;
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                axios.post(url, {
+                        userId: userId,
+                        receiver: receiver,
+                        phone: phone,
+                        state: province,
+                        city: district,
+                        ward: ward,
+                        street: address,
+                        userId: userId
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(function(response) {
+
+                        console.log(response.data);
+                        if (response.data["statusCode"] == 200) {
+                            console.log('hello')
+                            // Store a flag in localStorage to show the alert after reload
+                            localStorage.setItem('showAlert', 'true');
+                            // Reload the page
+                            location.reload();
+
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            });
+        }
         const cart = @json($cart)["original"]["data"];
         const checkout = document.querySelector('.checkout');
-        // console.log(checkout)
         checkout.addEventListener('click', function() {
 
             let url = "{{ route('api.checkout') }}";
@@ -569,12 +622,6 @@
                 })
                 .then(function(response) {
                     if (response.data["statusCode"] == 200) {
-                        // let alertSuccess = document.querySelector('.alert-success');
-                        // alertSuccess.classList.remove('visually-hidden')
-                        // alertSuccess.innerHTML = `${response.data.Message}`
-                        // setTimeout(() => {
-                        //     alertSuccess.classList.add('visually-hidden')
-                        // }, 3000);
                         let orderId = response.data.data.id;
                         console.log(orderId)
                         axios.post("{{ route('api.clear-cart') }}", {
@@ -607,64 +654,96 @@
         });
 
         const cartList = document.querySelector('.items-in-cart');
-        cart.forEach(el => {
-            cartList.innerHTML += `
-             <tr>
-                                            <th scope="row">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="${JSON.parse(el.image)[0]}" class="img-fluid rounded-3" style="width: 120px;">
-                                                    <div class="flex-column ms-4">
-                                                        <p class="mb-2">${el.name}</p>
-                                                        <p class="mb-0">${el.color} ${el.size}</p>
-                                                    </div>
-                                                </div>
-                                            </th>
+        // console.log(cart)
 
-                                            <td class="align-middle">
-                                                <div class="d-flex flex-row">
-                                                    <button class="btn btn-link px-2"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-
-                                                    <input id="form1" min="0" name="quantity" value="${el.quantity}"
-                                                        type="text" class="form-control form-control-sm text-center"
-                                                        style="width: 50px;" />
-
-                                                    <button class="btn btn-link px-2"
-                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
-                                            </td>
-                                        </tr>
-                                        
-
-            `
-
-        })
-        setTimeout(() => {
-            var total = 0;
+        if (cart) {
             cart.forEach(el => {
-                total += el.price * el.quantity
+                cartList.innerHTML += `
+                 <tr>
+                                                <th scope="row">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="${JSON.parse(el.image)[0]}" class="img-fluid rounded-3" style="width: 120px;">
+                                                        <div class="flex-column ms-4">
+                                                            <p class="mb-2">${el.name}</p>
+                                                            <p class="mb-0">${el.color} ${el.size}</p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+    
+                                                <td class="align-middle">
+                                                    <div class="d-flex flex-row">
+                                                        <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+    
+                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
+                                                            type="text" class="form-control form-control-sm text-center"
+                                                            style="width: 50px;" />
+    
+                                                        <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
+                                                </td>
+                                            </tr>
+                                            
+    
+                `
             })
+            let totalMoney = 0;
+            cart.forEach(el => {
+                totalMoney += parseInt(el.price) * parseInt(el.quantity)
+            })
+            document.querySelector('.total-money').innerHTML = `${totalMoney} USD`
+            console.log(totalMoney)
+        } else {
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            // console.log(cart)
+            cart.forEach(el => {
+                cartList.innerHTML += `
+                 <tr>
+                                                <th scope="row">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="${el.image}" class="img-fluid rounded-3" style="width: 120px;">
+                                                        <div class="flex-column ms-4">
+                                                            <p class="mb-2">${el.name}</p>
+                                                            <p class="mb-0">${el.color} ${el.size}</p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+    
+                                                <td class="align-middle">
+                                                    <div class="d-flex flex-row">
+                                                        <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+    
+                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
+                                                            type="text" class="form-control form-control-sm text-center"
+                                                            style="width: 50px;" />
+    
+                                                        <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <p class="mb-0" style="font-weight: 500;">${el.price}</p>
+                                                </td>
+                                            </tr>
+                                            
+    
+                `
+            })
+        }
 
-            cartList.innerHTML += ` <tr>
-                                            <th scope="row">
-                                                
-                                            </th>
-
-                                            <td class="align-middle">
-                                               
-                                            </td>
-                                            <td class="total-money align-middle">
-                                                <p class="mb-0 normal-text fs-2" style="font-weight: 500;">${total} USD </p>
-                                            </td>
-                                        </tr>`
-        }, 100)
 
         document.querySelectorAll('.card.addresses-item').forEach(item => {
             item.addEventListener('click', () => {
@@ -678,33 +757,37 @@
         })
 
         function SelectMethod(id) {
-            var items = document.querySelectorAll(".card.payment-method-item");
+            let items = document.querySelectorAll(".card.payment-method-item");
             items.forEach((item) => {
                 items.forEach((item) => {
                     item.classList.remove("checked");
                 });
             });
 
-            var item = $(`.payment-method-item[id='${id}']`);
-            var check = item.find('.col-2.text-end')
+            let item = $(`.payment-method-item[id='${id}']`);
+            let check = item.find('.col-2.text-end')
             check.html('<i class="far fa-check-circle"></i>')
             item.addClass("checked");
         }
 
         function SelectAddress(id) {
-            var items = document.querySelectorAll(".card.addresses-item");
+            let items = document.querySelectorAll(".card.addresses-item");
             items.forEach((item) => {
-                items.forEach((item) => {
-                    item.classList.remove("checked");
-                });
+                let check = item.querySelector('.col-2.text-end')
+                item.classList.remove("checked");
+                if (check) {
+                    check.innerHTML = ''
+                }
+
             });
+
             if ($(`.addresses-item[address='${id}']`).attr('type') == 'modal-item') {
-                var item = $(`.addresses-item[address='${id}']`);
-                var modalitem = $(`.addresses-item[address='${id}'][type='modal-item']`);
-                var check = item.find('.col-2.text-end')
+                let item = $(`.addresses-item[address='${id}']`);
+                let modalitem = $(`.addresses-item[address='${id}'][type='modal-item']`);
+                let check = item.find('.col-2.text-end')
                 check.html('<i class="far fa-check-circle"></i>')
                 item.addClass("checked");
-                var otherAddress = $('.other-address')
+                let otherAddress = $('.other-address')
                 otherAddress.parent().removeClass('bg-white')
                 otherAddress.parent().addClass('checked')
                 otherAddress.parent().attr('address', id)
@@ -713,14 +796,13 @@
 
             } else {
 
-                var item = $(`.addresses-item[address='${id}']`);
-                var modalitem = $(`.addresses-item[address='${id}'][type='modal-item']`);
-                var check = item.find('.col-2.text-end')
+                let item = $(`.addresses-item[address='${id}']`);
+                let modalitem = $(`.addresses-item[address='${id}'][type='modal-item']`);
+                let check = item.find('.col-2.text-end')
                 check.html('<i class="far fa-check-circle"></i>')
                 item.addClass("checked");
-                var otherAddress = $('.other-address')
+                let otherAddress = $('.other-address')
                 otherAddress.parent().addClass('bg-white')
-                // console.log(otherAddress.find('.media-body')[0].innerHTML)
                 otherAddress.find('.media-body')[0].innerHTML = `
                                                                 <p class="other-address-quantity m-2">
                                                                     ${@json($nonDefaultAddress).length} address more
