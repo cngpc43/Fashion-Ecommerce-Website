@@ -29,6 +29,36 @@ class UserController extends Controller
             'nonDefaultAddress' => Address::GetAllNonDefaultAddress($id),
         ]);
     }
+    public static function deleteAddress(Request $request)
+    {
+        try {
+
+            $addressId = $request->input('address_id');
+
+            // Find the address
+            $address = Address::find($addressId);
+
+            if ($address) {
+                // Update the address with the new values from the request
+                $address->delete();
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Ok !',
+                ], 200);
+            } else {
+                return response()->json([
+                    'statusCode' => 404,
+                    'Message' => 'Address not found',
+                ], 404);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
+            ], 500);
+        }
+    }
     public static function updateInformation(Request $request)
     {
         try {
@@ -56,7 +86,7 @@ class UserController extends Controller
         }
 
     }
-    public static function updateDefaultAddress(Request $request)
+    public static function updateAddress(Request $request)
     {
         try {
             $user = User::where('id', $request->input('userId'))->first();
@@ -313,7 +343,8 @@ class UserController extends Controller
     public function createNewAddress(Request $request)
     {
         try {
-            $user = User::FindByID($request->input('userId'));
+
+            $user = Auth::user();
             if (!$user) {
                 return response()->json([
                     'statusCode' => '400',
@@ -331,7 +362,7 @@ class UserController extends Controller
                     'state' => $request->input('state'),
                     'receiver' => $request->input('receiver'),
                     'phone' => $request->input('phone'),
-                    'userId' => $request->input('userId'),
+                    'userId' => $user->id,
                     'isDefault' => $isDefault
                 ]);
                 return response()->json([

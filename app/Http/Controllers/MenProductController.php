@@ -19,7 +19,6 @@ class MenProductController extends Controller
         $underwear = ProductDetail::GetByCategory('underwear');
         $iconcrew = ProductDetail::GetByCategory('icon crew');
         $product = ProductDetail::GetAllProductDetail();
-
         return view('menproduct', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product]);
     }
 }

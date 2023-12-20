@@ -48,7 +48,9 @@
                 </div>
                 <div class="row">
                     <div class="price normal-text fs-2">
-                        <span>USD 95,00</span>
+                        <span>
+                            USD 95,00
+                        </span>
                     </div>
                 </div>
                 <div class="row product-attributes">
@@ -68,7 +70,6 @@
                             <input type="text" id="typeNumber" class="form-control text-center" min="1"
                                 value="1" />
                             <button class="btn btn-outline-secondary increase" type="button">+</button>
-
                         </div>
 
                         <div class="invalid-feedback p-0"></div>
@@ -99,86 +100,16 @@
     </div>
 
     <script>
-        const detailID = @json($detailID)
-
-        // var IMAGE_SLIDER = []
+        // var detailID = urlParams.get('detailID');
+        let urlParams = new URLSearchParams(window.location.search);
         let PRODUCT_DETAIL = @json($product);
+        // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
+        document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
+        document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         let productId = window.location.pathname.split('/').pop();
-        // document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
-        //     event.preventDefault();
-        //     let detailId = detailID;
-        //     let quantity = document.querySelector('.quantity-attribute input').value;
-        //     fetch('{{ route('api.add-to-cart') }}', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-        //                     'content')
-        //             },
-        //             body: JSON.stringify({
-        //                 detailId: detailId,
-        //                 quantity: quantity
-        //             })
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Handle the response
-        //             RenderCart()
-        //             console.log(data.data)
-        //         })
-        //         .catch(error => console.error('Error:', error));
-        // });
-        // document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
-        //     event.preventDefault();
-        //     let detailId = detailID;
-        //     let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
-        //     let price = document.querySelector('.price span').innerHTML;
-        //     let name = document.querySelector('.product-name').innerText;
-        //     let image = document.querySelector('.carousel-item-img').getAttribute('img-src');
-        //     let color = document.querySelector('.color-attribute input:checked').getAttribute('color')
-        //     let size = document.querySelector('.size-attribute input:checked').getAttribute('size')
-
-        //     // Get the existing cart data from localStorage
-        //     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        //     // Check if the item already exists in the cart
-        //     let existingItem = cart.find(item => item.detailId === detailId);
-
-        //     if (existingItem) {
-        //         for (i in PRODUCT_DETAIL) {
-        //             if (PRODUCT_DETAIL[i]['productDetailId'] == detailId) {
-        //                 var stock = PRODUCT_DETAIL[i]['stock']
-        //             }
-        //         }
-        //         // If the item already exists, increase the quantity
-        //         if (existingItem.quantity + quantity > stock) {
-        //             alert('Cannot add more items than available in stock');
-        //             return;
-        //         }
-        //         existingItem.quantity += quantity;
-        //     } else {
-        //         // If the item doesn't exist, add a new item
-        //         cart.push({
-        //             detailId: detailId,
-        //             quantity: quantity,
-        //             price: price,
-        //             name: name,
-        //             image: image,
-        //             color: color,
-        //             size: size
-        //         });
-        //     }
-
-        //     // Save the updated cart data back to localStorage
-        //     localStorage.setItem('cart', JSON.stringify(cart));
-
-        //     // Handle the response
-        //     RenderCartItems(cart);
-        //     RenderCartQuantity();
-        // });
         document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            let detailId = detailID;
+            let detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
             let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
             let price = document.querySelector('.price span').innerHTML;
             let name = document.querySelector('.product-name').innerText;
@@ -196,7 +127,6 @@
             }
 
             @if (Auth::check())
-                // User is authenticated, make an AJAX request to add the item to the cart in the database
                 axios.post('{{ route('api.add-to-cart') }}', {
                         userId: {{ Auth::user()->id }},
                         detailId: detailId,
@@ -209,13 +139,13 @@
                     })
                     .then(function(response) {
                         // Handle the response
+
                         RenderCustomerCart();
                         RenderCartQuantity();
                         if (response.status === 200) {
                             var alertSuccess = document.querySelector('.alert-success')
                             alertSuccess.innerHTML = response.data.Message
                             alertSuccess.classList.remove('visually-hidden');
-
                             setTimeout(function() {
                                 alertSuccess.classList.add('visually-hidden');
                             }, 2000);
@@ -235,10 +165,13 @@
                         console.log(error);
                     });
             @else
+
                 // User is not authenticated, add the item to the cart in localStorage
+                detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
+                console.log(detailId)
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 let existingItem = cart.find(item => item.detailId === detailId);
-
+                // let detailId = detailID;
                 if (existingItem) {
                     for (i in PRODUCT_DETAIL) {
                         if (PRODUCT_DETAIL[i]['productDetailId'] == detailId) {
@@ -269,8 +202,7 @@
         });
 
         function RenderSize(color) {
-            let urlParams = new URLSearchParams(window.location.search);
-            let detailID = urlParams.get('detailID');
+
             const selectedColor = document.querySelector('.color-attribute input:checked').getAttribute('color')
             document.querySelector('.size-attribute').innerHTML = ''
             let size = []
@@ -286,20 +218,24 @@
 
             }
             let j = 0;
-
-
-
             for (i in size) {
-                // console.log(size[i])
                 let input = document.createElement('input')
                 input.setAttribute('type', 'radio')
-
                 input.className = 'btn-check'
                 input.setAttribute('name', 'size-options')
                 input.setAttribute('id', `size-option-${size[i]}`)
                 input.setAttribute('autocomplete', 'off')
                 input.setAttribute('size', size[i])
+                for (let i in PRODUCT_DETAIL) {
 
+                    if (PRODUCT_DETAIL[i]['color'] == selectedColor && PRODUCT_DETAIL[i]['size'] == input
+                        .getAttribute('size')) {
+                        detailID = PRODUCT_DETAIL[i]['productDetailId']
+                        console.log(detailID)
+                        input.setAttribute('target-detail-id', detailID)
+                    }
+
+                }
                 input.addEventListener('click', () => {
                     var detailID = null;
                     const selectedColor = document.querySelector('.color-attribute input:checked').getAttribute(
@@ -311,20 +247,18 @@
                             .getAttribute('size')) {
                             detailID = PRODUCT_DETAIL[i]['productDetailId']
                             console.log(detailID)
-                            window.location.href = '/product-detail/' + productId +
-                                '?detailID=' + detailID;
+                            const params = new URLSearchParams(window.location.search);
+                            params.set('detailID', detailID);
+                            window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+                            console.log(detailID)
+                            input.setAttribute('target-detail-id', detailID)
                         }
+
                     }
                 })
-
-
                 if (!PRODUCT_DETAIL[i]['stock']) {
                     input.setAttribute('disabled', '')
                 }
-                // if (!i) {
-                // input.setAttribute('checked', '')
-                // }
-
                 let label = document.createElement('label')
                 label.setAttribute('for', `size-option-${size[i]}`)
                 label.className = 'btn btn-secondary px-3 py-2 m-2'
@@ -376,7 +310,10 @@
                 // console.log(el)
 
                 carouselItemImage.setAttribute('img-src', el)
-                carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
+                setTimeout(() => {
+                    // carouselItemImage.style.backgroundImage = `url(${baseUrl}${el})`
+                    carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
+                }, 100);
                 carouselItemImage.style.mixBlendMode = 'multiply'
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
@@ -425,10 +362,12 @@
         }
 
         function createColorRadio() {
+
             var j = 0;
             var color = []
             for (i in PRODUCT_DETAIL) {
                 if (!color.includes(PRODUCT_DETAIL[i]['color'].toUpperCase())) {
+
                     color.push(PRODUCT_DETAIL[i]['color'].toUpperCase())
                     let input = document.createElement('input');
                     input.setAttribute('type', 'radio');
@@ -460,7 +399,7 @@
                     })
                 }
                 const input = document.querySelector(`.color-attribute input[color="${PRODUCT_DETAIL[i]['color']}"]`)
-                if (detailID === null && !j) {
+                if (urlParams.get('detailID') === null && !j) {
                     input.setAttribute('checked', '')
                     document.querySelector('.row [data-attr=current-color] span').innerText =
                         `Color: ${PRODUCT_DETAIL[i]['color'].toUpperCase()}`
@@ -475,8 +414,11 @@
                     RenderSize(PRODUCT_DETAIL[i]['color'])
 
                 } else {
-                    // console.log(PRODUCT_DETAIL[i]['productDetailId'], parseInt(detailID))
-                    if (PRODUCT_DETAIL[i]['productDetailId'] == parseInt(detailID)) {
+
+                    if (PRODUCT_DETAIL[i]['productDetailId'] == parseInt(urlParams.get('detailID'))) {
+                        // console.log('checked')
+                        // input.setAttribute('target-detail-id', parseInt(urlParams.get('detailID')))
+                        // input.setAttribute('test', 'test')
                         input.setAttribute('checked', '')
                         document.querySelector('.row [data-attr=current-color] span').innerText =
                             `Color: ${PRODUCT_DETAIL[i]['color'].toUpperCase()}`
@@ -556,7 +498,7 @@
             document.querySelectorAll('.size-attribute input').forEach(a => {
 
                 for (i in PRODUCT_DETAIL) {
-                    if (PRODUCT_DETAIL[i]['productDetailId'] == detailID) {
+                    if (PRODUCT_DETAIL[i]['productDetailId'] == urlParams.get('detailID')) {
                         if (a.getAttribute('size') == PRODUCT_DETAIL[i]['size']) {
                             a.setAttribute('checked', '')
                         }
