@@ -87,3 +87,4 @@ Route::post('/api/clear-cart', [CartController::class, 'clearCart'])->name('api.
 Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);
 Route::get('/collection/{name}', [ProductController::class, 'getProductByCollectionName']);
 Route::get('/category/{categoryName}', [ProductController::class, 'getProductByCategoryName'])->name('category');
+Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);

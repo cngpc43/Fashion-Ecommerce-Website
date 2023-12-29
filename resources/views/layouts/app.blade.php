@@ -563,7 +563,7 @@
         let offcanvasCart = document.querySelector('.offcanvas-body.cart');
         offcanvasCart.innerHTML = '';
         data.forEach(item => {
-            console.log(item)
+            // console.log(item)
 
             let cartItem = document.createElement('div');
             cartItem.className =

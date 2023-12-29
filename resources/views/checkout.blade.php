@@ -340,7 +340,7 @@
                                 </div>
                             @elseif(is_null($address))
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mt-3 mb-2 normal-text fs-2">Default address</h6>
+                                    <h6 class="mt-3 mb-2 normal-text fs-2">Delivery address</h6>
                                 </div>
                                 <div class="row d-flex">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -591,74 +591,76 @@
                     });
             });
         }
-        const cart = @json($cart)["original"]["data"];
-        const checkout = document.querySelector('.checkout');
-        checkout.addEventListener('click', function() {
-
-            let url = "{{ route('api.checkout') }}";
-            let addressId = $('.addresses-item.checked').attr('address');
-            let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
-            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            let detail = []
-            let totalPrice = parseInt(document.querySelector('.total-money').innerText)
-            console.log(totalPrice)
-            cart.forEach(el => {
-                detail.push({
-                    detailID: el.detailID,
-                    quantity: el.quantity
-                })
-
-            })
-            axios.post(url, {
-                    addressId: addressId,
-                    paymentMethod: paymentMethod,
-                    totalPrice: totalPrice,
-                    detail: detail,
-
-                }, {
-                    headers: {
-                        'X-CSRF-TOKEN': token
-                    }
-                })
-                .then(function(response) {
-                    if (response.data["statusCode"] == 200) {
-                        let orderId = response.data.data.id;
-                        console.log(orderId)
-                        axios.post("{{ route('api.clear-cart') }}", {
-                                headers: {
-                                    'X-CSRF-TOKEN': token
-                                }
-                            })
-                            .then(function(response) {
-                                console.log(response.data);
-                                if (response.data["statusCode"] == 200) {
-                                    console.log('Cart cleared')
-                                }
-                            })
-                            .catch(function(error) {
-                                console.log(error);
-                            });
-                        window.location.href = `/order/${orderId}`
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-
-                    let alertDanger = document.querySelector('.alert-danger');
-                    alertDanger.classList.remove('visually-hidden')
-                    alertDanger.innerHTML = `Check out failed`
-                    setTimeout(() => {
-                        alertDanger.classList.add('visually-hidden')
-                    }, 3000);
-                });
-        });
-
         const cartList = document.querySelector('.items-in-cart');
-        // console.log(cart)
 
-        if (cart) {
-            cart.forEach(el => {
-                cartList.innerHTML += `
+        @if (Auth::check())
+            const cart = @json($cart)["original"]["data"];
+            const checkout = document.querySelector('.checkout');
+            checkout.addEventListener('click', function() {
+
+                let url = "{{ route('api.checkout') }}";
+                let addressId = $('.addresses-item.checked').attr('address');
+                let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                let detail = []
+                let totalPrice = parseInt(document.querySelector('.total-money').innerText)
+                console.log(totalPrice)
+                cart.forEach(el => {
+                    detail.push({
+                        detailID: el.detailID,
+                        quantity: el.quantity
+                    })
+
+                })
+                axios.post(url, {
+                        addressId: addressId,
+                        paymentMethod: paymentMethod,
+                        totalPrice: totalPrice,
+                        detail: detail,
+
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.data["statusCode"] == 200) {
+                            let orderId = response.data.data.id;
+                            console.log(orderId)
+                            axios.post("{{ route('api.clear-cart') }}", {
+                                    headers: {
+                                        'X-CSRF-TOKEN': token
+                                    }
+                                })
+                                .then(function(response) {
+                                    console.log(response.data);
+                                    if (response.data["statusCode"] == 200) {
+                                        console.log('Cart cleared')
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                            window.location.href = `/order/${orderId}`
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+
+                        let alertDanger = document.querySelector('.alert-danger');
+                        alertDanger.classList.remove('visually-hidden')
+                        alertDanger.innerHTML = `Check out failed`
+                        setTimeout(() => {
+                            alertDanger.classList.add('visually-hidden')
+                        }, 3000);
+                    });
+            });
+
+            // console.log(cart)
+
+            if (cart) {
+                cart.forEach(el => {
+                    cartList.innerHTML += `
                  <tr>
                                                 <th scope="row">
                                                     <div class="d-flex align-items-center">
@@ -694,14 +696,17 @@
                                             
     
                 `
-            })
-            let totalMoney = 0;
-            cart.forEach(el => {
-                totalMoney += parseInt(el.price) * parseInt(el.quantity)
-            })
-            document.querySelector('.total-money').innerHTML = `${totalMoney} USD`
-            console.log(totalMoney)
-        } else {
+                })
+                let totalMoney = 0;
+                cart.forEach(el => {
+                    totalMoney += parseInt(el.price) * parseInt(el.quantity)
+                })
+                document.querySelector('.total-money').innerHTML = `${totalMoney} USD`
+                console.log(totalMoney)
+            } else {
+                console.log('nothing')
+            }
+        @else
             let cart = JSON.parse(localStorage.getItem('cart'))
             // console.log(cart)
             cart.forEach(el => {
@@ -742,7 +747,7 @@
     
                 `
             })
-        }
+        @endif
 
 
         document.querySelectorAll('.card.addresses-item').forEach(item => {
@@ -1003,7 +1008,9 @@
                         for (i in dvhcData["province"]) {
                             if (pdaData["province_id"] == dvhcData["province"][i]["id"]) {
                                 for (j in dvhcData["province"][i]["district"]) {
-                                    if (pdaData["district_id"] == dvhcData["province"][i]["district"][j]["id"]) {
+                                    if (pdaData["district_id"] == dvhcData["province"][i]["district"][j][
+                                            "id"
+                                        ]) {
                                         for (k in dvhcData["province"][i]["district"][j]["ward"]) {
                                             var d = dvhcData["province"][i]["district"][j]["ward"][k]["name"],
                                                 did = dvhcData["province"][i]["district"][j]["ward"][k]["id"];

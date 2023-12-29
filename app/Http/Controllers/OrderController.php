@@ -76,4 +76,19 @@ class OrderController extends Controller
             ], 400);
         }
     }
+    public static function getOrderByUserID()
+    {
+        try {
+            $id = Auth::user()->id;
+            $orders = DB::table('orders')->join('order_details', 'orders.id', '=', 'order_details.orderId')->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')->join('products', 'product_details.productId', '=', 'products.productId')->where('orders.userId', $id)->select('orders.*', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'order_details.quantity')->get();
+            return view('ordermanage', compact('orders'));
+
+        } catch (QueryException $e) {
+            return response()->json([
+                'statusCode' => 400,
+                'Message' => 'Fail!',
+                'data' => $e
+            ], 400);
+        }
+    }
 }
