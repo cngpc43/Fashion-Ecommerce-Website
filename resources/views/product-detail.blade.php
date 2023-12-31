@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', $product[0]['name'])
 @section('content')
     {{-- <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
@@ -65,7 +66,7 @@
                         </div>
 
 
-                        <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4">
+                        <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4 ms-3">
                             <button class="btn btn-outline-secondary decrease" type="button">-</button>
                             <input type="text" id="typeNumber" class="form-control text-center" min="1"
                                 value="1" />
@@ -78,23 +79,27 @@
 
                 {{-- </form> --}}
 
-                <form id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
+                <form class="ms-1" id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
 
                     <input type="hidden" name="id">
-                    <button type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add to cart</button>
+                    <button style="width: 150px; height: 40px;" type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add
+                        to cart</button>
 
                 </form>
 
             </div>
         </div>
-        <div class="row-description">
-            <h1 class="normal-text fs-1">Description</h1>
-            <p>Non occaecat incididunt minim et reprehenderit mollit est aliquip pariatur proident velit sint et anim. Ut
-                reprehenderit
-                reprehenderit dolore occaecat. Esse tempor velit cillum elit labore deserunt irure. Elit laborum id
-                consectetur Lorem
-                cillum cupidatat sit eu proident exercitation excepteur est minim.</p>
-
+        <div class="row row-description py-5 ps-lg-5 ps-0">
+            <div class="col-lg-7 col-md-12 col-12">
+                <h1 class="normal-text fs-1">Description</h1>
+                <p>{{ $product[0]['description'] }}</p>
+                <p>Non occaecat incididunt minim et reprehenderit mollit est aliquip pariatur proident velit sint et anim.
+                    Ut
+                    reprehenderit
+                    reprehenderit dolore occaecat. Esse tempor velit cillum elit labore deserunt irure. Elit laborum id
+                    consectetur Lorem
+                    cillum cupidatat sit eu proident exercitation excepteur est minim.</p>
+            </div>
         </div>
 
     </div>
@@ -103,6 +108,7 @@
         // var detailID = urlParams.get('detailID');
         let urlParams = new URLSearchParams(window.location.search);
         let PRODUCT_DETAIL = @json($product);
+        console.log(PRODUCT_DETAIL)
         // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
         document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
@@ -279,7 +285,7 @@
 
             // Clear the carousel
             carousel.innerHTML = '';
-            image.forEach((el, i) => {
+            image.forEach((imgPath, i) => {
                 let carouselItem = document.createElement('div')
                 carouselItem.className = 'carousel-item'
                 carouselItem.style.backgroundColor = '#F6F6FB'
@@ -295,7 +301,10 @@
                 carouselItemImage.className = 'carousel-item-img'
                 carouselItemImage.style.height = '500px'
                 carouselItemImage.style.width = '500px'
+                carouselItemImage.setAttribute('img-src', imgPath)
+                carouselItemImage.style.mixBlendMode = 'multiply'
 
+                if (i === 0) carouselItem.classList.add('active')
                 if (caption) {
 
                     let carouselCaption = document.createElement('div')
@@ -304,17 +313,12 @@
                     let captionParagraph = document.createElement('p')
 
                 }
-                carouselItem.appendChild(carouselItemImage)
-                if (!i) carouselItem.classList.add('active')
 
-                // console.log(el)
-
-                carouselItemImage.setAttribute('img-src', el)
                 setTimeout(() => {
-                    // carouselItemImage.style.backgroundImage = `url(${baseUrl}${el})`
-                    carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
-                }, 100);
-                carouselItemImage.style.mixBlendMode = 'multiply'
+                    carouselItemImage.style.backgroundImage = `url(/${imgPath})`
+                }, 10);
+
+                carouselItem.appendChild(carouselItemImage)
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
         }

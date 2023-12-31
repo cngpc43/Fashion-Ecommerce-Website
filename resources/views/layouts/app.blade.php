@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'IS207') }}</title>
+    <title>@yield('title', config('app.name', 'IS207'))</title>
     {{-- Font-awesome --}}
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
         type="text/css" />
@@ -107,9 +107,9 @@
                     </div>
                     <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
 
-                        <form class="d-flex position-relative " role="search">
-                            <input class="form-control me-2 position-relative" type="search" placeholder="Search"
-                                aria-label="Search">
+                        <form class="d-flex position-relative " role="search" action="/search" method="GET">
+                            <input class="form-control me-2 position-relative" name="query" type="search"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn position-absolute end-0 me-2" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
 
@@ -499,10 +499,10 @@
     /* Init carousel items image */
     setTimeout(() => {
         document.querySelectorAll('.carousel-item-img').forEach((item) => {
-            item.style.backgroundImage = `url(${item.getAttribute('img-src')})`
+            item.style.backgroundImage = `url(/${item.getAttribute('img-src')})`
         });
 
-    }, 50);
+    }, 10);
 
     /* Script to remove white background of product pictures*/
     document.querySelectorAll('.img-fluid').forEach((item1) => {

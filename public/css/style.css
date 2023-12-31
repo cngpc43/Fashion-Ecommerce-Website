@@ -262,6 +262,11 @@ body {
     /* cursor: pointer; */
 }
 
+.color-attribute label,
+.color-attribute label:hover {
+    border: solid 1px #000;
+}
+
 .attribute-color-swatches li button {
     border-radius: 50%;
 

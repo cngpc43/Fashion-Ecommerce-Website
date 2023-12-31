@@ -41,6 +41,8 @@ Route::middleware('auth.customer')->group(function () {
 
 });
 
+Route::get('/search', [ProductController::class, 'search']);
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::get('/abc', function () {
