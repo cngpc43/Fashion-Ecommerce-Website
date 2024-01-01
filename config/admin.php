@@ -415,6 +415,6 @@ return [
             // Select a local disk that you configured in `config/filesystem.php`
             'disk' => 'media'
         ],
-
+        
     ],
 ];

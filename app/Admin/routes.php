@@ -18,6 +18,7 @@ Route::group([
     $router->resource('products', AdminProductController::class);
     $router->resource('product-details', ProductDetailController::class);
     $router->resource('orders', OrdersController::class);
+    $router->resource('users', UserController::class);
 });
 
 ?>
