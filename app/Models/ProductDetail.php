@@ -25,18 +25,18 @@ class ProductDetail extends Model
         'stock',
     ];
 
-    protected function size(): Attribute
-    {
+    // protected function size(): Attribute
+    // {
 
-        return Attribute::make(
+    //     return Attribute::make(
 
-            get: fn($value) => json_decode($value, true),
+    //         get: fn($value) => json_decode($value, true),
 
-            set: fn($value) => json_encode($value),
+    //         set: fn($value) => json_encode($value),
 
-        );
+    //     );
 
-    }
+    // }
     // public function product(): BelongsToMany
     // {
     //     return $this->BelongsToMany(Product::class, 'productId', 'productId');
@@ -53,30 +53,30 @@ class ProductDetail extends Model
     {
         return $this->belongsToMany(Cart::class, 'belongs', 'detailID', 'cartID');
     }
-    protected function color(): Attribute
-    {
+    // protected function color(): Attribute
+    // {
 
-        return Attribute::make(
+    //     return Attribute::make(
 
-            get: fn($value) => json_decode($value, true),
+    //         get: fn($value) => json_decode($value, true),
 
-            set: fn($value) => json_encode($value),
+    //         set: fn($value) => json_encode($value),
 
-        );
+    //     );
 
-    }
-    protected function spec(): Attribute
-    {
+    // }
+    // protected function spec(): Attribute
+    // {
 
-        return Attribute::make(
+    //     return Attribute::make(
 
-            get: fn($value) => json_decode($value, true),
+    //         get: fn($value) => json_decode($value, true),
 
-            set: fn($value) => json_encode($value),
+    //         set: fn($value) => json_encode($value),
 
-        );
+    //     );
 
-    }
+    // }
     public static function GetProductDetailByProductId($productId)
     {
         $response = DB::table('product_details')

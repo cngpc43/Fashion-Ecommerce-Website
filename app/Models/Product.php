@@ -21,7 +21,6 @@ class Product extends Model
         'name',
         'categoryId',
         'collectionId',
-        'img',
         'price',
         'description',
         'salePercent',

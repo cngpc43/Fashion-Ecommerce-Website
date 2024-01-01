@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Cuong</b> Pham',
+    'logo' => '<b>No</b> Brand',
 
     /*
     |--------------------------------------------------------------------------
@@ -415,6 +415,6 @@ return [
             // Select a local disk that you configured in `config/filesystem.php`
             'disk' => 'media'
         ],
-        
+
     ],
 ];
