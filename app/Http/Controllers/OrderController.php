@@ -28,6 +28,24 @@ class OrderController extends Controller
     //         ], 400);
     //     }
     // }
+    public static function GetNumberOfOrder()
+    {
+        try {
+            $numberOfOrders = Orders::count();
+
+            return response()->json([
+                'statusCode' => 200,
+                'Message' => 'Success!',
+                'data' => $numberOfOrders
+            ], 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                'statusCode' => 400,
+                'Message' => 'Fail!',
+                'data' => $e
+            ], 400);
+        }
+    }
     public static function CreateOrder(Request $request)
     {
         try {

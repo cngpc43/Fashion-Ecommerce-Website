@@ -411,7 +411,7 @@
                                         <div class="text-right">
 
                                             <button type="button" id="submit" name="submit"
-                                                class="btn btn-primary update-new-address">Update</button>
+                                                class="btn btn-primary create-new-address">Create</button>
                                         </div>
                                     </div>
                                 </div>
@@ -559,7 +559,7 @@
                 let ward = document.querySelector('#ward').value;
                 let address = document.querySelector('#street').value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+                let userId = "{{ Auth::user()->id }}";
                 axios.post(url, {
                         userId: userId,
                         receiver: receiver,
@@ -568,7 +568,7 @@
                         city: district,
                         ward: ward,
                         street: address,
-                        userId: userId
+                        // userId: userId
                     }, {
                         headers: {
                             'X-CSRF-TOKEN': token
@@ -588,6 +588,11 @@
                     })
                     .catch(function(error) {
                         console.log(error);
+                        alertDanger.classList.remove('visually-hidden')
+                        alertDanger.innerHTML = error.response
+                        setTimeout(() => {
+                            alertDanger.classList.add('visually-hidden')
+                        }, 3000);
                     });
             });
         }
@@ -824,16 +829,16 @@
         if (createNewAddress) {
             createNewAddress.addEventListener('click', function() {
                 let url = "{{ route('api.create-new-address') }}";
-                let receiver = document.querySelector('#new-receiver').value;
-                let phone = document.querySelector('#new-phone').value;
-                let province = document.querySelector('#new-province').value;
-                let district = document.querySelector('#new-district').value;
-                let ward = document.querySelector('#new-ward').value;
-                let address = document.querySelector('#new-street').value;
+                let receiver = document.querySelector('#receiver').value;
+                let phone = document.querySelector('#phone').value;
+                let province = document.querySelector('#province').value;
+                let district = document.querySelector('#district').value;
+                let ward = document.querySelector('#ward').value;
+                let address = document.querySelector('#street').value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                let userId = "{{ auth()->user()->id }}";
 
                 axios.post(url, {
-                        userId: userId,
                         receiver: receiver,
                         phone: phone,
                         state: province,
