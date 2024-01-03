@@ -90,3 +90,4 @@ Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);
 Route::get('/collection/{name}', [ProductController::class, 'getProductByCollectionName']);
 Route::get('/category/{categoryName}', [ProductController::class, 'getProductByCategoryName'])->name('category');
 Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
+Route::get('/search-results', [ProductController::class, 'search']);

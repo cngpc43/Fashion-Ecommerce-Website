@@ -27,36 +27,28 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid d-flex justify-content-between">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="col-5 d-flex justify-content-start">
+                    <div class="col-xl-5 col-lg-4 d-flex justify-content-start">
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Socks
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-2">
 
                                 <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
                                     Men
                                 </a>
 
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-2">
                                 <a class="nav-link" href="{{ route('women-product') }}" role="button"
                                     aria-expanded="false">
                                     Women
@@ -70,33 +62,12 @@
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Subscription
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Sales
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+
                             </li>
                         </ul>
                     </div>
@@ -193,19 +164,12 @@
                     <div class="col-5 d-flex justify-content-start">
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     Socks
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+
                             </li>
                             <li class="nav-item">
 
@@ -219,48 +183,21 @@
                                     aria-expanded="false">
                                     Women
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Subscription
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     Sales
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
+
                             </li>
                         </ul>
                     </div>
                     <div class="col-2 d-flex justify-content-center">
 
-                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+                        <a class="navbar-brand fw-5" href="{{ url('/') }}">NO BRAND</a>
 
                     </div>
                     <div class="col-5 d-flex justify-content-end align-items-center">
@@ -342,8 +279,8 @@
         <div class="offcanvas-body cart">
             {{-- <p>Try scrolling the rest of the page to see this option in action.</p> --}}
         </div>
-        <div class="offcanvas-footer d-flex justify-content-around mb-4 custom-footer">
-            <button class="btn btn-dark">
+        <div class="offcanvas-footer d-flex justify-content-center mb-4 custom-footer">
+            <button class="btn btn-dark me-xl-5 me-lg-4 me-3">
                 Delete all
             </button>
             <a class="btn btn-dark" href="{{ route('checkout') }}">
@@ -440,11 +377,11 @@
                                                 <h6 class="text-black mb-0">${item.size}</h6>
                                             </div>
                                             <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
-                                                <div class="quantity d-flex justify-content-center align-items-center">
-    
-                                                    <h2 class="text-black mb-0">${item.quantity}</h2>
-    
-                                                </div>
+                                                <div class="quantity-input mt-2">
+                                                    <button class="btn btn-icon text-white" game-action="change-quantity-minus">-</button>
+                                                    <input type="text" game-input="quantity">
+                                                    <button class="btn btn-icon text-white" game-action="change-quantity-plus">+</button>
+                        </div>
                                             </div>
                                             <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
                                                 <h6 class="mb-0">USD ${item.price}</h6>
@@ -578,19 +515,19 @@
                                             <h6 class="text-black mb-0">${item.color}</h6>
                                             <h6 class="text-black mb-0">${item.size}</h6>
                                         </div>
-                                        <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
+                                        <div class="col-md-3 col-lg-4 col-xl-2">
                                             <form class="row d-flex justify-content-center align-items-center">
                                                 <div class="quantity row d-flex justify-content-center align-items-center">
                                                     <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4">
                                                         <button class="btn btn-outline-secondary btn-sm decrease custom-width-button" type="button">-</button>
-                                                        <input type="text" id="typeNumber" class="form-control form-control-sm custom-width-input text-center" min="1" value="1" />
+                                                        <input type="text" id="typeNumber" class="form-control form-control-sm custom-width-input text-center" min="1" value="${item.quantity}" />
                                                         <button class="btn btn-outline-secondary btn-sm increase custom-width-button" type="button">+</button>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
-                                            <h6 class="mb-0 text-center"> ${item.price}</h6>
+                                        <div class="col-md-3 col-lg-1 col-xl-2">
+                                            <h6 class="mt-4 ms-1 text-center"> ${item.price}</h6>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>

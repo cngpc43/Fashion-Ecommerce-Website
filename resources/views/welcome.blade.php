@@ -32,24 +32,24 @@
                         {{-- <img class="carousel-item-img d-none" src="{{ asset('imgs/10007.jpg') }}" alt=""> --}}
                         <div class="carousel-item-img"></div>
                         <div class="carousel-caption ">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h5 class="primary-text mb-5">Shop today !</h5>
+                            <p>All the products are at lowest price</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-item-img"></div>
                         {{-- <img src="{{ asset('imgs/10004.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
                         <div class="carousel-caption d-md-block">
-                            <h2>First slide label</h2>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h2 class="primary-text mb-5">New collection arrives</h2>
+                            <p>Up to trend</p>
                         </div>
                     </div>
                     <div class="carousel-item active">
                         {{-- <img src="{{ asset('imgs/10001.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
                         <div class="carousel-item-img"></div>
                         <div class="carousel-caption d-md-block" style="bottom: 50%; transform: translateY(-50%);">
-                            <h3>First slide label</h3>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h3 class="primary-text mb-5">Activate your inspiration</h3>
+                            <p class="fs-3">Pariatur cupidatat eiusmod sint occaecat occaecat.</p>
                         </div>
                     </div>
                 </div>

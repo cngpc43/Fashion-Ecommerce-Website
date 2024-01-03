@@ -343,7 +343,6 @@ class UserController extends Controller
     public function createNewAddress(Request $request)
     {
         try {
-
             $user = Auth::user();
             if (!$user) {
                 return response()->json([
@@ -351,6 +350,13 @@ class UserController extends Controller
                     'Message' => 'Cannot find this user in db'
                 ], 400);
             } else {
+                if ($user->address()->count() >= 3) {
+                    return response()->json([
+                        'statusCode' => '400',
+                        'Message' => 'Cannot create more than 3 addresses'
+                    ], 400);
+                }
+
                 $isDefault = 0;
                 if ($user->address()->count() == 0) {
                     $isDefault = 1;

@@ -9,8 +9,8 @@
                     <div class="card border-0">
                         <div class="card-img">
                             <div class="card-img">
-                                <img src="{{ url($product['img'][0]) }}" class="img-fluid">
-                                <img src="{{ url($product['img'][1]) }}" class="img-fluid hover-img">
+                                {{-- <img src="{{ url($product['img'][0]) }}" class="img-fluid">
+                                <img src="{{ url($product['img'][1]) }}" class="img-fluid hover-img"> --}}
                             </div>
                         </div>
                         <div class="container-fluid card-body">
@@ -30,4 +30,7 @@
             @endforeach
         </div>
     </div>
+    <script>
+        console.log(@json($products))
+    </script>
 @endsection

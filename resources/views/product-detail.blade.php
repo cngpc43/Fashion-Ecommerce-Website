@@ -40,18 +40,14 @@
                 <div class="row">
                     <div class="col">
 
-                        <h1 class="product-name normal-text fs-1">
-                            Shelter 1/2 Zip Butter Blend™ Pullover
-                        </h1>
+                        <h1 class="product-name normal-text fs-1">{{ $product[0]['name'] }}</h1>
                         {{-- RATING --}}
                     </div>
 
                 </div>
                 <div class="row">
                     <div class="price normal-text fs-2">
-                        <span>
-                            USD 95,00
-                        </span>
+                        <span>USD {{ $product[0]['price'] }},00</span>
                     </div>
                 </div>
                 <div class="row product-attributes">
@@ -82,8 +78,9 @@
                 <form class="ms-1" id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
 
                     <input type="hidden" name="id">
-                    <button style="width: 150px; height: 40px;" type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add
-                        to cart</button>
+                    <button style="width: 150px; height: 40px;" type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">
+                        Add to cart
+                    </button>
 
                 </form>
 
@@ -105,14 +102,12 @@
     </div>
 
     <script>
-        // var detailID = urlParams.get('detailID');
         let urlParams = new URLSearchParams(window.location.search);
+        // var detailID = urlParams.get('detailID');
         let PRODUCT_DETAIL = @json($product);
-        console.log(PRODUCT_DETAIL)
-        // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
-        document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
-        document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         let productId = window.location.pathname.split('/').pop();
+        // document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
+        // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
             event.preventDefault();
             let detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
@@ -273,6 +268,10 @@
                 document.querySelector('.size-attribute').appendChild(label)
 
             }
+
+            // Checked the first size option
+            document.querySelector('.size-attribute input').setAttribute('checked', '')
+
             return size;
         }
 

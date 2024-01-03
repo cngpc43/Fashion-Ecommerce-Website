@@ -1,13 +1,13 @@
 @extends('layouts.app')
 <style>
-    
+
 </style>
 @section('content')
     <section class="vh-100">
         <div class="container py-5 h-100 d-flex align-items-center justify-content-center">
             <div class="row gutters">
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
+                    <div class="card h-100 bg-white">
                         <div class="card-body p-3 m-1 justify-content-center d-flex flex-column">
 
                             <div class="user-avatar mb-3 d-flex justify-content-center">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
+                    <div class="card h-100 bg-white">
                         <div class="card-body d-flex flex-column justify-content-center p-5">
                             <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -405,9 +405,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h6 class="mt-3 mb-2 normal-text fs-2">Fill in the blank</h6>
-                                                </div>
+
                                                 <div class="row d-flex">
                                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                         <div class="form-floating mb-3">

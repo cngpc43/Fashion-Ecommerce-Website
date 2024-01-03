@@ -245,9 +245,6 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h6 class="mt-3 mb-2 normal-text fs-2">Fill in the blank</h6>
-                                                </div>
                                                 <div class="row d-flex">
                                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                         <div class="form-floating mb-3">
@@ -416,8 +413,6 @@
                                     </div>
                                 </div>
                             @endif
-
-
                         </div>
                     </div>
                     <div class="card shadow-2-strong mt-4 mb-4" style="border-radius: 16px; background-color :white">
@@ -448,7 +443,7 @@
 
                                         </td>
                                         <td class="align-middle">
-                                            <p class="mb-0 normal-text total-money fs-2">vcl</p>
+                                            <p class="mb-0 normal-text total-money fs-2">0</p>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -548,6 +543,9 @@
     <script>
         const updateInformation = document.querySelector('.update-new-address');
         // console.log
+
+        var USERID = "{{ auth()->check() ? auth()->user()->id : null }}";
+
         if (updateInformation) {
 
             updateInformation.addEventListener('click', function() {
@@ -559,7 +557,7 @@
                 let ward = document.querySelector('#ward').value;
                 let address = document.querySelector('#street').value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                let userId = "{{ Auth::user()->id }}";
+                let userId = USERID;
                 axios.post(url, {
                         userId: userId,
                         receiver: receiver,
@@ -568,7 +566,7 @@
                         city: district,
                         ward: ward,
                         street: address,
-                        // userId: userId
+
                     }, {
                         headers: {
                             'X-CSRF-TOKEN': token
@@ -825,6 +823,7 @@
             }
 
         }
+
         const createNewAddress = document.querySelector('.create-new-address');
         if (createNewAddress) {
             createNewAddress.addEventListener('click', function() {
@@ -836,8 +835,11 @@
                 let ward = document.querySelector('#ward').value;
                 let address = document.querySelector('#street').value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                let userId = "{{ auth()->user()->id }}";
-
+                let userId = USERID;
+                if (!userId) {
+                    userId = 'guest_' + Math.random().toString(36).substr(2, 9);
+                    sessionStorage.setItem('guestUserId', userId);
+                }
                 axios.post(url, {
                         receiver: receiver,
                         phone: phone,
@@ -855,11 +857,12 @@
 
                         console.log(response.data);
                         if (response.data["statusCode"] == 200) {
-                            console.log('hello')
-                            // Store a flag in localStorage to show the alert after reload
-                            localStorage.setItem('showAlert', 'true');
-                            // Reload the page
-                            location.reload();
+                            successAlert.classList.remove('visually-hidden')
+                            successAlert.innerHTML = `Create new address successfully`
+                            setTimeout(() => {
+                                successAlert.classList.add('visually-hidden')
+                                window.location.reload()
+                            }, 2000);
 
                         }
                     })
