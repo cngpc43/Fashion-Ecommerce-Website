@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('/build/assets/app-041e359a.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite(['resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
 
 </head>
 
@@ -227,11 +228,13 @@
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
                                 aria-expanded="false"><i class="far fa-user solid fa-md"></i></i></a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="dropdown-item d-flex">
+                                <li class="dropdown-item d-flex"
+                                    onclick="window.location.href='/profile/{{ auth()->id() }}'">
                                     <a class="d-block w-100" href="/profile/{{ auth()->id() }}">Profile</a>
                                 </li>
-                                <li class="dropdown-item d-flex">
-                                    <a href="">Orders</a>
+                                <li class="dropdown-item d-flex"
+                                    onclick="window.location.href='{{ route('user.orders') }}'">
+                                    <a href="{{ route('user.orders') }}">Orders</a>
                                 </li>
 
                                 <li class="dropdown-item d-flex">
@@ -343,7 +346,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"></script>
 </body>
+
+<!-- Notyf Init -->
+<script>
+    const notyf = new Notyf({
+        duration: 4000,
+        position: {
+            x: 'right',
+            y: 'bottom',
+        },
+        types: [{
+                type: 'success',
+                background: '#00b74a',
+                icon: {
+                    className: 'fas fa-check-circle',
+                    tagName: 'span',
+                    color: '#fff'
+                }
+            },
+            {
+                type: 'error',
+                background: '#f44336',
+                icon: {
+                    className: 'fas fa-times-circle',
+                    tagName: 'span',
+                    color: '#fff'
+                }
+            }
+        ]
+    });
+</script>
+
 <script>
     /* Script to render html element*/
     // let cart = @json(session('cart', []));
@@ -358,47 +393,14 @@
             axios.get('{{ route('api.get-cart') }}')
                 .then(function(response) {
                     // Handle the response
-
-                    let offcanvasCart = document.querySelector('.offcanvas-body.cart');
-                    offcanvasCart.innerHTML = '';
-                    response.data.data.original.data.forEach(item => {
-                        // console.log(item)
-                        let cartItem = document.createElement('div');
-                        cartItem.className =
-                            'cart-item d-flex justify-content-between align-items-center';
-                        cartItem.innerHTML = `
-                    <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
-                                             <img src="{{ url('${JSON.parse(item.image)[0]}') }}"
-                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-muted">${item.name}</h6>
-                                                <h6 class="text-black mb-0">${item.color}</h6>
-                                                <h6 class="text-black mb-0">${item.size}</h6>
-                                            </div>
-                                            <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
-                                                <div class="quantity-input mt-2">
-                                                    <button class="btn btn-icon text-white" game-action="change-quantity-minus">-</button>
-                                                    <input type="text" game-input="quantity">
-                                                    <button class="btn btn-icon text-white" game-action="change-quantity-plus">+</button>
-                        </div>
-                                            </div>
-                                            <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
-                                                <h6 class="mb-0">USD ${item.price}</h6>
-                                            </div>
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a href="#!" class="text-muted" target-detail="${item.detailID}"><i class="fas fa-times"></i></a>
-                                            </div>
-                    `
-
-                        let hr = document.createElement('hr');
-                        hr.className = 'my-4';
-
-                        offcanvasCart.appendChild(cartItem);
-                        offcanvasCart.appendChild(hr);
-                        RenderCartQuantity();
+                    let data = response.data.data.original.data.map(item => {
+                        item.image = JSON.parse(item.image)[0] || '';
+                        item.detailId = item.detailID;
+                        item.productId = item.productID;
+                        return item;
                     })
-
+                    RenderCart(data);
+                    RenderCartQuantity();
                 })
                 .catch(function(error) {
                     // Handle the error
@@ -454,49 +456,50 @@
 
 
 
-    function RenderCartItems(cart) {
-        let offcanvasCart = document.querySelector('.offcanvas-body.cart');
-        offcanvasCart.innerHTML = '';
-        cart.forEach(item => {
-            let cartItem = document.createElement('div');
-            cartItem.className =
-                'cart-item d-flex justify-content-between align-items-center';
-            cartItem.innerHTML = `
-                <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
-                                         <img src="{{ url('${item.image}') }}"
-                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">${item.name}</h6>
-                                            <h6 class="text-black mb-0">${item.color}</h6>
-                                            <h6 class="text-black mb-0">${item.size}</h6>
-                                        </div>
-                                        <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
-                                            <div class="quantity d-flex justify-content-center align-items-center">
+    // function RenderCartItems(cart) {
+    //     let offcanvasCart = document.querySelector('.offcanvas-body.cart');
+    //     offcanvasCart.innerHTML = '';
+    //     cart.forEach(item => {
+    //         let cartItem = document.createElement('div');
+    //         cartItem.className =
+    //             'cart-item d-flex justify-content-between align-items-center';
+    //         cartItem.innerHTML = `
+    //             <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
+    //                                      <img src="{{ url('${item.image}') }}"
+    //                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
+    //                                     </div>
+    //                                     <div class="col-md-3 col-lg-3 col-xl-3">
+    //                                         <h6 class="text-muted">${item.name}</h6>
+    //                                         <h6 class="text-black mb-0">${item.color}</h6>
+    //                                         <h6 class="text-black mb-0">${item.size}</h6>
+    //                                     </div>
+    //                                     <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
+    //                                         <div class="quantity d-flex justify-content-center align-items-center">
 
-                                                <h2 class="text-black mb-0">${item.quantity}</h2>
+    //                                             <h2 class="text-black mb-0">${item.quantity}</h2>
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
-                                            <h6 class="mb-0">USD ${item.price}</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
-                                        </div>
-                `
+    //                                         </div>
+    //                                     </div>
+    //                                     <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
+    //                                         <h6 class="mb-0">USD ${item.price}</h6>
+    //                                     </div>
+    //                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+    //                                         <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
+    //                                     </div>
+    //             `
 
-            let hr = document.createElement('hr');
-            hr.className = 'my-4';
-            offcanvasCart.appendChild(cartItem);
-            offcanvasCart.appendChild(hr);
-        })
-    }
+    //         let hr = document.createElement('hr');
+    //         hr.className = 'my-4';
+    //         offcanvasCart.appendChild(cartItem);
+    //         offcanvasCart.appendChild(hr);
+    //     })
+    // }
 
-    function RenderCart() {
-        console.log('render cart')
+    function RenderCart(data = []) {
         // Get the cart data from localStorage
-        let data = JSON.parse(localStorage.getItem('cart')) || [];
+        if (!data || !data.length) {
+            data = JSON.parse(localStorage.getItem('cart')) || [];
+        }
         let offcanvasCart = document.querySelector('.offcanvas-body.cart');
         offcanvasCart.innerHTML = '';
         data.forEach(item => {
@@ -504,35 +507,52 @@
 
             let cartItem = document.createElement('div');
             cartItem.className =
-                'cart-item d-flex justify-content-between align-items-center';
+                'cart-item row';
             cartItem.innerHTML = `
-                <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
-                                         <img src="{{ url('${item.image}') }}"
-                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">${item.name}</h6>
-                                            <h6 class="text-black mb-0">${item.color}</h6>
-                                            <h6 class="text-black mb-0">${item.size}</h6>
-                                        </div>
-                                        <div class="col-md-3 col-lg-4 col-xl-2">
-                                            <form class="row d-flex justify-content-center align-items-center">
-                                                <div class="quantity row d-flex justify-content-center align-items-center">
-                                                    <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4">
-                                                        <button class="btn btn-outline-secondary btn-sm decrease custom-width-button" type="button">-</button>
-                                                        <input type="text" id="typeNumber" class="form-control form-control-sm custom-width-input text-center" min="1" value="${item.quantity}" />
-                                                        <button class="btn btn-outline-secondary btn-sm increase custom-width-button" type="button">+</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-3 col-lg-1 col-xl-2">
-                                            <h6 class="mt-4 ms-1 text-center"> ${item.price}</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
-                                        </div>
-                `
+                <div class="col-4 col-md-3 col-lg-2">
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ url('${item.image}') }}"
+                        class="img-fluid rounded-3" alt="${item.name}">
+                    </div>
+                </div>
+                <div class="col-8 col-md-9 col-lg-10 row d-flex align-items-center">
+
+                    <a class="col-12 col-md-7 col-lg-6" href="/product-detail/${item.productId}?detailID=${item.detailId}">
+                        <h6 class="text-black">${item.name}</h6>
+                        <h6 class="text-muted d-flex mb-0">
+                            <span class="me-2">Color:</span>
+                            <span>${item.color}</span>
+                        </h6>
+                        <h6 class="text-muted d-flex mb-0">
+                            <span class="me-2">Size:</span>
+                            <span>${item.size}</span>
+                        </h6>
+                    </a>
+                    <div class="col-6 col-md-2 col-lg-3">
+                        
+                            <div class="">
+                                <div class="form-outline mt-3 quantity-input input-group normal-text w-auto fs-4">
+                                    <button class="btn btn-outline-secondary btn-sm custom-width-button" type="button" form-action="change-quantity-minus">-</button>
+                                    <input type="text" class="form-control form-control-sm custom-width-input text-center"
+                                        value="${item.quantity}" cart-id="${item.id}" product-id="${item.productId}"
+                                        detail-id="${item.detailId}" data-stock="${item.stock || '-1'}" data-last-value="${item.quantity}"
+                                        form-action="change-quantity-input" />
+                                    <button class="btn btn-outline-secondary btn-sm custom-width-button" type="button" form-action="change-quantity-plus">+</button>
+                                </div>
+                                <div class="invalid-feedback d-block fade"></div>
+                            </div>
+                        
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <h6 class="mt-4 ms-1 text-center">USD ${item.price},00</h6>
+                    </div>
+                    <div class="col text-end">
+                        <a href="#!" class="text-muted" target-detail="${item.id || item.detailId}">
+                            <i class="fas fa-times mt-3"></i>
+                        </a>
+                    </div>    
+                    
+                </div>`
 
             let hr = document.createElement('hr');
             hr.className = 'my-4';
@@ -562,34 +582,6 @@
 
 
     }
-    document.querySelector('body').addEventListener('click', function(e) {
-        if (e.target.matches('.fas.fa-times') || e.target.matches('.delete-product')) {
-            @if (Auth::check())
-                detailId = e.target.closest('.text-muted').getAttribute('target-detail')
-                console.log(detailId)
-                axios.post('{{ route('api.delete-from-cart') }}', {
-                    detailId: detailId,
-                }).then((response) => {
-                    console.log(response)
-                    RenderCustomerCart()
-                    RenderCartQuantity()
-                })
-            @else
-                console.log('delete')
-                e.preventDefault()
-                let cart = JSON.parse(localStorage.getItem('cart'))
-                console.log(e.target)
-                let detailId = e.target.closest('.text-muted').getAttribute('target-detail')
-                cart = cart.filter((el) => {
-                    return el.detailId != detailId
-                })
-                localStorage.setItem('cart', JSON.stringify(cart))
-                RenderCart()
-                RenderCartQuantity()
-            @endif
-        }
-    });
-
 
     function RenderCartQuantity() {
         @if (Auth::check())
@@ -623,11 +615,9 @@
             }
         @else
             {
-
                 let cart = JSON.parse(localStorage.getItem('cart'))
                 let cartQuantity = document.querySelector('#lblCartCount');
                 const offCanvasCart = document.querySelector('.offcanvas-cart-quantity')
-
                 if (cart == null) {
                     cartQuantity.innerText = '';
                     offCanvasCart.innerHTML = '0 item';
@@ -667,6 +657,122 @@
         }, 100);
 
     })
+</script>
+
+
+<!-- Cart Quantity change handler -->
+<script>
+    // For quantity change in cart offcanvas
+    function FormQuantityChangeHandler(el) {
+        const formAction = el.getAttribute('form-action')
+        const a = formAction.includes('minus') ? -1 : (formAction.includes('plus') ? 1 : 0)
+        const $input = el.closest('.quantity-input').querySelector('input')
+        const $invalidFeedback = el.closest('.quantity-input').parentElement.querySelector('.invalid-feedback')
+        const lastValue = $input.getAttribute('data-last-value')
+        const cartId = $input.getAttribute('cart-id')
+        const productId = $input.getAttribute('product-id')
+        const detailId = $input.getAttribute('detail-id')
+        const stock = parseInt($input.getAttribute('data-stock')) || -1
+        let value = parseInt($input.value) + a
+        if (isNaN(value)) {
+            value = lastValue
+            $input.value = value
+            notyf.error('Quantity must be a number')
+        }
+        if (value < 1) {
+            value = lastValue
+            $input.value = value
+            notyf.error('Quantity must be greater than 0')
+        }
+        if (stock > -1 && value > stock) {
+            value = stock
+            $invalidFeedback.innerText = `${stock} items left`
+            $invalidFeedback.classList.add('show')
+            $input.value = value
+            notyf.error('Quantity must be less than or equal to stock')
+        }
+        if (value != lastValue) {
+            $input.value = value
+            $input.setAttribute('data-last-value', value)
+
+            @if (Auth::check())
+                {
+                    console.log({
+                        id: cartId,
+                        userId: {{ Auth::user()->id }},
+                        detailId,
+                        quantity: value
+                    })
+                    axios.put("{{ route('api.update-cart') }}", {
+                        id: cartId,
+                        userId: {{ Auth::user()->id }},
+                        detailId,
+                        quantity: value
+                    }).then((response) => {
+                        if (response.status == 200)
+                            notyf.success('Quantity updated')
+                        else
+                            notyf.error('Quantity update failed')
+                        RenderCustomerCart()
+                        RenderCartQuantity()
+                    })
+                }
+            @else
+                {
+                    let cart = JSON.parse(localStorage.getItem('cart'))
+                    cart.forEach((item) => {
+                        if (item.detailId == detailId) {
+                            item.quantity = value
+                        }
+                    })
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                }
+            @endif
+
+        }
+    }
+
+    /* Event listener for quantity change in cart offcanvas */
+    document.addEventListener('click', (e) => {
+        const el = e.target
+        const formAction = e.target.getAttribute('form-action')
+        if (formAction == 'change-quantity-input') return
+        if (formAction && formAction.startsWith('change-quantity-'))
+            FormQuantityChangeHandler(el)
+    })
+    document.addEventListener('change', (e) => {
+        if (e.target.getAttribute('form-action') == 'change-quantity-input')
+            FormQuantityChangeHandler(e.target)
+    })
+
+    /* Remove cart items */
+    document.querySelector('body').addEventListener('click', function(e) {
+        if (e.target.matches('.fas.fa-times') || e.target.matches('.delete-product')) {
+            @if (Auth::check())
+                detailId = e.target.closest('.text-muted').getAttribute('target-detail')
+                console.log(detailId)
+                axios.post('{{ route('api.delete-from-cart') }}', {
+                    detailId: detailId,
+                }).then((response) => {
+                    console.log(response)
+                    RenderCustomerCart()
+                    RenderCartQuantity()
+                })
+            @else
+                console.log('delete')
+                e.preventDefault()
+                let cart = JSON.parse(localStorage.getItem('cart'))
+                console.log(e.target)
+                let detailId = e.target.closest('.text-muted').getAttribute('target-detail')
+                cart = cart.filter((el) => {
+                    return el.detailId != detailId
+                })
+                localStorage.setItem('cart', JSON.stringify(cart))
+                RenderCart()
+                RenderCartQuantity()
+            @endif
+        }
+    });
 </script>
 
 </html>

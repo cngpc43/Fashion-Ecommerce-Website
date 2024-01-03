@@ -76,6 +76,7 @@ Route::get('/cart', function () {
 // Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
+Route::put('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
 // Route::get('/get-cart/{id}', [CartController::class, 'getCustomerCart'])->name('api.get-customer-cart');
 Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');
 // Route::post('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
@@ -89,5 +90,6 @@ Route::post('/api/clear-cart', [CartController::class, 'clearCart'])->name('api.
 Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);
 Route::get('/collection/{name}', [ProductController::class, 'getProductByCollectionName']);
 Route::get('/category/{categoryName}', [ProductController::class, 'getProductByCategoryName'])->name('category');
-Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
+// Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
 Route::get('/search-results', [ProductController::class, 'search']);
+Route::get('/user/orders', [OrderController::class, 'getOrderByUserID'])->name('user.orders');

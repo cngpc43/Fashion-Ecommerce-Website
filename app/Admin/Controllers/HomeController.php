@@ -19,15 +19,21 @@ class HomeController extends Controller
         return $content
             ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
             ->title('Dashboard')
-            ->description('Description...')
+            ->description('Dashboard')
             ->row(function (Row $row) use ($orders) {
-                $row->column(3, function (Column $column) use ($orders) {
-                    // $column->append(view('index'));
+                $row->column(12, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::orders());
                 });
-                
+                $row->column(3, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::extensions());
+                });
+                $row->column(3, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::dependencies());
+                });
+                $row->column(3, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::dependencies());
+                });
             });
     }
 }
-
-
 ?>

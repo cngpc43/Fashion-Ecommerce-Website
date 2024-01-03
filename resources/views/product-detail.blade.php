@@ -69,7 +69,7 @@
                             <button class="btn btn-outline-secondary increase" type="button">+</button>
                         </div>
 
-                        <div class="invalid-feedback p-0"></div>
+                        <div class="invalid-feedback ms-3 p-0"></div>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
             event.preventDefault();
             let detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
             let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
-            let price = document.querySelector('.price span').innerHTML;
+            let price = parseFloat(document.querySelector('.price span').innerHTML.replace(/USD\s*/g, ''));
             let name = document.querySelector('.product-name').innerText;
             let image = document.querySelector('.carousel-item-img').getAttribute('img-src');
             let color = document.querySelector('.color-attribute input:checked').getAttribute('color')
@@ -130,13 +130,13 @@
             @if (Auth::check())
                 axios.post('{{ route('api.add-to-cart') }}', {
                         userId: {{ Auth::user()->id }},
-                        detailId: detailId,
-                        quantity: quantity,
-                        price: price,
-                        name: name,
-                        image: image,
-                        color: color,
-                        size: size
+                        detailId,
+                        quantity,
+                        price,
+                        name,
+                        image,
+                        color,
+                        size
                     })
                     .then(function(response) {
                         // Handle the response
@@ -144,20 +144,9 @@
                         RenderCustomerCart();
                         RenderCartQuantity();
                         if (response.status === 200) {
-                            var alertSuccess = document.querySelector('.alert-success')
-                            alertSuccess.innerHTML = response.data.Message
-                            alertSuccess.classList.remove('visually-hidden');
-                            setTimeout(function() {
-                                alertSuccess.classList.add('visually-hidden');
-                            }, 2000);
+                            notyf.success(response.data.Message)
                         } else {
-                            var alertDanger = document.querySelector('.alert-danger')
-                            alertDanger.innerHTML = response.data.Message
-                            alertDanger.classList.remove('visually-hidden');
-
-                            setTimeout(function() {
-                                alertDanger.classList.add('visually-hidden');
-                            }, 2000);
+                            notyf.error(response.data.Message)
                         }
                         console.log(response);
                     })
@@ -169,7 +158,6 @@
 
                 // User is not authenticated, add the item to the cart in localStorage
                 detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
-                console.log(detailId)
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 let existingItem = cart.find(item => item.detailId === detailId);
                 // let detailId = detailID;
@@ -180,25 +168,28 @@
                         }
                     }
                     if (existingItem.quantity + quantity > stock) {
-                        alert('Cannot add more items than available in stock');
+                        notyf.error('Cannot add more items than available in stock');
                         return;
                     }
                     existingItem.quantity += quantity;
                 } else {
                     cart.push({
-                        detailId: detailId,
-                        quantity: quantity,
-                        price: price,
-                        name: name,
-                        image: image,
-                        color: color,
-                        size: size
+                        productId,
+                        detailId,
+                        quantity,
+                        price,
+                        name,
+                        image,
+                        color,
+                        size
                     });
                 }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                RenderCartItems(cart);
+                RenderCart();
                 RenderCartQuantity();
+
+                notyf.success('Product added to cart successfully');
             @endif
         });
 
@@ -335,6 +326,8 @@
                 size = ''
             }
 
+            console.log($qInput)
+
 
             const quantity = parseInt($qInput.value)
             for (i in PRODUCT_DETAIL) {
@@ -345,7 +338,8 @@
                     temp = instock
                 }
             }
-            const $invalidFeedback = $qInput.parentElement.parentElement.querySelector('.invalid-feedback')
+            const $invalidFeedback = $qInput.closest('.quantity-input').parentElement.querySelector('.invalid-feedback')
+
 
             if (size == '') {
                 $invalidFeedback.innerHTML = 'Please choose a size'

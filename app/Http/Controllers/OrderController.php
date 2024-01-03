@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public static function ManageOrder()
+    {
+        try {
+            $orders = DB::table('orders')->join('order_details', 'orders.id', '=', 'order_details.orderId')->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')->join('products', 'product_details.productId', '=', 'products.productId')->select('orders.*', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'order_details.quantity')->get();
+            return view('ordermanage', compact('orders'));
+        } catch (QueryException $e) {
+            return response()->json([
+                'statusCode' => 400,
+                'Message' => 'Fail!',
+                'data' => $e
+            ], 400);
+        }
+    }
     // public static function index()
     // {
     //     try {
@@ -98,8 +111,46 @@ class OrderController extends Controller
     {
         try {
             $id = Auth::user()->id;
-            $orders = DB::table('orders')->join('order_details', 'orders.id', '=', 'order_details.orderId')->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')->join('products', 'product_details.productId', '=', 'products.productId')->where('orders.userId', $id)->select('orders.*', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'order_details.quantity')->get();
-            return view('ordermanage', compact('orders'));
+            $orders = DB::table('orders')
+                ->join('order_details', 'orders.id', '=', 'order_details.orderId')
+                ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->where('orders.userId', $id)
+                ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
+                ->get();
+            $pending_orders = DB::table('orders')
+                ->join('order_details', 'orders.id', '=', 'order_details.orderId')
+                ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->where('orders.userId', $id)
+                ->where('orders.status', 'Pending')
+                ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
+                ->get();
+            $picked_orders = DB::table('orders')
+                ->join('order_details', 'orders.id', '=', 'order_details.orderId')
+                ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->where('orders.userId', $id)
+                ->where('orders.status', 'Picked up')
+                ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
+                ->get();
+            $completed_orders = DB::table('orders')
+                ->join('order_details', 'orders.id', '=', 'order_details.orderId')
+                ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->where('orders.userId', $id)
+                ->where('orders.status', 'Completed')
+                ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
+                ->get();
+            $canceled_orders = DB::table('orders')
+                ->join('order_details', 'orders.id', '=', 'order_details.orderId')
+                ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
+                ->join('products', 'product_details.productId', '=', 'products.productId')
+                ->where('orders.userId', $id)
+                ->where('orders.status', 'Canceled')
+                ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
+                ->get();
+            return view('user.ordermanage', compact('orders', 'pending_orders', 'picked_orders', 'completed_orders', 'canceled_orders'));
 
         } catch (QueryException $e) {
             return response()->json([
