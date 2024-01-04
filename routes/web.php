@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenProductController;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WomenProductController;
 
 // use App\Http\Controllers\ProductController;
 
@@ -53,9 +54,7 @@ Route::get('/abc', function () {
 Route::get('menproduct', [MenProductController::class, 'index']);
 
 
-Route::get('/women-product', function () {
-    return view('womenproduct');
-})->name('women-product');
+Route::get('women-product', [WomenProductController::class, 'index']);
 Route::get('socks', function () {
     return view('socks');
 });

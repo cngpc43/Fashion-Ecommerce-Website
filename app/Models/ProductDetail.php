@@ -77,6 +77,10 @@ class ProductDetail extends Model
     //     );
 
     // }
+    public function scopeStock($query)
+    {
+        return $query->where('stock', '>', 0);
+    }
     public static function GetProductDetailByProductId($productId)
     {
         $response = DB::table('product_details')
@@ -105,7 +109,7 @@ class ProductDetail extends Model
             ->get();
         return $response;
     }
-    public static function GetNewArrival()
+    public static function GetNewArrival($category)
     {
         $response = DB::table('product_details')
             ->join('products', 'product_details.productId', '=', 'products.productId')
@@ -117,6 +121,7 @@ class ProductDetail extends Model
                 'product_details.color',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
+            ->where('categories.parent', $category)
             ->orderBy('products.created_at', 'desc')
             ->groupBy('products.productId', 'products.name', 'products.price', 'product_details.color')
             ->take(8)->get();
@@ -266,7 +271,7 @@ class ProductDetail extends Model
         return $grouped;
     }
 
-    public static function GetAllProductDetail()
+    public static function GetAllProductDetail($view)
     {
         $subQuery = DB::table('product_details')
             ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
@@ -285,6 +290,7 @@ class ProductDetail extends Model
                 'sub.productDetailId',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
+            ->where('categories.parent', $view)
             ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
             ->get();
 

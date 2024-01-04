@@ -25,16 +25,17 @@ class UserController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new User());
-
+        $grid->model()->with('address');
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
         $grid->column('email', __('Email'));
-        $grid->column('email_verified_at', __('Email verified at'));
-        $grid->column('password', __('Password'));
-        $grid->column('remember_token', __('Remember token'));
+        $grid->column('address', __('Address'))->display(function ($address) {
+            return collect($address)->map(function ($address) {
+                return "Receiver: {$address['receiver']}, Phone: {$address['phone']}, Street: {$address['street']}, Ward: {$address['ward']}, City: {$address['city']}, State: {$address['state']}";
+            })->implode('<br>');
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-
         return $grid;
     }
 

@@ -23,7 +23,7 @@
             <li class="nav-item order-status" role="presentation">
                 <button class="nav-link status p-lg-3 p-md-2 fs-4" id="pills-contact-tab" data-bs-toggle="pill"
                     data-bs-target="#completed-order-tab-pane" type="button" role="tab" aria-controls="pills-contact"
-                    aria-selected="false">Completed <span class="ms-2"><i class="fas fa-check-square"></i></span></button>
+                    aria-selected="false">Delivered <span class="ms-2"><i class="fas fa-check-square"></i></span></button>
             </li>
             <li class="nav-item order-status" role="presentation">
                 <button class="nav-link status p-lg-3 p-md-2 fs-4" id="pills-contact-tab" data-bs-toggle="pill"
@@ -266,7 +266,7 @@
             tabindex="0">
             <div class="table-responsive mb-5 p-5 p-3">
                 @php
-                    $groupedOrders = $completed_orders->groupBy('id');
+                    $groupedOrders = $delivered_orders->groupBy('id');
                 @endphp
                 @foreach ($groupedOrders as $order)
                     <table class="table" style="cursor: pointer"

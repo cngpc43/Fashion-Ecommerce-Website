@@ -107,6 +107,7 @@ class OrderController extends Controller
             ], 400);
         }
     }
+
     public static function getOrderByUserID()
     {
         try {
@@ -134,12 +135,12 @@ class OrderController extends Controller
                 ->where('orders.status', 'Picked up')
                 ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
                 ->get();
-            $completed_orders = DB::table('orders')
+            $delivered_orders = DB::table('orders')
                 ->join('order_details', 'orders.id', '=', 'order_details.orderId')
                 ->join('product_details', 'order_details.detailId', '=', 'product_details.productDetailId')
                 ->join('products', 'product_details.productId', '=', 'products.productId')
                 ->where('orders.userId', $id)
-                ->where('orders.status', 'Completed')
+                ->where('orders.status', 'Delivered')
                 ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
                 ->get();
             $canceled_orders = DB::table('orders')
@@ -150,7 +151,7 @@ class OrderController extends Controller
                 ->where('orders.status', 'Canceled')
                 ->select('orders.*', 'order_details.id as orderDetailsId', 'products.name', 'product_details.img', 'product_details.size', 'product_details.color', 'products.price', 'order_details.quantity')
                 ->get();
-            return view('user.ordermanage', compact('orders', 'pending_orders', 'picked_orders', 'completed_orders', 'canceled_orders'));
+            return view('user.ordermanage', compact('orders', 'pending_orders', 'picked_orders', 'delivered_orders', 'canceled_orders'));
 
         } catch (QueryException $e) {
             return response()->json([
@@ -158,6 +159,18 @@ class OrderController extends Controller
                 'Message' => 'Fail!',
                 'data' => $e
             ], 400);
+        }
+    }
+    public static function CalculateMonthlyRevenue()
+    {
+        try {
+            $revenue = DB::table('orders')
+                ->select(DB::raw('YEAR(created_at) as year'), DB::raw('MONTH(created_at) as month'), DB::raw('SUM(totalPrice) as revenue'))
+                ->groupBy('year', 'month')
+                ->get();
+            return $revenue;
+        } catch (QueryException $e) {
+            return null;
         }
     }
 }

@@ -352,9 +352,9 @@
 <!-- Notyf Init -->
 <script>
     const notyf = new Notyf({
-        duration: 4000,
+        duration: 2000,
         position: {
-            x: 'right',
+            x: 'left',
             y: 'bottom',
         },
         types: [{
