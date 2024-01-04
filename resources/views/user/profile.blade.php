@@ -4,7 +4,7 @@
 </style>
 @section('content')
     <section class="vh-100">
-        <div class="container py-5 h-100 d-flex align-items-center justify-content-center">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
             <div class="row gutters">
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                     <div class="card h-100 bg-white">
@@ -478,8 +478,8 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="button"
-                                                        class="btn btn-primary create-new-address">Let's go</button>
+                                                    <button type="button" class="btn btn-dark create-new-address">Let's
+                                                        go</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -487,8 +487,7 @@
                                     <div class="row gutters mt-4">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="text-right">
-                                                {{-- <button type="button" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button> --}}
+
                                                 <button type="button" id="submit" name="submit"
                                                     class="btn btn-primary update-information">Update</button>
                                             </div>
@@ -566,10 +565,9 @@
                                 <div class="row gutters mt-4">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
-                                            {{-- <button type="button" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button> --}}
+
                                             <button type="button" id="submit" name="submit"
-                                                class="btn btn-primary update-new-address">Update</button>
+                                                class="btn btn-dark create-default-address">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -610,6 +608,7 @@
                         .then(function(response) {
                             console.log(response);
                             if (response.data.statusCode == 200) {
+                                notyf.success("Deleted successfully");
                                 document.querySelector('.other-address-quantity').innerHTML = `${parseInt(document
                                     .querySelector('.other-address-quantity').innerHTML) - 1} address more`;
                                 document.querySelectorAll('.other-address-item').forEach(function(item) {
@@ -629,6 +628,7 @@
                         })
                         .catch(function(error) {
                             console.log(error);
+                            notyf.error(error.response.data.Message);
                         });
                 }
                 const updateAddress = document.querySelectorAll('.update-address');
@@ -706,12 +706,7 @@
                             .then(function(response) {
                                 console.log(response);
                                 if (response.data.statusCode === 200) {
-                                    var alertSuccess = document.getElementById('alert-success');
-                                    alertSuccess.innerHTML = response.data.Message;
-                                    alertSuccess.classList.remove('visually-hidden');
-                                    setTimeout(function() {
-                                        alertSuccess.classList.add('visually-hidden');
-                                    }, 2000);
+                                    notyf.success(response.data.Message);
 
                                 }
                             })
@@ -752,34 +747,63 @@
 
                                 console.log(response.data);
                                 if (response.data["statusCode"] == 200) {
-                                    console.log('hello')
-                                    // Store a flag in localStorage to show the alert after reload
-                                    localStorage.setItem('showAlert', 'true');
-                                    // Reload the page
-                                    location.reload();
+                                    notyf.success(response.data.Message);
+                                    setTimeout(function() {
+                                        window.location.reload();
+                                    }, 1500);
 
                                 }
                             })
                             .catch(function(error) {
-                                console.log(error);
+
+                                notyf.error(error.response.data.Message);
                             });
                     });
                 }
-                // window.onload = function() {
-                //     // Check if the showAlert flag is set in localStorage
-                //     if (localStorage.getItem('showAlert') === 'true') {
-                //         // Show the alert
-                //         var alertSuccess = document.getElementById('alert-success');
-                //         alertSuccess.innerHTML = response.data.Message;
-                //         alertSuccess.classList.remove('visually-hidden');
-                //         setTimeout(function() {
-                //             alertSuccess.classList.add('visually-hidden');
-                //         }, 4000);
 
-                //         // Remove the showAlert flag from localStorage
-                //         localStorage.removeItem('showAlert');
-                //     }
-                // }
+                const createDefaultAddress = document.querySelector('.create-default-address');
+                if (createDefaultAddress) {
+                    createDefaultAddress.addEventListener('click', function() {
+                        let url = "{{ route('api.create-new-address') }}";
+                        let userId = {{ $user->id }};
+                        let receiver = document.querySelector('#receiver').value;
+                        let phone = document.querySelector('#phone').value;
+                        let province = document.querySelector('#province').value;
+                        let district = document.querySelector('#district').value;
+                        let ward = document.querySelector('#ward').value;
+                        let address = document.querySelector('#street').value;
+                        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                        axios.post(url, {
+                                userId: userId,
+                                receiver: receiver,
+                                phone: phone,
+                                state: province,
+                                city: district,
+                                ward: ward,
+                                street: address,
+                                userId: userId
+                            }, {
+                                headers: {
+                                    'X-CSRF-TOKEN': token
+                                }
+                            })
+                            .then(function(response) {
+
+                                console.log(response.data);
+                                if (response.data["statusCode"] == 200) {
+                                    notyf.success(response.data.Message);
+                                    setTimeout(function() {
+                                        window.location.reload();
+                                    }, 1500);
+                                }
+                            })
+                            .catch(function(error) {
+
+                                notyf.error(error.response.data.Message);
+                            });
+                    });
+                }
 
                 function toQuery(str) {
                     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");

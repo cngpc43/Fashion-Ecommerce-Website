@@ -47,26 +47,29 @@
                 <span>
                     <p class="normal-text">NEW ARRIVALS</p>
                 </span>
-                <div class="container text-center my-3 product-slider">
+                <div class="container my-3 product-slider">
                     <div class="row mx-auto my-auto justify-content-center">
                         <div id="Carousel-Collection-1" class="carousel slide multiple-image">
                             <div class="carousel-inner" role="listbox">
                                 @foreach ($newarrival as $index => $item)
                                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                        <div class="col-md-3">
+                                        <div class="col-xl-3 col-lg-3 col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
                                                     <img src="{{ url($item['img'][0]) }}" class="img-fluid">
                                                     <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
                                                 </div>
-                                                <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
+                                                <div class="container-fluid card-body p-2">
+                                                    <div class="row product-detail d-flex align-items-center">
                                                         <div class="col-8 name-col normal-text fs-5">
-                                                            <a
+                                                            <a class="text-end"
                                                                 href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
                                                         </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                        <div class="col-4 price-col normal-text fs-5">
+
+                                                            <p class="text-end mb-0 me-lg-4 me-sm-0">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,99 +90,9 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-                <span>
-                    <p class="normal-text">UNDERWEAR</p>
-                </span>
-                <div class="container text-center my-3">
-                    <div class="row mx-auto my-auto justify-content-center">
-                        <div id="recipeCarousel1" class="carousel slide multiple-image">
-                            <div class="carousel-inner" role="listbox">
-                                @foreach ($underwear as $index => $item)
-                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                        <div class="col-md-3">
-                                            <div class="card border-0">
-                                                <div class="card-img">
-                                                    <div class="card-img">
-                                                        <img src="{{ url($item['img'][0]) }}" class="img-fluid">
-                                                        <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
-                                                    </div>
-                                                </div>
-                                                <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
-                                                        <div class="col-8 name-col normal-text fs-5">
-                                                            <a
-                                                                href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
-                                                        </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
 
-                            </div>
-                            <button class="btn btn-secondary control-center control-carousel" type="button"
-                                data-bs-target="#recipeCarousel1" data-bs-slide="prev">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="btn btn-secondary control-center control-carousel" type="button"
-                                data-bs-target="#recipeCarousel1" data-bs-slide="next">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-                {{-- <span>
-                    <p class="normal-text">ICON CREWS</p>
-                </span>
-                <div class="container text-center my-3">
-                    <div class="row mx-auto my-auto justify-content-center">
-                        <div id="iconcrew" class="carousel slide multiple-image">
-                            <div class="carousel-inner" role="listbox">
-                                @foreach ($iconcrew as $index => $item)
-                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                        <div class="col-md-3">
-                                            <div class="card border-0">
 
-
-                                                <div class="card-img">
-                                                    <img src="{{ url($item['img'][0]) }}" class="img-fluid">
-                                                    <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
-                                                </div>
-
-                                                <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
-                                                        <div class="col-8 name-col normal-text fs-5">
-                                                            <a
-                                                                href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
-                                                        </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <button class="btn btn-secondary control-center control-carousel" type="button"
-                                data-bs-target="#iconcrew" data-bs-slide="prev">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="btn btn-secondary control-center control-carousel" type="button"
-                                data-bs-target="#iconcrew" data-bs-slide="next">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="row overflow-hidden">
                     <div class="col-12 ms-2">
                         <h1>
@@ -225,14 +138,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
-                                                        <div class="col-8 name-col normal-text fs-5">
+                                                    <div class="row product-detail d-flex align-items-center">
+                                                        <div
+                                                            class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
                                                             <a
                                                                 href="{{ url('/product-detail/' . $item['productId'] . '?detailID=' . $item['productDetailId']) }}">
                                                                 {{ $item['name'] }}</a>
                                                         </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                        <div
+                                                            class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                                            <p class="text-end mb-0 ">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -252,6 +168,10 @@
 
     </body>
     <script>
+        // console.log(@json($product));
+        // console.log(@json($categories));
+        // console.log(@json($iconcrew));
+        // console.log(@json($newarrival));
         const hi = @json($newarrival);
         console.log(hi);
         const banner = @json($banner);

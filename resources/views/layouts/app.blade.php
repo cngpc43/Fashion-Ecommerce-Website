@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @vite(['resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
-
+    <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'>
 </head>
 
 <body>
@@ -28,43 +28,34 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid d-flex justify-content-between">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-expanded="false">
+                    data-bs-target="#navbarSupportedContent" aria-expanded="navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="col-xl-5 col-lg-4 d-flex justify-content-start">
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item me-2">
-                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item me-3 normal-text fs-4">
+                                <a class="nav-link" href="{{ url('/socks') }}" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Socks
                                 </a>
 
                             </li>
-                            <li class="nav-item me-2">
+                            <li class="nav-item me-3 normal-text fs-4">
 
                                 <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
                                     Men
                                 </a>
 
                             </li>
-                            <li class="nav-item me-2">
-                                <a class="nav-link" href="{{ route('women-product') }}" role="button"
-                                    aria-expanded="false">
+                            <li class="nav-item me-3 normal-text fs-4 ">
+                                <a class="nav-link" href="{{ url('/women-product') }}" role="button" aria-expanded="false">
                                     Women
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item normal-text fs-4">
+                                <a class="nav-link" href="{{ url('/sales') }}" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Sales
                                 </a>
@@ -74,41 +65,46 @@
                     </div>
                     <div class="col-2 d-flex justify-content-center">
 
-                        <a class="navbar-brand" href="{{ url('/') }}">NO BRAND</a>
+                        <a class="navbar-brand fs-3"
+                            style="font-family: 'Cedarville Cursive';font-size: 22px; font-weight:1000"
+                            href="{{ url('/') }}">
+                            No Brand
+                        </a>
 
                     </div>
                     <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
 
-                        <form class="d-flex position-relative " role="search" action="/search" method="GET">
+                        <form class="d-flex position-relative me-3" role="search" action="/search" method="GET">
                             <input class="form-control me-2 position-relative" name="query" type="search"
                                 placeholder="Search" aria-label="Search">
                             <button class="btn position-absolute end-0 me-2" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
-
                         </form>
 
-                        <span class="cart me-3">
+                        <span class="cart me-4">
                             <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
                                 aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
-                                <i class="far fa-shopping-cart fa-md"></i>
+                                <i class="far fa-shopping-cart fa-md"
+                                    style="font-size: 1.2em; text-shadow:  0 0.4px black, 0.4px 0 black"></i>
                                 <span class='badge badge-warning' id='lblCartCount'></span>
                             </a>
                         </span>
 
 
 
-                        <div class="nav-item user" title="Login">
+                        <div class="nav-item user me-2" title="Login">
                             <a href="{{ url('/login') }}" class="nav-link" role="button" aria-expanded="false"><i
-                                    class="far fa-user solid fa-md"></i></i></a>
+                                    class="far fa-user solid fa-md"
+                                    style="font-size: 1.2em; text-shadow:  0 0.4px black, 0.4px 0 black"></i></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
+        {{-- <span class="navbar-toggler-icon"></span>
+        </button> --}}
+        {{-- <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
             aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
@@ -119,8 +115,8 @@
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+        {{-- <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -136,16 +132,16 @@
                             </li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
-                </ul>
-                <form class="d-flex mt-3 mt-lg-0" role="search">
+                    </li> --}}
+        {{-- </ul> --}}
+        {{-- <form class="d-flex mt-3 mt-lg-0" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+                </form> --}}
+        {{-- </div> --}}
+        {{-- </div>
         </div>
-        </div>
-        </nav>
+        </nav> --}}
         <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
             <div class="spinner-border" role="status" id="spinner">
@@ -165,30 +161,28 @@
                     <div class="col-5 d-flex justify-content-start">
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item me-2">
-                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item me-3 normal-text fs-4">
+                                <a class="nav-link" href="{{ url('/socks') }}" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Socks
                                 </a>
 
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-3 normal-text fs-4">
 
                                 <a class="nav-link" href="{{ url('/menproduct') }}" aria-expanded="false">
                                     Men
                                 </a>
 
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-3 normal-text fs-4 ">
                                 <a class="nav-link" href="{{ url('/women-product') }}" role="button"
                                     aria-expanded="false">
                                     Women
                                 </a>
-
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                            <li class="nav-item normal-text fs-4">
+                                <a class="nav-link" href="{{ url('/sales') }}" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Sales
                                 </a>
@@ -198,21 +192,25 @@
                     </div>
                     <div class="col-2 d-flex justify-content-center">
 
-                        <a class="navbar-brand fw-5" href="{{ url('/') }}">NO BRAND</a>
+                        <a class="navbar-brand fs-3"
+                            style="font-family: 'Cedarville Cursive';font-size: 22px; font-weight:1000"
+                            href="{{ url('/') }}">
+                            No Brand
+                        </a>
 
                     </div>
                     <div class="col-5 d-flex justify-content-end align-items-center">
-                        <form class="d-flex position-relative " role="search">
-                            <input class="form-control me-2 position-relative" type="search" placeholder="Search"
-                                aria-label="Search">
+                        <form class="d-flex position-relative me-3" role="search" action="/search" method="GET">
+                            <input class="form-control me-2 position-relative" name="query" type="search"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn position-absolute end-0 me-2" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
-
                         </form>
-                        <span class="cart me-3">
+                        <span class="cart me-4">
                             <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
                                 aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
-                                <i class="far fa-shopping-cart fa-md"></i>
+                                <i class="far fa-shopping-cart fa-md"
+                                    style="font-size: 1.2em; text-shadow:  0 0.4px black, 0.4px 0 black"></i>
                                 <span class='badge badge-warning' id='lblCartCount'>0</span>
                             </a>
                         </span>
@@ -223,16 +221,17 @@
                             </div>
                         </div>
 
-                        <div class="nav-item dropdown user">
+                        <div class="nav-item dropdown user me-2">
 
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
-                                aria-expanded="false"><i class="far fa-user solid fa-md"></i></i></a>
+                                aria-expanded="false"><i class="far fa-user solid fa-md"
+                                    style="font-size: 1.2em; text-shadow:  0 0.4px black, 0.4px 0 black"></i></i></a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li class="dropdown-item d-flex"
+                                <li class="dropdown-item d-flex fs-5"
                                     onclick="window.location.href='/profile/{{ auth()->id() }}'">
                                     <a class="d-block w-100" href="/profile/{{ auth()->id() }}">Profile</a>
                                 </li>
-                                <li class="dropdown-item d-flex"
+                                <li class="dropdown-item d-flex fs-5"
                                     onclick="window.location.href='{{ route('user.orders') }}'">
                                     <a href="{{ route('user.orders') }}">Orders</a>
                                 </li>
@@ -259,18 +258,6 @@
             </div>
         </div>
     @endauth
-
-
-    <div class="row d-flex justify-content-end">
-        <div class="col-3 me-3">
-            <div class="alert alert-danger visually-hidden" id="alert-danger" role="alert">
-                A simple danger alert—check it out!
-            </div>
-            <div class="alert alert-success visually-hidden" id="alert-success" role="alert">
-                A simple success alert—check it out!
-            </div>
-        </div>
-    </div>
 
     <div class="offcanvas offcanvas-end custom-offcanvas" data-bs-scroll="true" tabindex="-1"
         id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
@@ -380,13 +367,6 @@
 </script>
 
 <script>
-    /* Script to render html element*/
-    // let cart = @json(session('cart', []));
-    // console.log(cart)
-    /* Script for multiple image carousel */
-
-    // console.log(document.querySelector('.carousel-item-img'))
-
     function RenderCustomerCart() {
 
         @if (Auth::check())
@@ -773,6 +753,45 @@
             @endif
         }
     });
+
+
+
+
+    var navbarToggler = document.querySelector('.navbar-toggler');
+    var navbarCollapse = document.querySelector('.navbar-collapse');
+
+    // Remove data-toggle and data-target attributes to disable Bootstrap's collapse functionality
+    navbarToggler.removeAttribute('data-toggle');
+    navbarToggler.removeAttribute('data-target');
+
+    navbarCollapse.style.transition = 'max-height 0.35s ease'; // Add transition
+    navbarCollapse.style.maxHeight = '0'; // Initially hide the navbar
+    navbarCollapse.style.overflow = 'hidden'; // Hide overflow
+
+    navbarToggler.addEventListener('click', function(event) {
+        if (navbarCollapse.style.maxHeight !== '0px') {
+            navbarCollapse.style.maxHeight = '0';
+        } else {
+            navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
+        }
+    });
+
+    // Function to set the max-height property
+    function setMaxHeight() {
+        if (window.innerWidth >= 768) { // Bootstrap's medium breakpoint
+            navbarCollapse.style.maxHeight = 'none';
+        } else {
+            if (navbarCollapse.style.maxHeight !== '0px') {
+                navbarCollapse.style.maxHeight = navbarCollapse.scrollHeight + 'px';
+            }
+        }
+    }
+
+    // Call the function when the page is loaded
+    setMaxHeight();
+
+    // Call the function when the window is resized
+    window.addEventListener('resize', setMaxHeight);
 </script>
 
 </html>

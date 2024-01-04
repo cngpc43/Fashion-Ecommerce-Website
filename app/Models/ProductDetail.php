@@ -290,8 +290,8 @@ class ProductDetail extends Model
                 'sub.productDetailId',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
-            ->where('categories.parent', $view)
             ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
+            ->where('categories.parent', $view)
             ->get();
 
         $grouped = [];

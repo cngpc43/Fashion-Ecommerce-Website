@@ -90,12 +90,6 @@
             <div class="col-lg-7 col-md-12 col-12">
                 <h1 class="normal-text fs-1">Description</h1>
                 <p>{{ $product[0]['description'] }}</p>
-                <p>Non occaecat incididunt minim et reprehenderit mollit est aliquip pariatur proident velit sint et anim.
-                    Ut
-                    reprehenderit
-                    reprehenderit dolore occaecat. Esse tempor velit cillum elit labore deserunt irure. Elit laborum id
-                    consectetur Lorem
-                    cillum cupidatat sit eu proident exercitation excepteur est minim.</p>
             </div>
         </div>
 

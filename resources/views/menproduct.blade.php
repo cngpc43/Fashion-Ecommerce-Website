@@ -59,14 +59,17 @@
                                                     <img src="{{ url($item['img'][0]) }}" class="img-fluid">
                                                     <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
                                                 </div>
-                                                <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
+                                                <div class="container-fluid card-body p-2">
+                                                    <div class="row product-detail d-flex align-items-center">
                                                         <div class="col-8 name-col normal-text fs-5">
-                                                            <a
+                                                            <a class="text-end"
                                                                 href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
                                                         </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                        <div class="col-4 price-col normal-text fs-5">
+
+                                                            <p class="text-end mb-0 me-4">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -106,13 +109,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
-                                                        <div class="col-8 name-col normal-text fs-5">
-                                                            <a
+                                                    <div class="row product-detail d-flex align-items-center">
+                                                        <div
+                                                            class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                                            <a class="text-start"
                                                                 href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
                                                         </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                        <div
+                                                            class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                                            <p class="text-end mb-0 me-3">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,7 +166,8 @@
                                                                 href="{{ url('/product-detail/' . $item['productId']) . '?detailID=' . $item['productDetailId'] }}">{{ $item['name'] }}</a>
                                                         </div>
                                                         <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                            <p class="text-end mb-0">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -216,23 +223,6 @@
 
                                 <div class="row row-cols-4">
                                     @foreach ($product as $item)
-                                        {{-- <div class="col-6 col-md-3">
-                                            <div class="product-img" img-src="{{ url($item['img'][0]) }}">
-                                            </div>
-                                            <div class="row title-body">
-                                                <div class="col name">
-                                                    <p class="normal-text fs-5">{{ $item['name'] }}</p>
-                                                </div>
-                                                <div class="col price text-end">
-                                                    <P class="normal-text fs-5">{{ $item['price'] }}</P>
-                                                </div>
-                                            </div>
-                                            <div class="color-swatches d-flex">
-                                                <span>red</span>
-                                                <span>green</span>
-                                                <span>blue</span>
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
@@ -243,14 +233,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="container-fluid card-body">
-                                                    <div class="row product-detail">
-                                                        <div class="col-8 name-col normal-text fs-5">
+                                                    <div class="row product-detail d-flex align-items-center">
+                                                        <div
+                                                            class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
                                                             <a
                                                                 href="{{ url('/product-detail/' . $item['productId'] . '?detailID=' . $item['productDetailId']) }}">
                                                                 {{ $item['name'] }}</a>
                                                         </div>
-                                                        <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                            <p>{{ $item['price'] }}</p>
+                                                        <div
+                                                            class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                                            <p class="text-end mb-0 ">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
                                                         </div>
                                                     </div>
                                                 </div>

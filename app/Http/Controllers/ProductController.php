@@ -297,7 +297,12 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('name', 'like', "%{$query}%")->get();
-        return view('search-results', compact('products'));
+        $products = DB::table('products')
+            ->where('name', 'like', "%{$query}%")
+            ->orWhere('description', 'like', "%{$query}%")
+            ->join('product_details', 'products.productId', '=', 'product_details.productId')
+            ->select('products.*', 'product_details.img', 'product_details.productDetailId')
+            ->get();
+        return view('search-results', ['products' => $products, 'query' => $query]);
     }
 }

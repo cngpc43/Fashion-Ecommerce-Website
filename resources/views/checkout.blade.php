@@ -122,116 +122,13 @@
 
                                                             </div>
                                                         </div>
-                                                        {{-- Update form --}}
-                                                        {{-- <div id="update-form-{{ $address->id }}"
-                                                                    style="display: none">
-                                                                    <div class="modal-body">
-                                                                        <div class="media-body">
-                                                                            <div class="row d-flex justify-content-center">
-                                                                                <div class="col-6">
-
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="email"
-                                                                                            class="form-control"
-                                                                                            id="receiver-{{ $address->id }}"
-                                                                                            value="{{ $address->receiver }}">
-                                                                                        <label
-                                                                                            for="receiver">Receiver</label>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input
-                                                                                            id="street-{{ $address->id }}"
-                                                                                            class="form-control"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->street }}">
-                                                                                        <label>Đường</label>
-
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-
-                                                                                        <input type="text"
-                                                                                            id="district-{{ $address->id }}"
-                                                                                            class="form-control district dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->city }}"
-                                                                                            oninput="disSearch()">
-                                                                                        <label>Quận/Huyện</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="district_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-6">
-
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="phone"
-                                                                                            class="form-control"
-                                                                                            id="phone-{{ $address->id }}"
-                                                                                            value="{{ $address->phone }}">
-                                                                                        <label for="phone">Phone
-                                                                                            number</label>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            id="province-{{ $address->id }}"
-                                                                                            class="form-control province dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->state }}"
-                                                                                            oninput="proSearch()">
-                                                                                        <label>Tỉnh/Thành</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="province_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            id="ward-{{ $address->id }}"
-                                                                                            class="form-control ward dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->ward }}"
-                                                                                            oninput="warSearch()">
-                                                                                        <label>Phường/Xã</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="ward_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                onclick="cancelUpdateForm({{ $address->id }})">Close</button>
-                                                                            <button type="button" class="btn btn-danger"
-                                                                                onclick="deleteAddress({{ $address->id }})">Delete</button>
-
-                                                                            <button type="button"
-                                                                                class="btn btn-primary update-address"
-                                                                                target-id={{ $address->id }}>Save
-                                                                                changes</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> --}}
                                                     @endforeach
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="row gutters mt-4">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class="text-right">
 
-                                                <button type="button" id="submit" name="submit"
-                                                    class="btn btn-primary update-information">Update</button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 {{-- Modal for create address --}}
                                 <div class="modal fade" id="createAddress" tabindex="-1"
@@ -327,8 +224,7 @@
                                     <div class="row gutters mt-4">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="text-right">
-                                                {{-- <button type="button" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button> --}}
+
                                                 <button type="button" id="submit" name="submit"
                                                     class="btn btn-primary update-information">Update</button>
                                             </div>
@@ -425,8 +321,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="h5">Name</th>
-
-                                        <th scope="col">Quantity</th>
+                                        <th class="text-center" scope="col">Quantity</th>
                                         <th scope="col">Price</th>
                                     </tr>
                                 </thead>
@@ -675,22 +570,8 @@
                                                     </div>
                                                 </th>
     
-                                                <td class="align-middle">
-                                                    <div class="d-flex flex-row">
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-    
-                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
-                                                            type="text" class="form-control form-control-sm text-center"
-                                                            style="width: 50px;" />
-    
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                <td class="align-middle text-center">
+                                                    ${el.quantity}
                                                 </td>
                                                 <td class="align-middle">
                                                     <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
@@ -704,7 +585,7 @@
                 cart.forEach(el => {
                     totalMoney += parseInt(el.price) * parseInt(el.quantity)
                 })
-                document.querySelector('.total-money').innerHTML = `${totalMoney} USD`
+                document.querySelector('.total-money').innerHTML = `USD ${totalMoney}`
                 console.log(totalMoney)
             } else {
                 console.log('nothing')
@@ -828,12 +709,15 @@
         if (createNewAddress) {
             createNewAddress.addEventListener('click', function() {
                 let url = "{{ route('api.create-new-address') }}";
-                let receiver = document.querySelector('#receiver').value;
-                let phone = document.querySelector('#phone').value;
-                let province = document.querySelector('#province').value;
-                let district = document.querySelector('#district').value;
-                let ward = document.querySelector('#ward').value;
-                let address = document.querySelector('#street').value;
+                let receiver = (document.querySelector('#receiver') ?? document.querySelector('#new-receiver'))
+                    .value;
+                let phone = (document.querySelector('#phone') ?? document.querySelector('#new-phone')).value;
+                let province = (document.querySelector('#province') ?? document.querySelector('#new-province'))
+                    .value;
+                let district = (document.querySelector('#district') ?? document.querySelector('#new-district'))
+                    .value;
+                let ward = (document.querySelector('#ward') ?? document.querySelector('#new-ward')).value;
+                let address = (document.querySelector('#street') ?? document.querySelector('#new-street')).value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 let userId = USERID;
                 if (!userId) {
@@ -854,20 +738,19 @@
                         }
                     })
                     .then(function(response) {
-
                         console.log(response.data);
-                        if (response.data["statusCode"] == 200) {
-                            successAlert.classList.remove('visually-hidden')
-                            successAlert.innerHTML = `Create new address successfully`
+                        if (response.data.statusCode == 200) {
+                            notyf.success(response.data.Message)
                             setTimeout(() => {
-                                successAlert.classList.add('visually-hidden')
                                 window.location.reload()
                             }, 2000);
-
+                        } else {
+                            notyf.error(response.data.Message)
                         }
                     })
                     .catch(function(error) {
                         console.log(error);
+                        notyf.error(error.response.data.Message)
                     });
             });
         }
