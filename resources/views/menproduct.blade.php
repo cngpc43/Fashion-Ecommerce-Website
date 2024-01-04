@@ -61,13 +61,14 @@
                                                 </div>
                                                 <div class="container-fluid card-body p-2">
                                                     <div class="row product-detail d-flex align-items-center">
-                                                        <div class="col-8 name-col normal-text fs-5">
-                                                            <a class="text-end"
+                                                        <div
+                                                            class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                                            <a style="text-align: start"
                                                                 href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
                                                         </div>
                                                         <div class="col-4 price-col normal-text fs-5">
 
-                                                            <p class="text-end mb-0 me-4">USD
+                                                            <p class="text-end mb-0 me-4 me-sm-0">USD
                                                                 {{ number_format($item['price'], 2) }}</p>
 
                                                         </div>
@@ -213,15 +214,20 @@
                                     <div class="col">
                                         <div class="d-flex justify-content-end">
                                             <span class="me-3">SORT BY</span>
-                                            <select name="" id=""></select>
+                                            <select name="sort" id="sort">
+                                                <option value="">Select</option>
+                                                <option value="{{ route('menproduct', ['sort' => 'price_asc']) }}">Price
+                                                    low to high</option>
+                                                <option value="{{ route('menproduct', ['sort' => 'price_desc']) }}">Price
+                                                    high to low</option>
+                                            </select>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                             <div class="container-fluid p-2 mt-4">
 
-                                <div class="row row-cols-4">
+                                <div class="row row-cols-4 product-list">
                                     @foreach ($product as $item)
                                         <div class="col-md-3">
                                             <div class="card border-0">
@@ -263,16 +269,72 @@
 
     </body>
     <script>
-        // console.log(@json($product));
-        // console.log(@json($categories));
-        // console.log(@json($iconcrew));
-        // console.log(@json($newarrival));
         const hi = @json($newarrival);
         console.log(hi);
+        console.log('dm')
         const banner = @json($banner);
         const categories = @json($categories);
         document.querySelector('.hero-banner').setAttribute(
             'img-src', banner[0].img);
+
+        document.getElementById('sort').addEventListener('change', function(event) {
+            event.preventDefault();
+            var sort = this.value;
+            fetchSortedData(sort);
+        });
+
+        function fetchSortedData(url) {
+            console.log(url);
+            var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    var productList = document.querySelector('.product-list');
+                    console.log(JSON.parse(data));
+                    productList.innerHTML = '';
+                    JSON.parse(data).forEach(item => {
+                        productList.innerHTML += productTemplate(item);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+
+        function productTemplate(item) {
+            if (item.img.length == 1) {
+
+            } else {
+                return `
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-img">
+                        <div class="card-img">
+                            
+                            <img src="${item.img[0]}" class="img-fluid" style="mix-blend-mode: multiply">
+                            <img src="${item.img[1]}" class="img-fluid hover-img"style="mix-blend-mode: multiply>
+                        </div>
+                    </div>
+                    <div class="container-fluid card-body">
+                        <div class="row product-detail d-flex align-items-center">
+                            <div class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                <a href="/product-detail/${item.productId}?detailID=${item.productDetailId}">
+                                    ${item.name}
+                                </a>
+                            </div>
+                            <div class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                <p class="text-end mb-0 ">USD ${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            }
+        }
     </script>
 @endsection
 

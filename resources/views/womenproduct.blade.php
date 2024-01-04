@@ -119,7 +119,13 @@
                                     <div class="col">
                                         <div class="d-flex justify-content-end">
                                             <span class="me-3">SORT BY</span>
-                                            <select name="" id=""></select>
+                                            <select name="sort" id="sort">
+                                                <option value="">Select</option>
+                                                <option value="{{ route('womenproduct', ['sort' => 'price_asc']) }}">Price
+                                                    low to high</option>
+                                                <option value="{{ route('womenproduct', ['sort' => 'price_desc']) }}">Price
+                                                    high to low</option>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -127,7 +133,7 @@
                             </div>
                             <div class="container-fluid p-2 mt-4">
 
-                                <div class="row row-cols-4">
+                                <div class="row row-cols-4 product-list">
                                     @foreach ($product as $item)
                                         <div class="col-md-3">
                                             <div class="card border-0">
@@ -178,6 +184,32 @@
         const categories = @json($categories);
         document.querySelector('.hero-banner').setAttribute(
             'img-src', banner[0].img);
+
+        document.getElementById('sort').addEventListener('change', function(event) {
+            event.preventDefault();
+            var sort = this.value;
+            fetchSortedData(sort);
+        });
+
+        function fetchSortedData(url) {
+            console.log(url);
+            var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    var productList = document.querySelector('.product-list');
+                    console.log(JSON.parse(data));
+                    productList.innerHTML = '';
+                    JSON.parse(data).forEach(item => {
+                        productList.innerHTML += productTemplate(item);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
     </script>
 @endsection
 

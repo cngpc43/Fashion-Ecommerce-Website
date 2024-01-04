@@ -3,7 +3,7 @@
     <!-- Credit card form -->
 
     <section class="h-100">
-        <div class="container h-100 py-3">
+        <div class="container h-100 py-5 my-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
                     <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; background-color: white">
@@ -592,45 +592,30 @@
             }
         @else
             let cart = JSON.parse(localStorage.getItem('cart'))
-            // console.log(cart)
+            let total = 0
             cart.forEach(el => {
                 cartList.innerHTML += `
                  <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="${el.image}" class="img-fluid rounded-3" style="width: 120px;">
-                                                        <div class="flex-column ms-4">
-                                                            <p class="mb-2">${el.name}</p>
-                                                            <p class="mb-0">${el.color} ${el.size}</p>
-                                                        </div>
-                                                    </div>
-                                                </th>
-    
-                                                <td class="align-middle">
-                                                    <div class="d-flex flex-row">
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-    
-                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
-                                                            type="text" class="form-control form-control-sm text-center"
-                                                            style="width: 50px;" />
-    
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <p class="mb-0" style="font-weight: 500;">${el.price}</p>
-                                                </td>
-                                            </tr>
-                                            
-    
-                `
+                    <th scope="row">
+                        <div class="d-flex align-items-center">
+                            <img src="${el.image}" class="img-fluid rounded-3" style="width: 120px;">
+                            <div class="flex-column ms-4">
+                                <p class="mb-2">${el.name}</p>
+                                <p class="mb-0">${el.color} ${el.size}</p>
+                            </div>
+                        </div>
+                    </th>
+
+                    <td class="align-middle text-center">
+                        ${el.quantity}
+                    </td>
+                    <td class="align-middle">
+                        <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
+                    </td>
+                </tr>`
+                total += parseInt(el.price) * parseInt(el.quantity)
             })
+            document.querySelector('.total-money').innerHTML = `USD ${total}`
         @endif
 
 

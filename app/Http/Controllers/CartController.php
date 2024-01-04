@@ -466,4 +466,26 @@ class CartController extends Controller
     //     return view('cart', compact('cart'));
     // }
 
+    public function syncCart(Request $request)
+    {
+
+        
+
+        // foreach ($localStorageCart as $item) {
+        //     $cartItem = Cart::where('product_id', $item['product_id'])->first();
+
+        //     if ($cartItem) {
+        //         $cartItem->quantity = $item['quantity'];
+        //         $cartItem->save();
+        //     } else {
+        //         Cart::create([
+        //             'product_id' => $item['product_id'],
+        //             'quantity' => $item['quantity'],
+        //         ]);
+        //     }
+        // }
+
+        return response()->json(['message' => 'Cart synced successfully']);
+    }
+
 }

@@ -2,7 +2,7 @@
 @section('content')
     {{-- <section class="vh-100"> --}}
     {{-- <div class="container py-5 h-100 d-flex align-items-center justify-content-center"> --}}
-    <div class="container mt-5 p-0 ">
+    <div class="container mt-5 py-3 p-0 ">
 
         <ul class="nav nav-pills d-flex justify-content-between bg-white" id="pills-tab" role="tablist">
             <li class="nav-item order-status" role="presentation">

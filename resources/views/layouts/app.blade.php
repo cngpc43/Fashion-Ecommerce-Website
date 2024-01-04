@@ -36,8 +36,7 @@
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item me-3 normal-text fs-4">
-                                <a class="nav-link" href="{{ url('/socks') }}" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                <a class="nav-link" href="{{ url('/socks') }}" aria-expanded="false">
                                     Socks
                                 </a>
 
@@ -50,13 +49,12 @@
 
                             </li>
                             <li class="nav-item me-3 normal-text fs-4 ">
-                                <a class="nav-link" href="{{ url('/women-product') }}" role="button" aria-expanded="false">
+                                <a class="nav-link" href="{{ url('/women-product') }}" aria-expanded="false">
                                     Women
                                 </a>
                             </li>
                             <li class="nav-item normal-text fs-4">
-                                <a class="nav-link" href="{{ url('/sales') }}" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                <a class="nav-link" href="{{ url('/sales') }}" aria-expanded="false">
                                     Sales
                                 </a>
 
@@ -80,13 +78,12 @@
                             <button class="btn position-absolute end-0 me-2" type="submit"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
-
                         <span class="cart me-4">
                             <a data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions"
                                 aria-controls="offcanvasWithBothOptions" role="button" aria-controls="collapseExample">
                                 <i class="far fa-shopping-cart fa-md"
                                     style="font-size: 1.2em; text-shadow:  0 0.4px black, 0.4px 0 black"></i>
-                                <span class='badge badge-warning' id='lblCartCount'></span>
+                                <span class='badge badge-warning' id='lblCartCount'>0</span>
                             </a>
                         </span>
 
@@ -102,46 +99,6 @@
             </div>
         </nav>
 
-        {{-- <span class="navbar-toggler-icon"></span>
-        </button> --}}
-        {{-- <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2"
-            aria-labelledby="offcanvasNavbar2Label">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li> --}}
-        {{-- <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li> --}}
-        {{-- </ul> --}}
-        {{-- <form class="d-flex mt-3 mt-lg-0" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> --}}
-        {{-- </div> --}}
-        {{-- </div>
-        </div>
-        </nav> --}}
         <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
             <div class="spinner-border" role="status" id="spinner">
@@ -150,7 +107,7 @@
         </div>
     @endguest
     @auth
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container-fluid d-flex justify-content-between">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -158,12 +115,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="col-5 d-flex justify-content-start">
+                    <div class="col-xl-5 col-lg-4 d-flex justify-content-start">
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item me-3 normal-text fs-4">
-                                <a class="nav-link" href="{{ url('/socks') }}" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                <a class="nav-link" href="{{ url('/socks') }}" aria-expanded="false">
                                     Socks
                                 </a>
 
@@ -182,8 +138,7 @@
                                 </a>
                             </li>
                             <li class="nav-item normal-text fs-4">
-                                <a class="nav-link" href="{{ url('/sales') }}" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                                <a class="nav-link" href="{{ url('/sales') }}" aria-expanded="false">
                                     Sales
                                 </a>
 
@@ -199,7 +154,7 @@
                         </a>
 
                     </div>
-                    <div class="col-5 d-flex justify-content-end align-items-center">
+                    <div class="col-xl-5 col-lg-6 d-flex justify-content-end align-items-center">
                         <form class="d-flex position-relative me-3" role="search" action="/search" method="GET">
                             <input class="form-control me-2 position-relative" name="query" type="search"
                                 placeholder="Search" aria-label="Search">
@@ -214,12 +169,12 @@
                                 <span class='badge badge-warning' id='lblCartCount'>0</span>
                             </a>
                         </span>
-                        <div class="collapse" id="collapseExample">
+                        {{-- <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 Some placeholder content for the collapse component. This panel is hidden by default but
                                 revealed when the user activates the relevant trigger.
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="nav-item dropdown user me-2">
 
@@ -279,54 +234,60 @@
         </div>
     </div>
     @yield('content')
-    <div class="container-fluid footer d-flex p-0">
-        <!-- Content here -->
-        <div class="row footer g-0">
-            <div class="col-6 col-sm-6 col-md-7 justify-content-center" style="padding: 0px 70px 0px 30px">
-                <h2 class="join-us-heading display-1">JOIN OUR COMMUNITY</h2>
-                <p class="text-white fs-4">
-                    We'll stitch your inbox differently and you'll receive 20% off your first order.
-                </p>
-                <div class="row d-flex align-items-center">
-                    <div class="col-6">
+    <footer>
 
-                        <div class="input-group input-group-lg">
+        <div class="container-fluid footer p-lg-5 p-md-4 ">
+            <!-- Content here -->
+            <div class="row footer d-flex align-items-center">
+                <div class="col-lg-6 justify-content-center">
+                    <h2 class="join-us-heading display-1">JOIN OUR COMMUNITY</h2>
+                    <p class="d-sm-none text-white fs-4">
+                        We'll stitch your inbox differently and you'll receive 20% off your first order.
+                    </p>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-6">
 
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-lg" placeholder="Email">
+                            <div class="input-group input-group-lg">
+
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-lg" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-light">Subscribe</button>
                         </div>
                     </div>
-                    <div class="col-2">
-
-                        {{-- <button type="button" class="btn btn-outline-dark">Dark</button> --}}
-                        <button type="button" class="btn btn-outline-light">Subscribe</button>
-
+                    <div class="contact-section mt-4">
+                        <h2 class="primary-text fs-1 text-white">Call us</h2>
+                        <p class="normal-text fs-2 text-white m-0">Phone number: 0829004003</p>
+                        <p class="normal-text fs-2 text-white m-0">Email: uit@edu.vn</p>
+                    </div>
+                    <div class="copyright mb-1">
+                        <span>
+                            <p class="normal-text fs-5 text-white">2023PCC All rights reserved</p>
+                        </span>
                     </div>
                 </div>
-                <div class="contact-section mt-4">
-
-                    <h2 class="primary-text fs-1 text-white">Call us</h2>
-                    <p class="normal-text fs-2 text-white m-0">Phone number: 0829004003</p>
-                    <p class="normal-text fs-2 text-white m-0">Email: uit@edu.vn</p>
+                <div class="col-lg-5 col-sm-3 d-lg-block d-md-none hide-on-small d-flex align-items-center">
+                    <ul class="footer-options m-0 d-flex flex-column ">
+                        <li class="normal-text text-end mb-3 fs-2"><a class="text-white" href="">Help
+                                center</a>
+                        </li>
+                        <li class="normal-text text-end mb-3 fs-2"><a class="text-white" href="">Return</a>
+                        </li>
+                        <li class="normal-text text-end mb-3 fs-2"><a class="text-white" href="">Order
+                                status</a>
+                        </li>
+                        <li class="normal-text text-end mb-3 fs-2"><a class="text-white" href="">Policy</a>
+                        </li>
+                        <li class="normal-text text-end mb-3 fs-2"><a class="text-white" href="">Find our
+                                stores</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="copyright mb-1">
-                    <span>
-                        <p class="normal-text fs-5 text-white">2023PCC All rights reserved</p>
-                    </span>
-                </div>
-            </div>
-            <div class="col-6 col-md-5">
-                <ul class="footer-options">
-                    <li class="normal-text fs-2"><a class="text-white" href="">Help center</a></li>
-                    <li class="normal-text fs-2"><a class="text-white" href="">Return</a></li>
-                    <li class="normal-text fs-2"><a class="text-white" href="">Order status</a></li>
-                    <li class="normal-text fs-2"><a class="text-white" href="">Policy</a></li>
-                    <li class="normal-text fs-2"><a class="text-white" href="">Find our stores</a></li>
-
-                </ul>
             </div>
         </div>
-    </div>
+    </footer>
     </div>
 
     <script src="{{ asset('/build/assets/app-125e486a.js') }}"></script>
@@ -433,47 +394,6 @@
         item2.style.backgroundImage = `url(${item2.getAttribute('img-src')})`
     })
 
-
-
-
-    // function RenderCartItems(cart) {
-    //     let offcanvasCart = document.querySelector('.offcanvas-body.cart');
-    //     offcanvasCart.innerHTML = '';
-    //     cart.forEach(item => {
-    //         let cartItem = document.createElement('div');
-    //         cartItem.className =
-    //             'cart-item d-flex justify-content-between align-items-center';
-    //         cartItem.innerHTML = `
-    //             <div class="col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center">
-    //                                      <img src="{{ url('${item.image}') }}"
-    //                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
-    //                                     </div>
-    //                                     <div class="col-md-3 col-lg-3 col-xl-3">
-    //                                         <h6 class="text-muted">${item.name}</h6>
-    //                                         <h6 class="text-black mb-0">${item.color}</h6>
-    //                                         <h6 class="text-black mb-0">${item.size}</h6>
-    //                                     </div>
-    //                                     <div class="col-md-3 col-lg-4 col-xl-2 d-flex">
-    //                                         <div class="quantity d-flex justify-content-center align-items-center">
-
-    //                                             <h2 class="text-black mb-0">${item.quantity}</h2>
-
-    //                                         </div>
-    //                                     </div>
-    //                                     <div class="col-md-3 col-lg-1 col-xl-2 d-flex justify-content-center">
-    //                                         <h6 class="mb-0">USD ${item.price}</h6>
-    //                                     </div>
-    //                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-    //                                         <a href="#!" class="text-muted" target-detail="${item.detailId}"><i class="fas fa-times"></i></a>
-    //                                     </div>
-    //             `
-
-    //         let hr = document.createElement('hr');
-    //         hr.className = 'my-4';
-    //         offcanvasCart.appendChild(cartItem);
-    //         offcanvasCart.appendChild(hr);
-    //     })
-    // }
 
     function RenderCart(data = []) {
         // Get the cart data from localStorage
@@ -642,7 +562,6 @@
 
 <!-- Cart Quantity change handler -->
 <script>
-    // For quantity change in cart offcanvas
     function FormQuantityChangeHandler(el) {
         const formAction = el.getAttribute('form-action')
         const a = formAction.includes('minus') ? -1 : (formAction.includes('plus') ? 1 : 0)
@@ -759,14 +678,12 @@
 
     var navbarToggler = document.querySelector('.navbar-toggler');
     var navbarCollapse = document.querySelector('.navbar-collapse');
-
-    // Remove data-toggle and data-target attributes to disable Bootstrap's collapse functionality
     navbarToggler.removeAttribute('data-toggle');
     navbarToggler.removeAttribute('data-target');
 
-    navbarCollapse.style.transition = 'max-height 0.35s ease'; // Add transition
-    navbarCollapse.style.maxHeight = '0'; // Initially hide the navbar
-    navbarCollapse.style.overflow = 'hidden'; // Hide overflow
+    navbarCollapse.style.transition = 'max-height 0.35s ease';
+
+    navbarCollapse.style.maxHeight = '0';
 
     navbarToggler.addEventListener('click', function(event) {
         if (navbarCollapse.style.maxHeight !== '0px') {
@@ -776,9 +693,9 @@
         }
     });
 
-    // Function to set the max-height property
+
     function setMaxHeight() {
-        if (window.innerWidth >= 768) { // Bootstrap's medium breakpoint
+        if (window.innerWidth >= 768) {
             navbarCollapse.style.maxHeight = 'none';
         } else {
             if (navbarCollapse.style.maxHeight !== '0px') {
@@ -787,11 +704,65 @@
         }
     }
 
-    // Call the function when the page is loaded
     setMaxHeight();
-
-    // Call the function when the window is resized
     window.addEventListener('resize', setMaxHeight);
+
+    function productTemplate(item) {
+        if (item.img.length == 1) {
+            return `
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-img">
+                        <div class="card-img">
+                            
+                            <img src="${item.img[0]}" class="img-responsive" style="mix-blend-mode: multiply">
+                      
+                        </div>
+                    </div>
+                    <div class="container-fluid card-body">
+                        <div class="row product-detail d-flex align-items-center">
+                            <div class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                <a href="/product-detail/${item.productId}?detailID=${item.productDetailId}">
+                                    ${item.name}
+                                </a>
+                            </div>
+                            <div class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                <p class="text-end mb-0 ">USD ${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        } else {
+            return `
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <div class="card-img">
+                        <div class="card-img">
+                            
+                            <img src="${item.img[0]}" class="img-fluid" style="mix-blend-mode: multiply">
+                            <img src="${item.img[1]}" class="img-fluid hover-img"style="mix-blend-mode: multiply>
+                        </div>
+                    </div>
+                    <div class="container-fluid card-body">
+                        <div class="row product-detail d-flex align-items-center">
+                            <div class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                <a href="/product-detail/${item.productId}?detailID=${item.productDetailId}">
+                                    ${item.name}
+                                </a>
+                            </div>
+                            <div class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                <p class="text-end mb-0 ">USD ${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        }
+    }
 </script>
 
 </html>

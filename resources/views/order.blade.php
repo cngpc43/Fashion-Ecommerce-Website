@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <section class="">
-        <div class="container mb-3">
+    <section class="mt-5">
+        <div class="container mb-3 py-3">
 
             <div class="card shadow-2-strong mb-5 mb-lg-0 p-5 m-3" style="border-radius: 16px; background-color: white">
 

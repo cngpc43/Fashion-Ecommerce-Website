@@ -9,6 +9,7 @@ use App\Http\Controllers\MenProductController;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WomenProductController;
+use App\Http\Controllers\SocksViewController;
 
 // use App\Http\Controllers\ProductController;
 
@@ -46,21 +47,11 @@ Route::get('/search', [ProductController::class, 'search']);
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::get('/abc', function () {
-    echo '3';
-});
+Route::get('menproduct', [MenProductController::class, 'index'])->name('menproduct');
 
 
-Route::get('menproduct', [MenProductController::class, 'index']);
-
-
-Route::get('women-product', [WomenProductController::class, 'index']);
-Route::get('socks', function () {
-    return view('socks');
-});
-Route::get('test', function () {
-    return view('test');
-});
+Route::get('women-product', [WomenProductController::class, 'index'])->name('womenproduct');
+Route::get('socks', [SocksViewController::class, 'index'])->name('socks');
 Route::get('product-detail/{id}', [ProductController::class, 'getDetailbyID']);
 
 

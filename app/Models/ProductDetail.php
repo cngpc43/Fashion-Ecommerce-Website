@@ -271,7 +271,7 @@ class ProductDetail extends Model
         return $grouped;
     }
 
-    public static function GetAllProductDetail($view)
+    public static function GetAllProductDetail($view, $sort)
     {
         $subQuery = DB::table('product_details')
             ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
@@ -291,8 +291,15 @@ class ProductDetail extends Model
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
             ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
-            ->where('categories.parent', $view)
-            ->get();
+            ->where('categories.parent', $view);
+
+        if ($sort === 'price_asc') {
+            $response->orderBy('products.price');
+        } elseif ($sort === 'price_desc') {
+            $response->orderBy('products.price', 'desc');
+        }
+
+        $response = $response->get();
 
         $grouped = [];
         foreach ($response as $item) {

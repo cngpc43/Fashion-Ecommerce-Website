@@ -1,12 +1,7 @@
 @extends('layouts.app')
 @section('title', $product[0]['name'])
 @section('content')
-    {{-- <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
-        <div class="spinner-border" role="status" id="spinner">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div> --}}
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12 col-md-8">

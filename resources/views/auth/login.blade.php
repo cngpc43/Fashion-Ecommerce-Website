@@ -10,9 +10,6 @@
                         class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 ">
-
-                    {{-- <div class="card-header">{{ __('Login') }}</div> --}}
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -73,7 +70,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-8 offset-lg-3 offset-md-3 d-flex justify-content-around">
-                                    <button type="submit" class="btn btn-primary w-100">
+                                    <button type="submit" class="btn btn-dark w-100">
                                         {{ __('Login') }}
                                     </button>
 
