@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use App\Models\Belong;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -77,8 +80,13 @@ class OrderController extends Controller
                 $orderDetail->detailID = $detail['detailID'];
                 $orderDetail->quantity = $detail['quantity'];
                 $orderDetail->save();
+                $product = DB::table('product_details')->where('productDetailId', $detail['detailID'])->first();
+                DB::table('product_details')
+                    ->where('productDetailId', $detail['detailID'])
+                    ->update(['stock' => $product->stock - $detail['quantity']]);
             }
-
+            $cart = Auth::user()->cart;
+            Belong::where('cartID', $cart->id)->delete();
             return response()->json([
                 'statusCode' => 200,
                 'Message' => 'Success!',

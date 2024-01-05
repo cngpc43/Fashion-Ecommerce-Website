@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\View\View;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class UserController extends Controller
 {
@@ -395,6 +397,46 @@ class UserController extends Controller
                 'statusCode' => 500,
                 'Message' => $e->getMessage(),
             ], 500);
+        }
+    }
+    public function forget(Request $request)
+    {
+        try {
+            $mailUser = $request->mail;
+            $isExist = User::where('email', $mailUser);
+            if ($isExist) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'Message' => 'Email do not exist',
+                ], 400);
+            } else {
+                $mail = new PHPMailer(true);
+                $mail->isSMTP(); // using SMTP protocol
+                $mail->Host = 'smtp.gmail.com'; // SMTP host as gmail
+                $mail->SMTPAuth = true; // enable SMTP authentication
+                $mail->Username = 'hoangtu4520031234@gmail.com'; // sender's email address
+                $mail->Password = 'kvos pwet spbo ceea'; // sender's email password
+                $mail->SMTPSecure = 'tls'; // for an encrypted connection
+                $mail->Port = 587; // port for SMTP
+
+                $mail->setFrom('hoangtu4520031234@gmail.com', 'Sender Name'); // sender's email and name
+                $mail->addAddress($mailUser, 'Receiver Name'); // receiver's email and name
+
+                $mail->Subject = 'Reset password';
+
+                $body = "Xin chào $mailUser , đây là link resetpassword : http://127.0.0.1:8000/ link cập nhật lại password";
+
+                $mail->Body = $body;
+                $mail->IsHTML(true); // Set email body format as HTML
+
+                $mail->send();
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Update password successfully',
+                ], 400);
+            }
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
     }
 

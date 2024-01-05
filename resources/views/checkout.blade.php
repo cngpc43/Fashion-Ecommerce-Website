@@ -501,8 +501,10 @@
                 let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 let detail = []
-                let totalPrice = parseInt(document.querySelector('.total-money').innerText)
-                console.log(totalPrice)
+                let totalMoneyElement = document.querySelector('.total-money');
+                let totalMoneyString = totalMoneyElement.innerHTML;
+                let totalMoney = totalMoneyString.replace('USD ', '');
+                let totalPrice = parseInt(totalMoney);
                 cart.forEach(el => {
                     detail.push({
                         detailID: el.detailID,
@@ -544,13 +546,7 @@
                     })
                     .catch(function(error) {
                         console.log(error);
-
-                        let alertDanger = document.querySelector('.alert-danger');
-                        alertDanger.classList.remove('visually-hidden')
-                        alertDanger.innerHTML = `Check out failed`
-                        setTimeout(() => {
-                            alertDanger.classList.add('visually-hidden')
-                        }, 3000);
+                        notyf.error(error.response.data.Message)
                     });
             });
 

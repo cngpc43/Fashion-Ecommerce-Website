@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column">
                             <span class="lead fw-normal normal-text fs-2">Order #{{ $order->id }}</span>
-                            {{-- <span class="text-muted medium">Created on {{ $order->created_at->format('d/m/y') }}</span> --}}
+
                             <span class="text-muted medium">Created on
                                 {{ \Carbon\Carbon::parse($order->created_at)->format('d/m/y') }}</span>
                             <span class="text-muted medium">Status: {{ $order->status }}</span>
@@ -24,31 +24,85 @@
                         </div>
 
                     </div>
-                    <hr class="my-4">
+                    @if ($order->status == 'Pending')
+                        <hr class="my-4">
 
-                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-                        <span class="dot"></span>
-                        <hr class="flex-fill track-line"><span class="dot"></span>
-
-
-                        <hr class="flex-fill track-line"><span
-                            class="d-flex justify-content-center align-items-center big-dot dot">
-                            <i class="fa fa-check text-white"></i></span>
-                    </div>
-
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div class="d-flex flex-column align-items-start"><span>15 Mar</span><span>Order
-                                placed</span>
+                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line"><span class="dot"></span>
+                            <hr class="flex-fill track-line"><span class="dot"></span>
                         </div>
 
-                        <div class="d-flex flex-column justify-content-center align-items-center"><span>15
-                                Mar</span><span>Out for delivery</span></div>
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="d-flex flex-column align-items-start">
+                                <span>{{ \Carbon\Carbon::parse($order->created_at)->format('M d') }}</span><span>Pending</span>
+                            </div>
 
-                        <div class="d-flex flex-column align-items-end"><span>15 Mar</span><span>Delivered</span>
+                            <div class="d-flex flex-column justify-content-center align-items-center"></span><span>Picked
+                                    up</span></div>
+
+                            <div class="d-flex flex-column align-items-end"><span>
+                                    ETM:
+                                    {{ \Carbon\Carbon::parse($order->created_at)->addDays(3)->format('M d') }}</span><span>Delivered</span>
+                            </div>
                         </div>
-                    </div>
+                    @elseif ($order->status == 'Picked up')
+                        <hr class="my-4">
 
-                    {{-- <hr class="my-4"> --}}
+                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                            <span class="dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line">
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line"><span class="dot"></span>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="d-flex flex-column align-items-start">
+                                <span>{{ \Carbon\Carbon::parse($order->created_at)->format('M d') }}</span><span>Pending</span>
+                            </div>
+
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <span>{{ \Carbon\Carbon::parse($order->updated_at)->format('M d') }}</span><span>Picked
+                                    up</span>
+                            </div>
+
+                            <div class="d-flex flex-column align-items-end"><span>
+                                    ETM:
+                                    {{ \Carbon\Carbon::parse($order->created_at)->addDays(3)->format('M d') }}</span><span>Delivered</span>
+                            </div>
+                        </div>
+                    @elseif ($order->status == 'Delivered')
+                        <hr class="my-4">
+
+                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line">
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line">
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-check text-white"></i></span>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="d-flex flex-column align-items-start">
+                                <span>{{ \Carbon\Carbon::parse($order->created_at)->format('M d') }}</span><span>Pending</span>
+                            </div>
+
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <span>{{ \Carbon\Carbon::parse($order->updated_at)->subDays(1)->format('M d') }}</span><span>Picked
+                                    up</span>
+                            </div>
+
+                            <div class="d-flex flex-column align-items-end">
+                                <span>{{ \Carbon\Carbon::parse($order->updated_at)->format('M d') }}</span><span>Delivered</span>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="table-responsive mt-5 mb-5 p-3 m-1">
                     <table class="table">
@@ -75,74 +129,7 @@
                     </table>
                 </div>
                 <div class="card-body p-3 m-1">
-                    {{-- <div class="row gutters">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex align-items-center">
 
-
-                            <h6 class="mb-3 normal-text fs-2 mt-3 me-3">Payment method</h6>
-
-                        </div>
-                        <div class="col-4 d-flex align-items-stretch">
-                            <div class="card payment-method-item mb-4 shadow-sm w-100" id="method-1">
-                                <div class="payment-method p-3 d-flex justify-content-center align-items-center h-100">
-                                    <div class="media">
-                                        <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
-                                        </div>
-                                        <div class="media-body d-flex flex-column align-items-center">
-                                            <p class="method-name m-2">Banking</p>
-
-                                            <p>
-                                                <i class="fas fa-university fs-3"></i>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex align-items-stretch">
-                            <div class="card payment-method-item mb-4 shadow-sm w-100" id="method-2">
-                                <div class="payment-method p-3 d-flex justify-content-center align-items-center h-100">
-                                    <div class="media">
-                                        <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
-                                        </div>
-                                        <div class="media-body d-flex flex-column align-items-center">
-                                            <p class="method-name m-2">Cash on delivery (COD)</p>
-
-                                            <p>
-                                                <i class="fas fa-money-bill fs-3"></i>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex align-items-stretch">
-                            <div class="card payment-method-item mb-4 shadow-sm w-100" id="method-3">
-                                <div class="payment-method p-3 d-flex justify-content-center align-items-center h-100">
-                                    <div class="media">
-                                        <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
-                                        </div>
-                                        <div class="media-body d-flex flex-column align-items-center">
-                                            <p class="method-name m-2">Pay at our store</p>
-
-                                            <p>
-                                                <i class="fas fa-store fs-3"></i>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="row d-flex justify-content-end">
                         <div class="col-3 d-flex justify-content-around p-0">
 

@@ -20,6 +20,9 @@
     @vite(['resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
     <link href='https://fonts.googleapis.com/css?family=Cedarville Cursive' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"
+        integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA=="
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -447,7 +450,7 @@
                         <h6 class="mt-4 ms-1 text-center">USD ${item.price},00</h6>
                     </div>
                     <div class="col text-end">
-                        <a href="#!" class="text-muted" target-detail="${item.id || item.detailId}">
+                        <a href="#!" class="text-muted" target-detail="${item.detailId}">
                             <i class="fas fa-times mt-3"></i>
                         </a>
                     </div>    
@@ -476,8 +479,6 @@
                 window.location.href = ""
             })
 
-            // footer.appendChild(button);
-            // footer.appendChild(checkoutButton);
         })
 
 
@@ -574,7 +575,7 @@
         const stock = parseInt($input.getAttribute('data-stock')) || -1
         let value = parseInt($input.value) + a
         if (isNaN(value)) {
-            value = lastValue
+            value = lastValue 
             $input.value = value
             notyf.error('Quantity must be a number')
         }
@@ -651,12 +652,21 @@
                 detailId = e.target.closest('.text-muted').getAttribute('target-detail')
                 console.log(detailId)
                 axios.post('{{ route('api.delete-from-cart') }}', {
-                    detailId: detailId,
-                }).then((response) => {
-                    console.log(response)
-                    RenderCustomerCart()
-                    RenderCartQuantity()
-                })
+                        detailId: detailId,
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        if (response.data.statusCode == 200)
+                            notyf.success(response.data.Message)
+                        else
+                            notyf.error(response.data.Message)
+                        RenderCustomerCart()
+                        RenderCartQuantity()
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        notyf.error('Delete failed', error.response.data.Message)
+                    })
             @else
                 console.log('delete')
                 e.preventDefault()

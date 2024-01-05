@@ -271,7 +271,7 @@ class ProductDetail extends Model
         return $grouped;
     }
 
-    public static function GetAllProductDetail($view, $sort)
+    public static function GetAllProductDetail($view, $sort, $selectedCategories = null)
     {
         $subQuery = DB::table('product_details')
             ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
@@ -292,6 +292,10 @@ class ProductDetail extends Model
             )
             ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
             ->where('categories.parent', $view);
+
+        if ($selectedCategories) {
+            $response->whereIn('categories.name', $selectedCategories);
+        }
 
         if ($sort === 'price_asc') {
             $response->orderBy('products.price');
