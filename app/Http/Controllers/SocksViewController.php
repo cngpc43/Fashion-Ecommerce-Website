@@ -16,8 +16,16 @@ class SocksViewController extends Controller
     {
         $categories = [Category::getCategoryBanner('new arrivals', 'socks'), Category::getCategoryBanner('top', 'socks'), Category::getCategoryBanner('bottom', 'socks'), Category::getCategoryBanner('socks', 'socks')];
         $banner = Banner::getByType('socks');
+        $product_filter = Category::where('parent', 'socks')->get();
         $sort = $request->query('sort');
         $product = ProductDetail::GetAllProductDetail('socks', $sort);
+        $selectedCategories = $request->input('category');
+
+        if ($selectedCategories) {
+            $product = ProductDetail::GetAllProductDetail('socks', $sort, $selectedCategories);
+        } else {
+            $product = ProductDetail::GetAllProductDetail('socks', $sort);
+        }
 
         if ($request->ajax()) {
             return response()->json($product);
@@ -26,6 +34,6 @@ class SocksViewController extends Controller
         $underwear = ProductDetail::GetByCategory('underwear');
         $iconcrew = ProductDetail::GetByCategory('icon crew');
         $product = ProductDetail::GetAllProductDetail('socks', $sort);
-        return view('socks', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product]);
+        return view('socks', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product, 'product_filter' => $product_filter]);
     }
 }

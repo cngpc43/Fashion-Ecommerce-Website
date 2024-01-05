@@ -575,7 +575,7 @@
         const stock = parseInt($input.getAttribute('data-stock')) || -1
         let value = parseInt($input.value) + a
         if (isNaN(value)) {
-            value = lastValue 
+            value = lastValue
             $input.value = value
             notyf.error('Quantity must be a number')
         }
@@ -752,7 +752,7 @@
                         <div class="card-img">
                             
                             <img src="${item.img[0]}" class="img-fluid" style="mix-blend-mode: multiply">
-                            <img src="${item.img[1]}" class="img-fluid hover-img"style="mix-blend-mode: multiply>
+                            <img src="${item.img[1]}" class="img-fluid hover-img" style="mix-blend-mode: multiply>
                         </div>
                     </div>
                     <div class="container-fluid card-body">

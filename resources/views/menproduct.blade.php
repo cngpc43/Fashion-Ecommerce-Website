@@ -217,8 +217,7 @@
                                                                 id="category{{ $loop->index }}">
                                                             <label class="form-check-label"
                                                                 for="category{{ $loop->index }}">
-                                                                <a class="text-decoration-none text-dark"
-                                                                    href="{{ route('category', ['categoryName' => $option->name]) }}">
+                                                                <a class="text-decoration-none text-dark">
                                                                     {{ strtoupper($option->name) }}
                                                                 </a>
                                                             </label>
@@ -228,26 +227,13 @@
                                             </ul>
                                         </div>
                                     </div>
-
-                                    {{-- <div class="row">
-                                        <div class="row">
-                                            <label for="customRange1" class="form-label">Example range</label>
-                                            <div class="range-slider">
-                                            
-                                                <input type="range" class="form-range" id="customRange1"
-                                                    oninput="showValue(this.value)">
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <div class="col">
                                         <div class="d-flex justify-content-end">
                                             <span class="me-3">SORT BY</span>
                                             <select name="sort" id="sort">
                                                 <option value="">Select</option>
-                                                <option value="{{ route('menproduct', ['sort' => 'price_asc']) }}">Price
-                                                    low to high</option>
-                                                <option value="{{ route('menproduct', ['sort' => 'price_desc']) }}">Price
-                                                    high to low</option>
+                                                <option value="price_asc">Price low to high</option>
+                                                <option value="price_desc">Price high to low</option>
                                             </select>
                                         </div>
                                     </div>
@@ -256,7 +242,10 @@
                             <div class="container-fluid p-2 mt-4">
 
                                 <div class="row row-cols-4 product-list" style="min-height: 200px">
-                                    @foreach ($product as $item)
+                                    @php
+                                        $productData = $product->getData(true);
+                                    @endphp
+                                    @foreach ($productData['data'] as $item)
                                         <div class="col-md-3">
                                             <div class="card border-0">
                                                 <div class="card-img">
@@ -284,11 +273,22 @@
                                             </div>
                                         </div>
                                     @endforeach
-
+                                    @if ($productData['next_page_url'])
+                                        <input type="hidden" class="next-page-url"
+                                            value="{{ $productData['next_page_url'] }}">
+                                    @endif
 
 
 
                                 </div>
+                                @if ($productData['next_page_url'])
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 text-center">
+                                            <button id="load-more" class="btn btn-dark"
+                                                data-url="{{ $productData['next_page_url'] }}">Load More</button>
+                                        </div>
+                                        
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -305,81 +305,6 @@
         document.querySelector('.hero-banner').setAttribute(
             'img-src', banner[0].img);
 
-        // document.getElementById('sort').addEventListener('change', function(event) {
-        //     event.preventDefault();
-        //     var sort = this.value;
-        //     fetchSortedData(sort);
-        // });
-
-        // function fetchSortedData(url) {
-        //     console.log(url);
-        //     var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        //     fetch(url, {
-        //             headers: {
-        //                 'X-Requested-With': 'XMLHttpRequest'
-        //             }
-        //         })
-        //         .then(response => response.text())
-        //         .then(data => {
-        //             var productList = document.querySelector('.product-list');
-        //             console.log(JSON.parse(data));
-        //             productList.innerHTML = '';
-        //             JSON.parse(data).forEach(item => {
-        //                 productList.innerHTML += productTemplate(item);
-        //             });
-        //         })
-        //         .catch(error => console.error(error));
-        // }
-
-
-        // document.querySelectorAll('input[name="category[]"]').forEach(function(checkbox) {
-        //     checkbox.addEventListener('change', function() {
-        //         var selectedCategories = Array.from(document.querySelectorAll(
-        //             'input[name="category[]"]:checked')).map(function(checkbox) {
-        //             return checkbox.value;
-        //         });
-        //         if (selectedCategories.length > 0) {
-
-        //             fetch('/menproduct?category[]=' + selectedCategories.join('&category[]='), {
-        //                     headers: {
-        //                         'Accept': 'application/json',
-        //                         'X-Requested-With': 'XMLHttpRequest',
-        //                     },
-        //                 })
-        //                 .then(function(response) {
-        //                     return response.text();
-        //                 })
-        //                 .then(function(products) {
-        //                     products = JSON.parse(products);
-        //                     var productContainer = document.querySelector('.product-list');
-        //                     productContainer.innerHTML = '';
-
-        //                     products.forEach(function(product) {
-        //                         productContainer.innerHTML += productTemplate(product);
-        //                     });
-        //                 });
-        //         } else {
-        //             fetch('/menproduct', {
-        //                     headers: {
-        //                         'Accept': 'application/json',
-        //                         'X-Requested-With': 'XMLHttpRequest',
-        //                     },
-        //                 })
-        //                 .then(function(response) {
-        //                     return response.text();
-        //                 })
-        //                 .then(function(products) {
-        //                     products = JSON.parse(products);
-        //                     var productContainer = document.querySelector('.product-list');
-        //                     productContainer.innerHTML = '';
-
-        //                     products.forEach(function(product) {
-        //                         productContainer.innerHTML += productTemplate(product);
-        //                     });
-        //                 });
-        //         }
-        //     });
-        // });
         document.getElementById('sort').addEventListener('change', fetchData);
         document.querySelectorAll('input[name="category[]"]').forEach(function(checkbox) {
             checkbox.addEventListener('change', fetchData);
@@ -423,11 +348,42 @@
                     var productContainer = document.querySelector('.product-list');
                     productContainer.innerHTML = '';
 
-                    products.forEach(function(product) {
+                    products.original.data.forEach(function(product) {
                         productContainer.innerHTML += productTemplate(product);
                     });
                 });
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            var loadMoreButton = document.getElementById('load-more');
+            if (loadMoreButton) {
+                loadMoreButton.addEventListener('click', function() {
+                    var url = loadMoreButton.getAttribute('data-url');
+
+                    fetch(url, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            var productList = document.querySelector('.product-list');
+                            data.original.data.forEach(function(product) {
+                                productList.innerHTML += productTemplate(product);
+                            });
+
+
+                            if (data.next_page_url) {
+                                loadMoreButton.setAttribute('data-url', data.next_page_url);
+                            } else {
+
+                                loadMoreButton.style.display = 'none';
+                            }
+                        });
+                });
+            }
+        });
     </script>
 @endsection
 

@@ -303,12 +303,13 @@ class ProductDetail extends Model
             $response->orderBy('products.price', 'desc');
         }
 
-        $response = $response->get();
+        $response = $response->paginate(12);
 
         $grouped = [];
         foreach ($response as $item) {
             $images = str_replace(['["', '"]'], '', $item->images);
             $images = explode('","', $images);
+            // $images = explode(',', $item->images);  
             $grouped[] = [
                 'productId' => $item->productId,
                 'name' => $item->name,
@@ -319,7 +320,7 @@ class ProductDetail extends Model
             ];
         }
 
-        return $grouped;
+        return response()->json(['data' => $grouped, 'next_page_url' => $response->nextPageUrl()]);
     }
     public function customer(): BelongsToMany
     {

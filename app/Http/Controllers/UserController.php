@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\View\View;
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'mail php/PHPMailer-master/src/PHPMailer.php';
+require 'mail php/PHPMailer-master/src/SMTP.php';
+require 'mail php/PHPMailer-master/src/Exception.php';
 class UserController extends Controller
 {
 
@@ -402,9 +407,9 @@ class UserController extends Controller
     public function forget(Request $request)
     {
         try {
-            $mailUser = $request->mail;
-            $isExist = User::where('email', $mailUser);
-            if ($isExist) {
+            $mailUser = $request->email;
+            $isExist = User::where('email', $mailUser)->first();
+            if (!$isExist) {
                 return response()->json([
                     'statusCode' => 400,
                     'Message' => 'Email do not exist',
@@ -418,13 +423,10 @@ class UserController extends Controller
                 $mail->Password = 'kvos pwet spbo ceea'; // sender's email password
                 $mail->SMTPSecure = 'tls'; // for an encrypted connection
                 $mail->Port = 587; // port for SMTP
-
                 $mail->setFrom('hoangtu4520031234@gmail.com', 'Sender Name'); // sender's email and name
                 $mail->addAddress($mailUser, 'Receiver Name'); // receiver's email and name
-
                 $mail->Subject = 'Reset password';
-
-                $body = "Xin chào $mailUser , đây là link resetpassword : http://127.0.0.1:8000/ link cập nhật lại password";
+                $body = "Hello $mailUser ,please follow this link : http://127.0.0.1:8000/ to reset your password";
 
                 $mail->Body = $body;
                 $mail->IsHTML(true); // Set email body format as HTML

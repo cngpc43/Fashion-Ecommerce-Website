@@ -78,10 +78,10 @@
                         <hr class="my-4">
 
                         <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                            <span class="dot">
                                 <i class="fa fa-check text-white"></i></span>
                             <hr class="flex-fill track-line">
-                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                            <span class="dot">
                                 <i class="fa fa-check text-white"></i></span>
                             <hr class="flex-fill track-line">
                             <span class="d-flex justify-content-center align-items-center big-dot dot">
@@ -94,12 +94,32 @@
                             </div>
 
                             <div class="d-flex flex-column justify-content-center align-items-center">
-                                <span>{{ \Carbon\Carbon::parse($order->updated_at)->subDays(1)->format('M d') }}</span><span>Picked
+                                <span>Picked
                                     up</span>
                             </div>
 
                             <div class="d-flex flex-column align-items-end">
                                 <span>{{ \Carbon\Carbon::parse($order->updated_at)->format('M d') }}</span><span>Delivered</span>
+                            </div>
+                        </div>
+                    @elseif ($order->status == 'Canceled')
+                        <hr class="my-4">
+
+                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                            <span class="dot">
+                                <i class="fa fa-check text-white"></i></span>
+                            <hr class="flex-fill track-line">
+
+                            <span class="d-flex justify-content-center align-items-center big-dot dot">
+                                <i class="fa fa-times text-white"></i></span>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="d-flex flex-column align-items-start">
+                                <span>{{ \Carbon\Carbon::parse($order->created_at)->format('M d') }}</span><span>Pending</span>
+                            </div>
+                            <div class="d-flex flex-column align-items-end">
+                                <span>{{ \Carbon\Carbon::parse($order->updated_at)->format('M d') }}</span><span>Canceled</span>
                             </div>
                         </div>
                     @endif
@@ -131,11 +151,11 @@
                 <div class="card-body p-3 m-1">
 
                     <div class="row d-flex justify-content-end">
-                        <div class="col-3 d-flex justify-content-around p-0">
+                        <div class="col-3 d-flex justify-content-end p-0">
 
                             <button class="btn btn-dark" href="{{ url()->previous() }}">Continue
                                 shopping</button>
-                            <button class="btn btn-dark checkout">Complete</button>
+
                         </div>
                     </div>
                 </div>

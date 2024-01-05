@@ -83,3 +83,5 @@ Route::get('/category/{categoryName}', [ProductController::class, 'getProductByC
 // Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
 Route::get('/search-results', [ProductController::class, 'search']);
 Route::get('/user/orders', [OrderController::class, 'getOrderByUserID'])->name('user.orders');
+
+Route::post('/password/email', [UserController::class, 'forget']);

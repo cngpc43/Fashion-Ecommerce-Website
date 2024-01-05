@@ -15,8 +15,16 @@ class WomenProductController extends Controller
     {
         $categories = [Category::getCategoryBanner('new arrivals', 'women'), Category::getCategoryBanner('top', 'women'), Category::getCategoryBanner('bottom', 'women'), Category::getCategoryBanner('socks', 'women')];
         $banner = Banner::getByType('women');
+        $product_filter = Category::where('parent', 'women')->get();
         $sort = $request->query('sort');
         $product = ProductDetail::GetAllProductDetail('women', $sort);
+        $selectedCategories = $request->input('category');
+        if ($selectedCategories) {
+            $product = ProductDetail::GetAllProductDetail('women', $sort, $selectedCategories);
+        } else {
+            $product = ProductDetail::GetAllProductDetail('women', $sort);
+        }
+
         if ($request->ajax()) {
             return response()->json($product);
         }
@@ -24,6 +32,6 @@ class WomenProductController extends Controller
         $underwear = ProductDetail::GetByCategory('underwear');
         $iconcrew = ProductDetail::GetByCategory('icon crew');
         $product = ProductDetail::GetAllProductDetail('women', $sort);
-        return view('womenproduct', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product]);
+        return view('womenproduct', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product, 'product_filter' => $product_filter]);
     }
 }

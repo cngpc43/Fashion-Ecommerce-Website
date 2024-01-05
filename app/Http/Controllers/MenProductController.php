@@ -24,15 +24,15 @@ class MenProductController extends Controller
         } else {
             $product = ProductDetail::GetAllProductDetail('men', $sort);
         }
-
         if ($request->ajax()) {
             return response()->json($product);
         }
-
+        if ($request->expectsJson()) {
+            return response()->json($product);
+        }
         $newarrival = ProductDetail::GetNewArrival('men');
         $underwear = ProductDetail::GetByCategory('underwear');
         $iconcrew = ProductDetail::GetByCategory('icon crew');
-
         return view('menproduct', ['banner' => $banner, 'categories' => $categories, 'newarrival' => $newarrival, 'underwear' => $underwear, 'iconcrew' => $iconcrew, 'product' => $product, 'product_filter' => $product_filter]);
     }
 }
