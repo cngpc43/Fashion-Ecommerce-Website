@@ -21,7 +21,6 @@ class Product extends Model
         'name',
         'categoryId',
         'collectionId',
-        'img',
         'price',
         'description',
         'salePercent',
@@ -52,9 +51,17 @@ class Product extends Model
         );
 
     }
+    // public function category()
+    // {
+    //     return $this->belongsTo('App\Models\Category', 'categoryId');
+    // }
 
-     protected function spec(): Attribute
-        {
+    // public function collection()
+    // {
+    //     return $this->belongsTo('App\Models\Collection', 'collectionId');
+    // }
+    protected function spec(): Attribute
+    {
 
         return Attribute::make(
 
@@ -65,7 +72,7 @@ class Product extends Model
         );
 
     }
-    
+
     public function productDetail(): HasMany
     {
         return $this->BelongsToMany(Cart::class, 'id', 'id');
@@ -74,14 +81,14 @@ class Product extends Model
     {
         $detail = DB::table('product_details')->join('products', 'product_details.productId', '=', 'products.productId')->join('collections', 'collections.id', '=', 'products.collectionId')->where('collectionId', $collection)->get();
         return $detail;
-        return $this->HasMany(ProductDetail::class,'productId','productId');
+        return $this->HasMany(ProductDetail::class, 'productId', 'productId');
     }
     public function category(): HasOne
     {
-        return $this->HasOne(Category::class,'id','categoryId');
+        return $this->HasOne(Category::class, 'id', 'categoryId');
     }
     public function collection(): HasOne
     {
-        return $this->HasOne(Collection::class,'id','collectionId');
+        return $this->HasOne(Collection::class, 'id', 'collectionId');
     }
 }

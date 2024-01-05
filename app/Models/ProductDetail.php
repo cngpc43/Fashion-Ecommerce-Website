@@ -25,18 +25,18 @@ class ProductDetail extends Model
         'stock',
     ];
 
-    protected function size(): Attribute
-    {
+    // protected function size(): Attribute
+    // {
 
-        return Attribute::make(
+    //     return Attribute::make(
 
-            get: fn($value) => json_decode($value, true),
+    //         get: fn($value) => json_decode($value, true),
 
-            set: fn($value) => json_encode($value),
+    //         set: fn($value) => json_encode($value),
 
-        );
+    //     );
 
-    }
+    // }
     // public function product(): BelongsToMany
     // {
     //     return $this->BelongsToMany(Product::class, 'productId', 'productId');
@@ -53,29 +53,33 @@ class ProductDetail extends Model
     {
         return $this->belongsToMany(Cart::class, 'belongs', 'detailID', 'cartID');
     }
-    protected function color(): Attribute
+    // protected function color(): Attribute
+    // {
+
+    //     return Attribute::make(
+
+    //         get: fn($value) => json_decode($value, true),
+
+    //         set: fn($value) => json_encode($value),
+
+    //     );
+
+    // }
+    // protected function spec(): Attribute
+    // {
+
+    //     return Attribute::make(
+
+    //         get: fn($value) => json_decode($value, true),
+
+    //         set: fn($value) => json_encode($value),
+
+    //     );
+
+    // }
+    public function scopeStock($query)
     {
-
-        return Attribute::make(
-
-            get: fn($value) => json_decode($value, true),
-
-            set: fn($value) => json_encode($value),
-
-        );
-
-    }
-    protected function spec(): Attribute
-    {
-
-        return Attribute::make(
-
-            get: fn($value) => json_decode($value, true),
-
-            set: fn($value) => json_encode($value),
-
-        );
-
+        return $query->where('stock', '>', 0);
     }
     public static function GetProductDetailByProductId($productId)
     {
@@ -105,7 +109,7 @@ class ProductDetail extends Model
             ->get();
         return $response;
     }
-    public static function GetNewArrival()
+    public static function GetNewArrival($category)
     {
         $response = DB::table('product_details')
             ->join('products', 'product_details.productId', '=', 'products.productId')
@@ -117,6 +121,7 @@ class ProductDetail extends Model
                 'product_details.color',
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
+            ->where('categories.parent', $category)
             ->orderBy('products.created_at', 'desc')
             ->groupBy('products.productId', 'products.name', 'products.price', 'product_details.color')
             ->take(8)->get();
@@ -266,7 +271,7 @@ class ProductDetail extends Model
         return $grouped;
     }
 
-    public static function GetAllProductDetail()
+    public static function GetAllProductDetail($view, $sort, $selectedCategories = null)
     {
         $subQuery = DB::table('product_details')
             ->select('product_details.color', DB::raw('MIN(product_details.productDetailId) as productDetailId'))
@@ -286,12 +291,25 @@ class ProductDetail extends Model
                 DB::raw('GROUP_CONCAT(DISTINCT product_details.img) as images')
             )
             ->groupBy('products.name', 'products.price', 'sub.color', 'products.productId', 'sub.productDetailId')
-            ->get();
+            ->where('categories.parent', $view);
+
+        if ($selectedCategories) {
+            $response->whereIn('categories.name', $selectedCategories);
+        }
+
+        if ($sort === 'price_asc') {
+            $response->orderBy('products.price');
+        } elseif ($sort === 'price_desc') {
+            $response->orderBy('products.price', 'desc');
+        }
+
+        $response = $response->paginate(12);
 
         $grouped = [];
         foreach ($response as $item) {
             $images = str_replace(['["', '"]'], '', $item->images);
             $images = explode('","', $images);
+            // $images = explode(',', $item->images);  
             $grouped[] = [
                 'productId' => $item->productId,
                 'name' => $item->name,
@@ -302,7 +320,7 @@ class ProductDetail extends Model
             ];
         }
 
-        return $grouped;
+        return response()->json(['data' => $grouped, 'next_page_url' => $response->nextPageUrl()]);
     }
     public function customer(): BelongsToMany
     {

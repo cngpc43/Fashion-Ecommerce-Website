@@ -8,32 +8,34 @@ use OpenAdmin\Admin\Controllers\Dashboard;
 use OpenAdmin\Admin\Layout\Column;
 use OpenAdmin\Admin\Layout\Content;
 use OpenAdmin\Admin\Layout\Row;
+use App\Models\Orders;
+use App\Http\Controllers\OrderController;
 
 class HomeController extends Controller
 {
     public function index(Content $content)
     {
+        $orders = OrderController::GetNumberOfOrder();
         return $content
             ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
             ->title('Dashboard')
-            ->description('Description...')
-            ->row(Dashboard::title())
-            ->row(function (Row $row) {
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::environment());
+            // ->description('Dashboard')
+            ->row(function (Row $row) use ($orders) {
+                $row->column(12, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::orders());
+                });
+                $row->column(12, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::product());
                 });
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::extensions());
+            })->row(function (Row $row) use ($orders) {
+                $row->column(8, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::sales());
                 });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::dependencies());
+                $row->column(4, function (Column $column) use ($orders) {
+                    $column->append(Dashboard::pie());
                 });
             });
     }
 }
-
-
 ?>

@@ -3,7 +3,7 @@
     <!-- Credit card form -->
 
     <section class="h-100">
-        <div class="container h-100 py-3">
+        <div class="container h-100 py-5 my-5">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
                     <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; background-color: white">
@@ -122,116 +122,13 @@
 
                                                             </div>
                                                         </div>
-                                                        {{-- Update form --}}
-                                                        {{-- <div id="update-form-{{ $address->id }}"
-                                                                    style="display: none">
-                                                                    <div class="modal-body">
-                                                                        <div class="media-body">
-                                                                            <div class="row d-flex justify-content-center">
-                                                                                <div class="col-6">
-
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="email"
-                                                                                            class="form-control"
-                                                                                            id="receiver-{{ $address->id }}"
-                                                                                            value="{{ $address->receiver }}">
-                                                                                        <label
-                                                                                            for="receiver">Receiver</label>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input
-                                                                                            id="street-{{ $address->id }}"
-                                                                                            class="form-control"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->street }}">
-                                                                                        <label>Đường</label>
-
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-
-                                                                                        <input type="text"
-                                                                                            id="district-{{ $address->id }}"
-                                                                                            class="form-control district dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->city }}"
-                                                                                            oninput="disSearch()">
-                                                                                        <label>Quận/Huyện</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="district_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-6">
-
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="phone"
-                                                                                            class="form-control"
-                                                                                            id="phone-{{ $address->id }}"
-                                                                                            value="{{ $address->phone }}">
-                                                                                        <label for="phone">Phone
-                                                                                            number</label>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            id="province-{{ $address->id }}"
-                                                                                            class="form-control province dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->state }}"
-                                                                                            oninput="proSearch()">
-                                                                                        <label>Tỉnh/Thành</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="province_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            id="ward-{{ $address->id }}"
-                                                                                            class="form-control ward dropdown-toggle"
-                                                                                            data-bs-toggle="dropdown"
-                                                                                            placeholder="inputhere"
-                                                                                            value="{{ $address->ward }}"
-                                                                                            oninput="warSearch()">
-                                                                                        <label>Phường/Xã</label>
-                                                                                        <ul class="dropdown-menu"
-                                                                                            id="ward_list">
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                onclick="cancelUpdateForm({{ $address->id }})">Close</button>
-                                                                            <button type="button" class="btn btn-danger"
-                                                                                onclick="deleteAddress({{ $address->id }})">Delete</button>
-
-                                                                            <button type="button"
-                                                                                class="btn btn-primary update-address"
-                                                                                target-id={{ $address->id }}>Save
-                                                                                changes</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> --}}
                                                     @endforeach
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="row gutters mt-4">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class="text-right">
 
-                                                <button type="button" id="submit" name="submit"
-                                                    class="btn btn-primary update-information">Update</button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 {{-- Modal for create address --}}
                                 <div class="modal fade" id="createAddress" tabindex="-1"
@@ -245,9 +142,6 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h6 class="mt-3 mb-2 normal-text fs-2">Fill in the blank</h6>
-                                                </div>
                                                 <div class="row d-flex">
                                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                         <div class="form-floating mb-3">
@@ -330,8 +224,7 @@
                                     <div class="row gutters mt-4">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="text-right">
-                                                {{-- <button type="button" id="submit" name="submit"
-                                            class="btn btn-secondary">Cancel</button> --}}
+
                                                 <button type="button" id="submit" name="submit"
                                                     class="btn btn-primary update-information">Update</button>
                                             </div>
@@ -340,7 +233,7 @@
                                 </div>
                             @elseif(is_null($address))
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mt-3 mb-2 normal-text fs-2">Default address</h6>
+                                    <h6 class="mt-3 mb-2 normal-text fs-2">Delivery address</h6>
                                 </div>
                                 <div class="row d-flex">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -411,13 +304,11 @@
                                         <div class="text-right">
 
                                             <button type="button" id="submit" name="submit"
-                                                class="btn btn-primary update-new-address">Update</button>
+                                                class="btn btn-primary create-new-address">Create</button>
                                         </div>
                                     </div>
                                 </div>
                             @endif
-
-
                         </div>
                     </div>
                     <div class="card shadow-2-strong mt-4 mb-4" style="border-radius: 16px; background-color :white">
@@ -430,8 +321,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="h5">Name</th>
-
-                                        <th scope="col">Quantity</th>
+                                        <th class="text-center" scope="col">Quantity</th>
                                         <th scope="col">Price</th>
                                     </tr>
                                 </thead>
@@ -448,7 +338,7 @@
 
                                         </td>
                                         <td class="align-middle">
-                                            <p class="mb-0 normal-text total-money fs-2">vcl</p>
+                                            <p class="mb-0 normal-text total-money fs-2">0</p>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -548,6 +438,9 @@
     <script>
         const updateInformation = document.querySelector('.update-new-address');
         // console.log
+
+        var USERID = "{{ auth()->check() ? auth()->user()->id : null }}";
+
         if (updateInformation) {
 
             updateInformation.addEventListener('click', function() {
@@ -559,7 +452,7 @@
                 let ward = document.querySelector('#ward').value;
                 let address = document.querySelector('#street').value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+                let userId = USERID;
                 axios.post(url, {
                         userId: userId,
                         receiver: receiver,
@@ -568,7 +461,7 @@
                         city: district,
                         ward: ward,
                         street: address,
-                        userId: userId
+
                     }, {
                         headers: {
                             'X-CSRF-TOKEN': token
@@ -588,77 +481,80 @@
                     })
                     .catch(function(error) {
                         console.log(error);
+                        alertDanger.classList.remove('visually-hidden')
+                        alertDanger.innerHTML = error.response
+                        setTimeout(() => {
+                            alertDanger.classList.add('visually-hidden')
+                        }, 3000);
                     });
             });
         }
-        const cart = @json($cart)["original"]["data"];
-        const checkout = document.querySelector('.checkout');
-        checkout.addEventListener('click', function() {
-
-            let url = "{{ route('api.checkout') }}";
-            let addressId = $('.addresses-item.checked').attr('address');
-            let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
-            let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            let detail = []
-            let totalPrice = parseInt(document.querySelector('.total-money').innerText)
-            console.log(totalPrice)
-            cart.forEach(el => {
-                detail.push({
-                    detailID: el.detailID,
-                    quantity: el.quantity
-                })
-
-            })
-            axios.post(url, {
-                    addressId: addressId,
-                    paymentMethod: paymentMethod,
-                    totalPrice: totalPrice,
-                    detail: detail,
-
-                }, {
-                    headers: {
-                        'X-CSRF-TOKEN': token
-                    }
-                })
-                .then(function(response) {
-                    if (response.data["statusCode"] == 200) {
-                        let orderId = response.data.data.id;
-                        console.log(orderId)
-                        axios.post("{{ route('api.clear-cart') }}", {
-                                headers: {
-                                    'X-CSRF-TOKEN': token
-                                }
-                            })
-                            .then(function(response) {
-                                console.log(response.data);
-                                if (response.data["statusCode"] == 200) {
-                                    console.log('Cart cleared')
-                                }
-                            })
-                            .catch(function(error) {
-                                console.log(error);
-                            });
-                        window.location.href = `/order/${orderId}`
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-
-                    let alertDanger = document.querySelector('.alert-danger');
-                    alertDanger.classList.remove('visually-hidden')
-                    alertDanger.innerHTML = `Check out failed`
-                    setTimeout(() => {
-                        alertDanger.classList.add('visually-hidden')
-                    }, 3000);
-                });
-        });
-
         const cartList = document.querySelector('.items-in-cart');
-        // console.log(cart)
 
-        if (cart) {
-            cart.forEach(el => {
-                cartList.innerHTML += `
+        @if (Auth::check())
+            const cart = @json($cart)["original"]["data"];
+            const checkout = document.querySelector('.checkout');
+            checkout.addEventListener('click', function() {
+
+                let url = "{{ route('api.checkout') }}";
+                let addressId = $('.addresses-item.checked').attr('address');
+                let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                let detail = []
+                let totalMoneyElement = document.querySelector('.total-money');
+                let totalMoneyString = totalMoneyElement.innerHTML;
+                let totalMoney = totalMoneyString.replace('USD ', '');
+                let totalPrice = parseInt(totalMoney);
+                cart.forEach(el => {
+                    detail.push({
+                        detailID: el.detailID,
+                        quantity: el.quantity
+                    })
+
+                })
+                axios.post(url, {
+                        addressId: addressId,
+                        paymentMethod: paymentMethod,
+                        totalPrice: totalPrice,
+                        detail: detail,
+
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.data["statusCode"] == 200) {
+                            let orderId = response.data.data.id;
+                            console.log(orderId)
+                            axios.post("{{ route('api.clear-cart') }}", {
+                                    headers: {
+                                        'X-CSRF-TOKEN': token
+                                    }
+                                })
+                                .then(function(response) {
+                                    console.log(response.data);
+                                    if (response.data["statusCode"] == 200) {
+                                        console.log('Cart cleared')
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                            window.location.href = `/order/${orderId}`
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        notyf.error(error.response.data.Message)
+                    });
+            });
+
+            // console.log(cart)
+
+            if (cart) {
+                cart.forEach(el => {
+                    cartList.innerHTML += `
                  <tr>
                                                 <th scope="row">
                                                     <div class="d-flex align-items-center">
@@ -670,22 +566,8 @@
                                                     </div>
                                                 </th>
     
-                                                <td class="align-middle">
-                                                    <div class="d-flex flex-row">
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-    
-                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
-                                                            type="text" class="form-control form-control-sm text-center"
-                                                            style="width: 50px;" />
-    
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                <td class="align-middle text-center">
+                                                    ${el.quantity}
                                                 </td>
                                                 <td class="align-middle">
                                                     <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
@@ -694,55 +576,43 @@
                                             
     
                 `
-            })
-            let totalMoney = 0;
-            cart.forEach(el => {
-                totalMoney += parseInt(el.price) * parseInt(el.quantity)
-            })
-            document.querySelector('.total-money').innerHTML = `${totalMoney} USD`
-            console.log(totalMoney)
-        } else {
+                })
+                let totalMoney = 0;
+                cart.forEach(el => {
+                    totalMoney += parseInt(el.price) * parseInt(el.quantity)
+                })
+                document.querySelector('.total-money').innerHTML = `USD ${totalMoney}`
+                console.log(totalMoney)
+            } else {
+                console.log('nothing')
+            }
+        @else
             let cart = JSON.parse(localStorage.getItem('cart'))
-            // console.log(cart)
+            let total = 0
             cart.forEach(el => {
                 cartList.innerHTML += `
                  <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="${el.image}" class="img-fluid rounded-3" style="width: 120px;">
-                                                        <div class="flex-column ms-4">
-                                                            <p class="mb-2">${el.name}</p>
-                                                            <p class="mb-0">${el.color} ${el.size}</p>
-                                                        </div>
-                                                    </div>
-                                                </th>
-    
-                                                <td class="align-middle">
-                                                    <div class="d-flex flex-row">
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-    
-                                                        <input id="form1" min="0" name="quantity" value="${el.quantity}"
-                                                            type="text" class="form-control form-control-sm text-center"
-                                                            style="width: 50px;" />
-    
-                                                        <button class="btn btn-link px-2"
-                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <p class="mb-0" style="font-weight: 500;">${el.price}</p>
-                                                </td>
-                                            </tr>
-                                            
-    
-                `
+                    <th scope="row">
+                        <div class="d-flex align-items-center">
+                            <img src="${el.image}" class="img-fluid rounded-3" style="width: 120px;">
+                            <div class="flex-column ms-4">
+                                <p class="mb-2">${el.name}</p>
+                                <p class="mb-0">${el.color} ${el.size}</p>
+                            </div>
+                        </div>
+                    </th>
+
+                    <td class="align-middle text-center">
+                        ${el.quantity}
+                    </td>
+                    <td class="align-middle">
+                        <p class="mb-0" style="font-weight: 500;">USD ${el.price}</p>
+                    </td>
+                </tr>`
+                total += parseInt(el.price) * parseInt(el.quantity)
             })
-        }
+            document.querySelector('.total-money').innerHTML = `USD ${total}`
+        @endif
 
 
         document.querySelectorAll('.card.addresses-item').forEach(item => {
@@ -815,20 +685,27 @@
             }
 
         }
+
         const createNewAddress = document.querySelector('.create-new-address');
         if (createNewAddress) {
             createNewAddress.addEventListener('click', function() {
                 let url = "{{ route('api.create-new-address') }}";
-                let receiver = document.querySelector('#new-receiver').value;
-                let phone = document.querySelector('#new-phone').value;
-                let province = document.querySelector('#new-province').value;
-                let district = document.querySelector('#new-district').value;
-                let ward = document.querySelector('#new-ward').value;
-                let address = document.querySelector('#new-street').value;
+                let receiver = (document.querySelector('#receiver') ?? document.querySelector('#new-receiver'))
+                    .value;
+                let phone = (document.querySelector('#phone') ?? document.querySelector('#new-phone')).value;
+                let province = (document.querySelector('#province') ?? document.querySelector('#new-province'))
+                    .value;
+                let district = (document.querySelector('#district') ?? document.querySelector('#new-district'))
+                    .value;
+                let ward = (document.querySelector('#ward') ?? document.querySelector('#new-ward')).value;
+                let address = (document.querySelector('#street') ?? document.querySelector('#new-street')).value;
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+                let userId = USERID;
+                if (!userId) {
+                    userId = 'guest_' + Math.random().toString(36).substr(2, 9);
+                    sessionStorage.setItem('guestUserId', userId);
+                }
                 axios.post(url, {
-                        userId: userId,
                         receiver: receiver,
                         phone: phone,
                         state: province,
@@ -842,19 +719,19 @@
                         }
                     })
                     .then(function(response) {
-
                         console.log(response.data);
-                        if (response.data["statusCode"] == 200) {
-                            console.log('hello')
-                            // Store a flag in localStorage to show the alert after reload
-                            localStorage.setItem('showAlert', 'true');
-                            // Reload the page
-                            location.reload();
-
+                        if (response.data.statusCode == 200) {
+                            notyf.success(response.data.Message)
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 2000);
+                        } else {
+                            notyf.error(response.data.Message)
                         }
                     })
                     .catch(function(error) {
                         console.log(error);
+                        notyf.error(error.response.data.Message)
                     });
             });
         }
@@ -1003,7 +880,9 @@
                         for (i in dvhcData["province"]) {
                             if (pdaData["province_id"] == dvhcData["province"][i]["id"]) {
                                 for (j in dvhcData["province"][i]["district"]) {
-                                    if (pdaData["district_id"] == dvhcData["province"][i]["district"][j]["id"]) {
+                                    if (pdaData["district_id"] == dvhcData["province"][i]["district"][j][
+                                            "id"
+                                        ]) {
                                         for (k in dvhcData["province"][i]["district"][j]["ward"]) {
                                             var d = dvhcData["province"][i]["district"][j]["ward"][k]["name"],
                                                 did = dvhcData["province"][i]["district"][j]["ward"][k]["id"];

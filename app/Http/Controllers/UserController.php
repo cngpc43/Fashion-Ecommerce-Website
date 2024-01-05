@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\View\View;
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'mail php/PHPMailer-master/src/PHPMailer.php';
+require 'mail php/PHPMailer-master/src/SMTP.php';
+require 'mail php/PHPMailer-master/src/Exception.php';
 class UserController extends Controller
 {
 
@@ -343,7 +350,6 @@ class UserController extends Controller
     public function createNewAddress(Request $request)
     {
         try {
-
             $user = Auth::user();
             if (!$user) {
                 return response()->json([
@@ -351,6 +357,13 @@ class UserController extends Controller
                     'Message' => 'Cannot find this user in db'
                 ], 400);
             } else {
+                if ($user->address()->count() >= 3) {
+                    return response()->json([
+                        'statusCode' => '400',
+                        'Message' => 'Cannot create more than 3 addresses'
+                    ], 400);
+                }
+
                 $isDefault = 0;
                 if ($user->address()->count() == 0) {
                     $isDefault = 1;
@@ -389,6 +402,43 @@ class UserController extends Controller
                 'statusCode' => 500,
                 'Message' => $e->getMessage(),
             ], 500);
+        }
+    }
+    public function forget(Request $request)
+    {
+        try {
+            $mailUser = $request->email;
+            $isExist = User::where('email', $mailUser)->first();
+            if (!$isExist) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'Message' => 'Email do not exist',
+                ], 400);
+            } else {
+                $mail = new PHPMailer(true);
+                $mail->isSMTP(); // using SMTP protocol
+                $mail->Host = 'smtp.gmail.com'; // SMTP host as gmail
+                $mail->SMTPAuth = true; // enable SMTP authentication
+                $mail->Username = 'hoangtu4520031234@gmail.com'; // sender's email address
+                $mail->Password = 'kvos pwet spbo ceea'; // sender's email password
+                $mail->SMTPSecure = 'tls'; // for an encrypted connection
+                $mail->Port = 587; // port for SMTP
+                $mail->setFrom('hoangtu4520031234@gmail.com', 'Sender Name'); // sender's email and name
+                $mail->addAddress($mailUser, 'Receiver Name'); // receiver's email and name
+                $mail->Subject = 'Reset password';
+                $body = "Hello $mailUser ,please follow this link : http://127.0.0.1:8000/ to reset your password";
+
+                $mail->Body = $body;
+                $mail->IsHTML(true); // Set email body format as HTML
+
+                $mail->send();
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Update password successfully',
+                ], 400);
+            }
+        } catch (Exception $e) {
+            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
     }
 

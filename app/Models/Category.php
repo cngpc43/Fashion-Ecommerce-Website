@@ -20,6 +20,7 @@ class Category extends Model
         'id',
         'img',
         'name',
+        'parent'
     ];
 
 
@@ -38,6 +39,10 @@ class Category extends Model
     public static function getByName($name)
     {
         return self::where('name', $name)->first();
+    }
+    public static function getCategoryBanner($name, $view)
+    {
+        return self::where('name', $name)->where('parent', $view)->first();
     }
     public function product(): HasMany
     {

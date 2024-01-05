@@ -1,11 +1,7 @@
 @extends('layouts.app')
+@section('title', $product[0]['name'])
 @section('content')
-    {{-- <div class="spinner-wrapper d-flex justify-content-center align-items-center">
 
-        <div class="spinner-border" role="status" id="spinner">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div> --}}
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12 col-md-8">
@@ -39,18 +35,14 @@
                 <div class="row">
                     <div class="col">
 
-                        <h1 class="product-name normal-text fs-1">
-                            Shelter 1/2 Zip Butter Blend™ Pullover
-                        </h1>
+                        <h1 class="product-name normal-text fs-1">{{ $product[0]['name'] }}</h1>
                         {{-- RATING --}}
                     </div>
 
                 </div>
                 <div class="row">
                     <div class="price normal-text fs-2">
-                        <span>
-                            USD 95,00
-                        </span>
+                        <span>USD {{ $product[0]['price'] }},00</span>
                     </div>
                 </div>
                 <div class="row product-attributes">
@@ -65,53 +57,51 @@
                         </div>
 
 
-                        <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4">
+                        <div class="form-outline quantity-attribute mt-3 quantity-input input-group normal-text fs-4 ms-3">
                             <button class="btn btn-outline-secondary decrease" type="button">-</button>
                             <input type="text" id="typeNumber" class="form-control text-center" min="1"
                                 value="1" />
                             <button class="btn btn-outline-secondary increase" type="button">+</button>
                         </div>
 
-                        <div class="invalid-feedback p-0"></div>
+                        <div class="invalid-feedback ms-3 p-0"></div>
                     </div>
                 </div>
 
                 {{-- </form> --}}
 
-                <form id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
+                <form class="ms-1" id="add-to-cart-form" action="{{ route('api.add-to-cart') }}" method="POST">
 
                     <input type="hidden" name="id">
-                    <button type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">Add to cart</button>
+                    <button style="width: 150px; height: 40px;" type="submit" class="btn btn-dark mt-3 p-1 add-to-cart">
+                        Add to cart
+                    </button>
 
                 </form>
 
             </div>
         </div>
-        <div class="row-description">
-            <h1 class="normal-text fs-1">Description</h1>
-            <p>Non occaecat incididunt minim et reprehenderit mollit est aliquip pariatur proident velit sint et anim. Ut
-                reprehenderit
-                reprehenderit dolore occaecat. Esse tempor velit cillum elit labore deserunt irure. Elit laborum id
-                consectetur Lorem
-                cillum cupidatat sit eu proident exercitation excepteur est minim.</p>
-
+        <div class="row row-description py-5 ps-lg-5 ps-0">
+            <div class="col-lg-7 col-md-12 col-12">
+                <h1 class="normal-text fs-1">Description</h1>
+                <p>{{ $product[0]['description'] }}</p>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // var detailID = urlParams.get('detailID');
         let urlParams = new URLSearchParams(window.location.search);
+        // var detailID = urlParams.get('detailID');
         let PRODUCT_DETAIL = @json($product);
-        // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
-        document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
-        document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         let productId = window.location.pathname.split('/').pop();
+        // document.querySelector('.price span').innerHTML = `USD ${PRODUCT_DETAIL[0]['price']},00`
+        // document.querySelector('.product-name').innerHTML = PRODUCT_DETAIL[0]['name']
         document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
             event.preventDefault();
             let detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
             let quantity = parseInt(document.querySelector('.quantity-attribute input').value);
-            let price = document.querySelector('.price span').innerHTML;
+            let price = parseFloat(document.querySelector('.price span').innerHTML.replace(/USD\s*/g, ''));
             let name = document.querySelector('.product-name').innerText;
             let image = document.querySelector('.carousel-item-img').getAttribute('img-src');
             let color = document.querySelector('.color-attribute input:checked').getAttribute('color')
@@ -129,13 +119,13 @@
             @if (Auth::check())
                 axios.post('{{ route('api.add-to-cart') }}', {
                         userId: {{ Auth::user()->id }},
-                        detailId: detailId,
-                        quantity: quantity,
-                        price: price,
-                        name: name,
-                        image: image,
-                        color: color,
-                        size: size
+                        detailId,
+                        quantity,
+                        price,
+                        name,
+                        image,
+                        color,
+                        size
                     })
                     .then(function(response) {
                         // Handle the response
@@ -143,20 +133,9 @@
                         RenderCustomerCart();
                         RenderCartQuantity();
                         if (response.status === 200) {
-                            var alertSuccess = document.querySelector('.alert-success')
-                            alertSuccess.innerHTML = response.data.Message
-                            alertSuccess.classList.remove('visually-hidden');
-                            setTimeout(function() {
-                                alertSuccess.classList.add('visually-hidden');
-                            }, 2000);
+                            notyf.success(response.data.Message)
                         } else {
-                            var alertDanger = document.querySelector('.alert-danger')
-                            alertDanger.innerHTML = response.data.Message
-                            alertDanger.classList.remove('visually-hidden');
-
-                            setTimeout(function() {
-                                alertDanger.classList.add('visually-hidden');
-                            }, 2000);
+                            notyf.error(response.data.Message)
                         }
                         console.log(response);
                     })
@@ -168,7 +147,6 @@
 
                 // User is not authenticated, add the item to the cart in localStorage
                 detailId = document.querySelector('.size-attribute input:checked').getAttribute('target-detail-id');
-                console.log(detailId)
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 let existingItem = cart.find(item => item.detailId === detailId);
                 // let detailId = detailID;
@@ -179,25 +157,28 @@
                         }
                     }
                     if (existingItem.quantity + quantity > stock) {
-                        alert('Cannot add more items than available in stock');
+                        notyf.error('Cannot add more items than available in stock');
                         return;
                     }
                     existingItem.quantity += quantity;
                 } else {
                     cart.push({
-                        detailId: detailId,
-                        quantity: quantity,
-                        price: price,
-                        name: name,
-                        image: image,
-                        color: color,
-                        size: size
+                        productId,
+                        detailId,
+                        quantity,
+                        price,
+                        name,
+                        image,
+                        color,
+                        size
                     });
                 }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                RenderCartItems(cart);
+                RenderCart();
                 RenderCartQuantity();
+
+                notyf.success('Product added to cart successfully');
             @endif
         });
 
@@ -267,6 +248,10 @@
                 document.querySelector('.size-attribute').appendChild(label)
 
             }
+
+            // Checked the first size option
+            document.querySelector('.size-attribute input').setAttribute('checked', '')
+
             return size;
         }
 
@@ -279,7 +264,7 @@
 
             // Clear the carousel
             carousel.innerHTML = '';
-            image.forEach((el, i) => {
+            image.forEach((imgPath, i) => {
                 let carouselItem = document.createElement('div')
                 carouselItem.className = 'carousel-item'
                 carouselItem.style.backgroundColor = '#F6F6FB'
@@ -295,7 +280,10 @@
                 carouselItemImage.className = 'carousel-item-img'
                 carouselItemImage.style.height = '500px'
                 carouselItemImage.style.width = '500px'
+                carouselItemImage.setAttribute('img-src', imgPath)
+                carouselItemImage.style.mixBlendMode = 'multiply'
 
+                if (i === 0) carouselItem.classList.add('active')
                 if (caption) {
 
                     let carouselCaption = document.createElement('div')
@@ -304,17 +292,12 @@
                     let captionParagraph = document.createElement('p')
 
                 }
-                carouselItem.appendChild(carouselItemImage)
-                if (!i) carouselItem.classList.add('active')
 
-                // console.log(el)
-
-                carouselItemImage.setAttribute('img-src', el)
                 setTimeout(() => {
-                    // carouselItemImage.style.backgroundImage = `url(${baseUrl}${el})`
-                    carouselItemImage.style.backgroundImage = `url({{ asset('${el}') }})`
-                }, 100);
-                carouselItemImage.style.mixBlendMode = 'multiply'
+                    carouselItemImage.style.backgroundImage = `url(/${imgPath})`
+                }, 10);
+
+                carouselItem.appendChild(carouselItemImage)
                 document.querySelector('.carousel-inner').appendChild(carouselItem)
             })
         }
@@ -332,6 +315,8 @@
                 size = ''
             }
 
+            console.log($qInput)
+
 
             const quantity = parseInt($qInput.value)
             for (i in PRODUCT_DETAIL) {
@@ -342,7 +327,8 @@
                     temp = instock
                 }
             }
-            const $invalidFeedback = $qInput.parentElement.parentElement.querySelector('.invalid-feedback')
+            const $invalidFeedback = $qInput.closest('.quantity-input').parentElement.querySelector('.invalid-feedback')
+
 
             if (size == '') {
                 $invalidFeedback.innerHTML = 'Please choose a size'

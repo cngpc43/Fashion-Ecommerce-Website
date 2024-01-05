@@ -73,7 +73,7 @@ class CartController extends Controller
             $cart = Cart::where('userId', $userId)->join('belongs', 'carts.id', '=', 'belongs.cartID')
                 ->join('product_details', 'belongs.detailID', '=', 'product_details.productDetailId')
                 ->join('products', 'product_details.productId', '=', 'products.productId')
-                ->select('carts.id', 'belongs.detailID', 'belongs.quantity', 'product_details.img as image', 'product_details.size', 'product_details.color', 'product_details.stock', 'products.name', 'products.price')
+                ->select('carts.id', 'products.productId as productID', 'belongs.detailID', 'belongs.quantity', 'product_details.img as image', 'product_details.size', 'product_details.color', 'product_details.stock', 'products.name', 'products.price')
                 ->get();
             if ($cart->isEmpty()) {
                 return response()->json([
@@ -200,10 +200,10 @@ class CartController extends Controller
                     'Message' => 'Cart Not found!',
                 ], 400);
             } else {
-                $cart->customerId = $request->customerId;
-                $cart->productDetailId = $request->productDetailId;
-                $cart->quantity = $request->quantity;
-                $cart->save();
+                DB::table('belongs')
+                    ->where('cartID', $request->id)
+                    ->where('detailID', $request->detailId)
+                    ->update(['quantity' => $request->quantity]);
                 return response()->json([
                     'statusCode' => 200,
                     'Message' => 'Update Successfully!',
@@ -465,5 +465,7 @@ class CartController extends Controller
 
     //     return view('cart', compact('cart'));
     // }
+
+    
 
 }

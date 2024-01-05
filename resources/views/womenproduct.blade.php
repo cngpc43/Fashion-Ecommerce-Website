@@ -1,678 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Men</title>
+</head>
+
 @extends('layouts.app')
 @section('content')
-    <div class="container-fluid p-0 overflow-hidden">
-        <div id="carouselExampleRide" class="carousel slide men-product">
-            <div class="carousel-inner banner">
-                <div class="carousel-item active">
-                    <div class="carousel-item-img hero-banner" img-src="{{ url('imgs/Men_product/10097.jpg') }}">
-                    </div>
 
-                </div>
-            </div>
-
-        </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-
-            <span class="ms-5">
-                <p class="primary-text ps-3 display-1">MAKE YOURSELF COMFORTABLE</p>
-            </span>
-            <div class="container-fluid text-center p-3" data-section="category">
-                <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
-
-
-                </div>
-            </div>
-        </div>
-        <div class="row banner mt-5 mb-5">
-            <div class="col-12 col-lg-6 p-0">
-                <img src="{{ asset('imgs/WhiteQTR.jpg') }}" alt="" class="img-responsive">
-            </div>
-            <div class="col-12 col-lg-6 p-0">
-                <div class="d-flex h-100 align-items-center justify-content-center">
-                    <div class="container">
-                        <h5 class="text-center">
-                            From the icon shop
-                        </h5>
-                        <p style="letter-spacing: -0.36px;" class="primary-text fs-1 text-center">
-                            QUARTER HEIGHT
-                        </p>
-                        <div class="d-flex justify-content-center">
-                            <a style="letter-spacing: 0.96px;" href="#"
-                                class="btn btn-dark px-lg-4 px-3 py-lg-2 py-1 primary-text fs-5 fw-bold">EXPLORE
-                                COLLECTION</a>
+    <body>
+        <div class="container-fluid p-0 overflow-hidden">
+            <div id="carouselExampleRide" class="carousel slide men-product">
+                <div class="carousel-inner banner">
+                    <div class="carousel-item active">
+                        <div class="carousel-item-img hero-banner">
                         </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-fluid mt-5 p-2 mb-5">
+
+                <span class="ms-5">
+                    <p class="primary-text ps-3 display-1">MAKE YOURSELF COMFORTABLE</p>
+                </span>
+                <div class="container-fluid text-center p-3">
+                    <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row">
+                        @foreach ($categories as $category)
+                            <div class="col mb-5"
+                                onclick="location.href='{{ route('category', ['categoryName' => $category->name]) }}'">
+                                <div class="p-4 h-100" img-src="{{ url($category->img) }}"></div>
+                                <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
+                            </div>
+                        @endforeach
+
 
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid mt-4 p-2 m-0 overflow-hidden">
-            <span>
-                <p class="normal-text">NEW ARRIVALS</p>
-            </span>
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-            <span>
-                <p class="normal-text">NEW ARRIVALS</p>
-            </span>
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-            <span>
-                <p class="normal-text">UNDERWEAR</p>
-            </span>
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
-            <span>
-                <p class="normal-text">ICON CREWS</p>
-            </span>
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto justify-content-center">
-                    <div id="recipeCarousel1" class="carousel slide multiple-image">
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10003.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10004.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10005.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10006.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10007.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-3">
-                                    <div class="card border-0">
-                                        <div class="card-img">
-                                            <img src="{{ url('/imgs/Home/10009.jpg') }}" class="img-fluid">
-                                        </div>
-                                        <div class="card-img-overlay"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </a>
-                        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel1" role="button"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row overflow-hidden">
-            <div class="col-12 ms-2">
-                <h1>
-                    <span class="primary-text fs-1">FROM TOE TO HEAD</span>
-                </h1>
-            </div>
-        </div>
-        <div class="container-fluid overflow-hidden">
-            <div class="row p-0">
-                <div class="col p-0">
 
-                    <div class="container-fluid p-0">
-                        <div class="shadow-sm row row-cols-2 row-cols-lg-3 p-2 filter-row fs-5">
-                            <div class="col text-start filter-button">
-                                <button>FILTER</button>
+            <div class="container-fluid mt-4 p-2 m-0 overflow-hidden">
+
+                <span>
+                    <p class="normal-text">NEW ARRIVALS</p>
+                </span>
+                <div class="container my-3 product-slider">
+                    <div class="row mx-auto my-auto justify-content-center">
+                        <div id="Carousel-Collection-1" class="carousel slide multiple-image">
+                            <div class="carousel-inner" role="listbox">
+                                @foreach ($newarrival as $index => $item)
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                        <div class="col-xl-3 col-lg-3 col-md-3">
+                                            <div class="card border-0">
+                                                <div class="card-img">
+                                                    <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                    <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
+                                                </div>
+                                                <div class="container-fluid card-body p-2">
+                                                    <div class="row product-detail d-flex align-items-center">
+                                                        <div class="col-8 name-col normal-text fs-5">
+                                                            <a class="text-end"
+                                                                href="{{ url('/product-detail/' . $item['productId']) }}">{{ $item['name'] }}</a>
+                                                        </div>
+                                                        <div class="col-4 price-col normal-text fs-5">
+
+                                                            <p class="text-end mb-0 me-lg-4 me-sm-0">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="col text-center d-lg-block d-none">
-                                <div class="row">
-                                    <div class="col p-0">ALL</div>
-                                    <div class="col p-0">MULTIPACKS</div>
-                                    <div class="col p-0">SINGLE</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="d-flex justify-content-end">
-                                    <span class="me-3">SORT BY</span>
-                                    <select name="" id=""></select>
-                                </div>
-                                {{-- <div class="row">
+                            <button class="btn btn-secondary control-center control-carousel" type="button"
+                                data-bs-target="#Carousel-Collection-1" data-bs-slide="prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-secondary control-center control-carousel" type="button"
+                                data-bs-target="#Carousel-Collection-1" data-bs-slide="next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid mt-5 p-2 m-0 overflow-hidden">
+
+                <div class="row overflow-hidden">
+                    <div class="col-12 ms-2">
+                        <h1>
+                            <span class="primary-text fs-1">FROM TOE TO HEAD</span>
+                        </h1>
+                    </div>
+                </div>
+                <div class="container-fluid overflow-hidden">
+                    <div class="row p-0">
+                        <div class="col p-0">
+
+                            <div class="container-fluid p-0">
+                                <div class="shadow-sm row row-cols-2 row-cols-lg-2 p-2 filter-row fs-5">
+                                    <div class="col text-start filter-button">
+                                        <div class="btn-group">
+
+                                            <button type="button" data-bs-toggle="dropdown"
+                                                data-bs-target="#filter-collapse" role="button">FILTER</button>
+                                            <ul class="dropdown-menu p-3 m-2"
+                                                style="position: relative; z-index: 1000 !important">
+
+                                                @foreach ($product_filter as $option)
+                                                    <li class="d-flex">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                name="category[]" value="{{ $option->name }}"
+                                                                id="category{{ $loop->index }}">
+                                                            <label class="form-check-label"
+                                                                for="category{{ $loop->index }}">
+                                                                <a class="text-decoration-none text-dark">
+                                                                    {{ strtoupper($option->name) }}
+                                                                </a>
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                     <div class="col">
-                                        <span>SORT BY</span>
+                                        <div class="d-flex justify-content-end">
+                                            <span class="me-3">SORT BY</span>
+                                            <select name="sort" id="sort">
+                                                <option value="">Select</option>
+                                                <option value="price_asc">Price low to high</option>
+                                                <option value="price_desc">Price high to low</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <select name="" id=""></select>
-                                    </div>
-                                </div> --}}
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container-fluid p-0 mt-4">
+                            <div class="container-fluid p-2 mt-4">
 
-                        <div class="row row-cols-4">
-                            <div class="col-6 col-md-3">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-3 product-img-frame">
-                                {{-- <img class="product-img" alt="" img-src="/imgs/Men_product/10070.jpg"> --}}
-                                <div class="product-img" img-src="/imgs/Men_product/10070.jpg"></div>
-                                <div class="row title-body">
-                                    <div class="col name">
-                                        <p class="normal-text fs-5">FRAGMENT PERFORMANCE T-SHIRT</p>
-                                    </div>
-                                    <div class="col price text-end">
-                                        <P class="normal-text fs-5">USD 55,00</P>
-                                    </div>
-                                </div>
-                                <div class="color-swatches d-flex">
-                                    <span>red</span>
-                                    <span>green</span>
-                                    <span>blue</span>
-                                </div>
-                            </div>
+                                <div class="row row-cols-4 product-list">
+                                    @php
+                                        $productData = $product->getData(true);
+                                    @endphp
+                                    @foreach ($productData['data'] as $item)
+                                        <div class="col-md-3">
+                                            <div class="card border-0">
+                                                <div class="card-img">
+                                                    <div class="card-img">
+                                                        <img src="{{ url($item['img'][0]) }}" class="img-fluid">
+                                                        <img src="{{ url($item['img'][1]) }}" class="img-fluid hover-img">
+                                                    </div>
+                                                </div>
+                                                <div class="container-fluid card-body">
+                                                    <div class="row product-detail d-flex align-items-center">
+                                                        <div
+                                                            class="col-8 name-col normal-text fs-5 d-flex justify-content-start">
+                                                            <a
+                                                                href="{{ url('/product-detail/' . $item['productId'] . '?detailID=' . $item['productDetailId']) }}">
+                                                                {{ $item['name'] }}</a>
+                                                        </div>
+                                                        <div
+                                                            class="col-4 price-col normal-text fs-5 d-flex justify-content-end">
+                                                            <p class="text-end mb-0 ">USD
+                                                                {{ number_format($item['price'], 2) }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
 
 
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+    </body>
     <script>
-        const data = {
-            "category": [
+        const hi = @json($newarrival);
+        console.log(hi);
+        const banner = @json($banner);
+        const categories = @json($categories);
+        document.querySelector('.hero-banner').setAttribute(
+            'img-src', banner[0].img);
 
-                {
-                    "name": "NEW ARRIVALS",
-                    "image": "{{ url('imgs/women_product/10066.jpg') }}"
-                },
-                {
-                    "name": "TOPS",
-                    "image": "{{ url('imgs/women_product/10101.jpg') }}"
-                },
-                {
-                    "name": "BOTTOMS",
-                    "image": "{{ url('imgs/women_product/10098.jpg') }}"
-                },
-                {
-                    "name": "SOCKS",
-                    "image": "{{ url('imgs/women_product/10099.jpg') }}"
-                }
-            ],
-            "banner": {
-                "image": "{{ url('imgs/women_product/10097.jpg') }}",
-                "caption": ""
-            },
-            "product": [{
-                    "name": "",
-                    "image": "",
-                    "price": "",
-                    "color": ["", "", ""],
-                }
+        document.getElementById('sort').addEventListener('change', fetchData);
+        document.querySelectorAll('input[name="category[]"]').forEach(function(checkbox) {
+            checkbox.addEventListener('change', fetchData);
+        });
 
-            ]
+        function fetchData() {
+            var sort = document.getElementById('sort').value;
+            console.log('Sort:', sort);
+            var selectedCategories = Array.from(document.querySelectorAll('input[name="category[]"]:checked')).map(function(
+                checkbox) {
+                return checkbox.value;
+            });
 
+            var url = new URL('/women-product', window.location.origin);
+            var params = new URLSearchParams();
+
+            if (selectedCategories.length > 0) {
+                selectedCategories.forEach(function(category) {
+                    params.append('category[]', category);
+                });
+            }
+
+            if (sort) {
+                params.append('sort', sort);
+            }
+            console.log('URL:', url.toString());
+            url.search = params.toString();
+
+            fetch(url, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                })
+                .then(function(response) {
+                    return response.text();
+                })
+                .then(function(products) {
+                    products = JSON.parse(products);
+                    console.log(products);
+                    var productContainer = document.querySelector('.product-list');
+                    productContainer.innerHTML = '';
+
+                    products.original.data.forEach(function(product) {
+                        productContainer.innerHTML += productTemplate(product);
+                    });
+                });
         }
-        const $category = document.querySelector('[data-section=category] .row')
-        const $herobanner = document.querySelector('.hero-banner')
-        $herobanner.setAttribute("img-src", data.banner.image)
-        setTimeout(() => {
-            data.category.forEach(el => {
-                $category.innerHTML += `
-                <div class="col mb-5">
-                    <div class="p-4 h-100 category-img" style="background-image: url('${el.image}');"></div>
-                    <p class="normal-text p-2 fs-1">${el.name}</p>
-                </div>
-            `
+        document.addEventListener('DOMContentLoaded', function() {
+            var loadMoreButton = document.getElementById('load-more');
+            if (loadMoreButton) {
+                loadMoreButton.addEventListener('click', function() {
+                    var url = loadMoreButton.getAttribute('data-url');
 
-            })
+                    fetch(url, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            var productList = document.querySelector('.product-list');
+                            data.original.data.forEach(function(product) {
+                                productList.innerHTML += productTemplate(product);
+                            });
 
-        }, 500);
+
+                            if (data.next_page_url) {
+                                loadMoreButton.setAttribute('data-url', data.next_page_url);
+                            } else {
+
+                                loadMoreButton.style.display = 'none';
+                            }
+                        });
+                });
+            }
+        });
     </script>
 @endsection
+
+
+</html>

@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenProductController;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WomenProductController;
+use App\Http\Controllers\SocksViewController;
 
 // use App\Http\Controllers\ProductController;
 
@@ -41,25 +43,15 @@ Route::middleware('auth.customer')->group(function () {
 
 });
 
+Route::get('/search', [ProductController::class, 'search']);
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-Route::get('/abc', function () {
-    echo '3';
-});
+Route::get('menproduct', [MenProductController::class, 'index'])->name('menproduct');
 
 
-Route::get('menproduct', [MenProductController::class, 'index']);
-
-
-Route::get('/women-product', function () {
-    return view('womenproduct');
-})->name('women-product');
-Route::get('socks', function () {
-    return view('socks');
-});
-Route::get('test', function () {
-    return view('test');
-});
+Route::get('women-product', [WomenProductController::class, 'index'])->name('womenproduct');
+Route::get('socks', [SocksViewController::class, 'index'])->name('socks');
 Route::get('product-detail/{id}', [ProductController::class, 'getDetailbyID']);
 
 
@@ -74,6 +66,7 @@ Route::get('/cart', function () {
 // Route::get('/user/{id}', [UserController::class, 'show']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.add-to-cart');
 Route::get('/get-cart', [CartController::class, 'getCart'])->name('api.get-cart');
+Route::put('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
 // Route::get('/get-cart/{id}', [CartController::class, 'getCustomerCart'])->name('api.get-customer-cart');
 Route::post('/delete-from-cart', [CartController::class, 'deleteProductfromCart'])->name('api.delete-from-cart');
 // Route::post('/update-cart', [CartController::class, 'updateCart'])->name('api.update-cart');
@@ -87,3 +80,8 @@ Route::post('/api/clear-cart', [CartController::class, 'clearCart'])->name('api.
 Route::get('/order/{id}', [OrderController::class, 'getOrderbyID']);
 Route::get('/collection/{name}', [ProductController::class, 'getProductByCollectionName']);
 Route::get('/category/{categoryName}', [ProductController::class, 'getProductByCategoryName'])->name('category');
+// Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
+Route::get('/search-results', [ProductController::class, 'search']);
+Route::get('/user/orders', [OrderController::class, 'getOrderByUserID'])->name('user.orders');
+
+Route::post('/password/email', [UserController::class, 'forget']);

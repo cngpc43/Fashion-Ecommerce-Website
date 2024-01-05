@@ -32,24 +32,24 @@
                         {{-- <img class="carousel-item-img d-none" src="{{ asset('imgs/10007.jpg') }}" alt=""> --}}
                         <div class="carousel-item-img"></div>
                         <div class="carousel-caption ">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h5 class="primary-text mb-5">Shop today !</h5>
+                            <p>All the products are at lowest price</p>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="carousel-item-img"></div>
                         {{-- <img src="{{ asset('imgs/10004.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
                         <div class="carousel-caption d-md-block">
-                            <h2>First slide label</h2>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h2 class="primary-text mb-5">New collection arrives</h2>
+                            <p>Up to trend</p>
                         </div>
                     </div>
                     <div class="carousel-item active">
                         {{-- <img src="{{ asset('imgs/10001.jpg') }}" class="carousel-item-img d-none" alt="..."> --}}
                         <div class="carousel-item-img"></div>
                         <div class="carousel-caption d-md-block" style="bottom: 50%; transform: translateY(-50%);">
-                            <h3>First slide label</h3>
-                            <p>Some representative placeholder content for the first slide.</p>
+                            <h3 class="primary-text mb-5">Activate your inspiration</h3>
+                            <p class="fs-3">Pariatur cupidatat eiusmod sint occaecat occaecat.</p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     <div class="container-fluid p-3">
                         <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 category-row mb-5">
                             @foreach ($categories as $category)
-                                <div class="col"
+                                <div class="col" style="cursor: pointer;"
                                     onclick="location.href='{{ route('category', ['categoryName' => $category->name]) }}'">
                                     <div class="p-4 h-100" img-src="{{ url($category['img']) }}"></div>
                                     <p class="normal-text mt-2">{{ strtoupper($category->name) }}</p>
@@ -95,7 +95,9 @@
                         <div class="carousel-inner" role="listbox">
                             @foreach ($first as $index => $item)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"
+                                        onclick="window.location.href='/product-detail/{{ $item->productId }}'"
+                                        style="cursor: pointer;">
                                         <div class="card border-0">
                                             @php
                                                 $images = json_decode($item->img);
@@ -113,7 +115,7 @@
                                                     </div>
                                                     <div
                                                         class="col-3 price-col normal-text fs-5 d-flex justify-content-center align-items-center">
-                                                        <p class="m-0">USD {{ $item->price }}</p>
+                                                        <p class="m-0">USD {{ number_format($item->price, 2) }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,7 +145,9 @@
                         <div class="carousel-inner" role="listbox">
                             @foreach ($second as $index => $item)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3"
+                                        onclick="window.location.href='/product-detail/{{ $item->productId }}'"
+                                        style="cursor: pointer">
                                         <div class="card border-0">
                                             @php
                                                 $images = json_decode($item->img);
@@ -160,7 +164,7 @@
                                                             href="{{ url('/product-detail/' . $item->productId) }}">{{ $item->name }}</a>
                                                     </div>
                                                     <div class="col-4 price-col normal-text fs-5 d-flex">
-                                                        <p>{{ $item->price }}</p>
+                                                        <p>USD {{ number_format($item->price, 2) }}</p>
                                                     </div>
                                                 </div>
                                             </div>
