@@ -20,4 +20,25 @@ This is a Laravel(1) simple website used for fashion accessories e-commerce.
 <img src="https://i.imgur.com/AAkIktT.png">
 
 ## Installation
+
 After clone the repository
+
+Step 1: run
+
+```bash
+docker build -t cngpc/fashion-shop .
+```
+
+Step 2: run
+
+```bash
+docker-compose up -d
+```
+
+Step 3: run
+
+```bash
+docker compose exec app composer install
+```
+
+Step 4: App is running at port 8000
