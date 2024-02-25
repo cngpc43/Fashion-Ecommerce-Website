@@ -3,7 +3,7 @@ services:
 
   #PHP Service
   app:
-    image: learning-docker/laravel:v1
+    image: laravel/fashion-shop
     restart: unless-stopped
     volumes:
       - ./:/var/www/html

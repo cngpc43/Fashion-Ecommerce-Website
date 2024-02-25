@@ -20,3 +20,4 @@ This is a Laravel(1) simple website used for fashion accessories e-commerce.
 <img src="https://i.imgur.com/AAkIktT.png">
 
 ## Installation
+After clone the repository
