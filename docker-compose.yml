@@ -3,7 +3,7 @@ services:
 
   #PHP Service
   app:
-    image: laravel/fashion-shop
+    image: cngpc/fashion-shop
     restart: unless-stopped
     volumes:
       - ./:/var/www/html
