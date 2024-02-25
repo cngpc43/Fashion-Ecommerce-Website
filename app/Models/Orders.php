@@ -17,7 +17,7 @@ class Orders extends Model
         'totalPrice',
         'paymentMethod',
         'totalPrice',
-
+        'ship_to',
     ];
     use HasFactory;
     public function user()

@@ -10,7 +10,7 @@
 
 @extends('layouts.app')
 @section('content')
-    <section class="py-5">
+    <section class="py-5 mt-5">
 
         <div class="row overflow-hidden">
             <div class="col-12 ms-2">
@@ -23,18 +23,12 @@
             <div class="row p-0">
                 <div class="col p-0">
 
-                    <div class="container-fluid p-0">
-                        <div class="shadow-sm row row-cols-2 row-cols-lg-3 p-2 filter-row fs-5">
+                    {{-- <div class="container-fluid p-0">
+                        <div class="shadow-sm row row-cols-2 row-cols-lg-2 p-2 filter-row fs-5">
                             <div class="col text-start filter-button">
                                 <button>FILTER</button>
                             </div>
-                            <div class="col text-center d-lg-block d-none">
-                                <div class="row">
-                                    <div class="col p-0">ALL</div>
-                                    <div class="col p-0">MULTIPACKS</div>
-                                    <div class="col p-0">SINGLE</div>
-                                </div>
-                            </div>
+
                             <div class="col">
                                 <div class="d-flex justify-content-end">
                                     <span class="me-3">SORT BY</span>
@@ -43,7 +37,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="container-fluid p-2 mt-4">
 
                         <div class="row row-cols-4">

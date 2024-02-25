@@ -83,5 +83,8 @@ Route::get('/category/{categoryName}', [ProductController::class, 'getProductByC
 // Route::get('/user/orders', [OrderController::class, 'getOrderByUserID']);
 Route::get('/search-results', [ProductController::class, 'search']);
 Route::get('/user/orders', [OrderController::class, 'getOrderByUserID'])->name('user.orders');
-
+Route::get('/password/email', function () {
+    return view('resetpassword');
+});
 Route::post('/password/email', [UserController::class, 'forget']);
+Route::post('/password/updateForget', [UserController::class, 'updateForget']);

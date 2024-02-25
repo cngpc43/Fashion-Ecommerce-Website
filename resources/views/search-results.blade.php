@@ -5,7 +5,7 @@
         $groupedProducts = $products->groupBy('productId');
         $count = $groupedProducts->count();
     @endphp
-    <div class="container-fluid p-2 mt-5">
+    <div class="container-fluid p-2 mt-5" style="min-height: 400px">
         <h1>Found {{ $count }} products for "{{ $query }}"</h1>
         <div class="row row-cols-4">
             @foreach ($groupedProducts as $gproducts)

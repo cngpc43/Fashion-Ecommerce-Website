@@ -232,82 +232,161 @@
                                     </div>
                                 </div>
                             @elseif(is_null($address))
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h6 class="mt-3 mb-2 normal-text fs-2">Delivery address</h6>
-                                </div>
-                                <div class="row d-flex">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" id="receiver" class="form-control"
-                                                placeholder="inputhere">
-                                            <label>Receiver</label>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="phone" id="phone" class="form-control"
-                                                placeholder="inputhere">
-                                            <label>Phone number</label>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-12">
-
-                                        <div class="form-floating mb-3">
-                                            <input id="street" class="form-control" placeholder="inputhere">
-                                            <label>Đường</label>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row d-flex">
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" id="province"
-                                                class="form-control province dropdown-toggle" data-bs-toggle="dropdown"
-                                                placeholder="inputhere" oninput="proSearch()">
-                                            <label>Tỉnh/Thành</label>
-                                            <ul class="dropdown-menu" id="province_list"></ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                        <div class="form-floating mb-3">
-
-                                            <input type="text" id="district"
-                                                class="form-control district dropdown-toggle" data-bs-toggle="dropdown"
-                                                placeholder="inputhere" oninput="disSearch()">
-                                            <label>Quận/Huyện</label>
-                                            <ul class="dropdown-menu" id="district_list"></ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-
-                                        <div class="form-floating mb-3">
-                                            <input type="text" id="ward"
-                                                class="form-control ward dropdown-toggle" data-bs-toggle="dropdown"
-                                                placeholder="inputhere" oninput="warSearch()">
-                                            <label>Phường/Xã</label>
-                                            <ul class="dropdown-menu" id="ward_list"></ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row gutters mt-4">
+                                @guest
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="text-right">
+                                        <h6 class="mt-3 mb-2 normal-text fs-2">Delivery address</h6>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-floating mb-3 guest-receiver">
+                                                <input type="text" id="receiver" class="form-control"
+                                                    placeholder="inputhere">
+                                                <label>Receiver</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-floating mb-3 guest">
+                                                <input type="phone" id="phone" class="form-control guest-phone"
+                                                    placeholder="inputhere">
+                                                <label>Phone number</label>
+                                            </div>
+                                        </div>
 
-                                            <button type="button" id="submit" name="submit"
-                                                class="btn btn-primary create-new-address">Create</button>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-12">
+
+                                            <div class="form-floating mb-3 guest">
+                                                <input id="street" class="form-control guest-street"
+                                                    placeholder="inputhere">
+                                                <label>Đường</label>
+
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row d-flex">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="form-floating mb-3 guest">
+                                                <input type="text" id="province"
+                                                    class="form-control province dropdown-toggle guest-pro"
+                                                    data-bs-toggle="dropdown" placeholder="inputhere" oninput="proSearch()">
+                                                <label>Tỉnh/Thành</label>
+                                                <ul class="dropdown-menu" id="province_list"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="form-floating mb-3 guest">
+                                                <input type="text" id="district"
+                                                    class="form-control district dropdown-toggle guest-dis"
+                                                    data-bs-toggle="dropdown" placeholder="inputhere" oninput="disSearch()">
+                                                <label>Quận/Huyện</label>
+                                                <ul class="dropdown-menu" id="district_list"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                                            <div class="form-floating mb-3 guest">
+                                                <input type="text" id="ward"
+                                                    class="form-control ward dropdown-toggle guest-war"
+                                                    data-bs-toggle="dropdown" placeholder="inputhere" oninput="warSearch()">
+                                                <label>Phường/Xã</label>
+                                                <ul class="dropdown-menu" id="ward_list"></ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row gutters mt-4">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="text-right">
+
+                                                <button type="button" id="submit" name="submit"
+                                                    class="btn btn-dark create-guest-address">Create</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @endguest
+                                @auth
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h6 class="mt-3 mb-2 normal-text fs-2">Delivery address</h6>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" id="receiver" class="form-control"
+                                                    placeholder="inputhere">
+                                                <label>Receiver</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="phone" id="phone" class="form-control"
+                                                    placeholder="inputhere">
+                                                <label>Phone number</label>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-12">
+
+                                            <div class="form-floating mb-3">
+                                                <input id="street" class="form-control" placeholder="inputhere">
+                                                <label>Đường</label>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" id="province"
+                                                    class="form-control province dropdown-toggle" data-bs-toggle="dropdown"
+                                                    placeholder="inputhere" oninput="proSearch()">
+                                                <label>Tỉnh/Thành</label>
+                                                <ul class="dropdown-menu" id="province_list"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="form-floating mb-3">
+
+                                                <input type="text" id="district"
+                                                    class="form-control district dropdown-toggle" data-bs-toggle="dropdown"
+                                                    placeholder="inputhere" oninput="disSearch()">
+                                                <label>Quận/Huyện</label>
+                                                <ul class="dropdown-menu" id="district_list"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+                                            <div class="form-floating mb-3">
+                                                <input type="text" id="ward"
+                                                    class="form-control ward dropdown-toggle" data-bs-toggle="dropdown"
+                                                    placeholder="inputhere" oninput="warSearch()">
+                                                <label>Phường/Xã</label>
+                                                <ul class="dropdown-menu" id="ward_list"></ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row gutters mt-4">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="text-right">
+
+                                                <button type="button" id="submit" name="submit"
+                                                    class="btn btn-primary create-new-address">Create</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endauth
                             @endif
                         </div>
                     </div>
@@ -612,6 +691,66 @@
                 total += parseInt(el.price) * parseInt(el.quantity)
             })
             document.querySelector('.total-money').innerHTML = `USD ${total}`
+            let checkout = document.querySelector('.checkout')
+            checkout.addEventListener('click', function() {
+                console.log(cart)
+                let url = "{{ route('api.checkout') }}";
+
+                let paymentMethod = $('.payment-method-item.checked').find('.method-name').text();
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                let detail = []
+                let totalMoneyElement = document.querySelector('.total-money');
+                let totalMoneyString = totalMoneyElement.innerHTML;
+                let totalMoney = totalMoneyString.replace('USD ', '');
+                let totalPrice = parseInt(totalMoney);
+                document.querySelectorAll('.form-floating mb-3.guest').forEach(el => {
+                    var receiver = el.find('.guest-receiver')
+                    var phone = el.find('.guest-phone').val()
+                    var street = el.find('.guest-street').val()
+                    var ward = el.find('guest-ward').val()
+                    var district = el.find('guest-district').val()
+                    var pro = el.find('.guest-pro').val()
+                })
+                console.log(receiver)
+                cart.forEach(el => {
+                    detail.push({
+                        detailID: el.detailId,
+                        quantity: el.quantity
+                    })
+
+                })
+                // console.log(detail)
+                var address = localStorage.getItem('address')
+                console.log(address)
+                address =
+                    `${JSON.parse(address).receiver} ${JSON.parse(address).phone}${JSON.parse(address).street} ${JSON.parse(address).ward} ${JSON.parse(address).district} ${JSON.parse(address).province}`
+                console.log(address)
+                axios.post(url, {
+                        paymentMethod: paymentMethod,
+                        totalPrice: totalPrice,
+                        detail: detail,
+                        ship_to: address,
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.data["statusCode"] == 200) {
+                            let orderId = response.data.data.id;
+                            console.log(orderId)
+                            notyf.success('Buying successfully')
+                            localStorage.clear()
+                            setTimeout(() => {
+                                window.location.href = '/'
+                            }, 2000);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        notyf.error(error.response.data.Message)
+                    });
+            });
         @endif
 
 
@@ -734,6 +873,76 @@
                         notyf.error(error.response.data.Message)
                     });
             });
+        }
+        const create_guest_address = document.querySelector('.create-guest-address');
+        if (create_guest_address) {
+            create_guest_address.addEventListener('click', function() {
+                let url = "{{ route('api.create-new-address') }}";
+                let receiver = (document.querySelector('.guest-receiver') ?? document.querySelector(
+                        '#new-receiver'))
+                    .value;
+                let phone = (document.querySelector('.guest-phone') ?? document.querySelector('#new-phone')).value;
+                let province = (document.querySelector('.guest-pro') ?? document.querySelector('#new-province'))
+                    .value;
+                let district = (document.querySelector('.guest-dis') ?? document.querySelector(
+                        '#new-district'))
+                    .value;
+                let ward = (document.querySelector('.guest-war') ?? document.querySelector('#new-ward')).value;
+                let address = (document.querySelector('.guest-street') ?? document.querySelector('#new-street'))
+                    .value;
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                let addressObject = {
+                    receiver: receiver,
+                    phone: phone,
+                    province: province,
+                    district: district,
+                    ward: ward,
+                    address: address,
+                };
+                localStorage.setItem('address', JSON.stringify(addressObject))
+                if (localStorage.getItem('address')) {
+                    notyf.success('Create address success')
+                    // console.log('hi')
+                }
+                axios.post(url, {
+                        addressId: addressId,
+                        paymentMethod: paymentMethod,
+                        totalPrice: totalPrice,
+                        detail: detail,
+
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.data["statusCode"] == 200) {
+                            let orderId = response.data.data.id;
+                            console.log(orderId)
+                            axios.post("{{ route('api.clear-cart') }}", {
+                                    headers: {
+                                        'X-CSRF-TOKEN': token
+                                    }
+                                })
+                                .then(function(response) {
+                                    console.log(response.data);
+                                    if (response.data["statusCode"] == 200) {
+                                        console.log('Cart cleared')
+                                        notyf.success('Buying sucessfully')
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        notyf.error(error.response.data.Message)
+                    });
+            });
+
+
         }
 
         function toQuery(str) {
@@ -1157,5 +1366,4 @@
             }
         }
     </script>
-    <!-- Credit card form -->
 @endsection
