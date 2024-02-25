@@ -426,7 +426,8 @@ class UserController extends Controller
                 $mail->setFrom('hoangtu4520031234@gmail.com', 'Sender Name'); // sender's email and name
                 $mail->addAddress($mailUser, 'Receiver Name'); // receiver's email and name
                 $mail->Subject = 'Reset password';
-                $body = "Hello $mailUser ,please follow this link : http://127.0.0.1:8000/ to reset your password";
+                $body = "Xin chào $mailUser , đây là link resetpassword : ";
+                $body.= "<a href='http://127.0.0.1:8000/password/email?email=$mailUser'>Click here</a>";
 
                 $mail->Body = $body;
                 $mail->IsHTML(true); // Set email body format as HTML
@@ -439,6 +440,31 @@ class UserController extends Controller
             }
         } catch (Exception $e) {
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+        }
+    }
+    public function updateForget(Request $request){
+        try {
+            echo $request->query('email');
+            $user = User::where('email', $request->email)->update([
+                'password' => Hash::make($request->password),
+            ]);
+            if (!$user) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'Message' => 'Cannot update user',
+                ], 400);
+            } else {
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Ok !',
+                    'data' => $user
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'Message' => $e->getMessage(),
+            ], 500);
         }
     }
 

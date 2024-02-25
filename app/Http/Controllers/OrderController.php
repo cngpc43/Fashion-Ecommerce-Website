@@ -65,33 +65,65 @@ class OrderController extends Controller
     public static function CreateOrder(Request $request)
     {
         try {
-            $order = new Orders();
-            $order->userId = Auth::user()->id;
-            $order->status = 'Pending';
-            $order->totalPrice = $request->input('totalPrice');
-            $order->paymentMethod = $request->input('paymentMethod');
-            $order->addressID = $request->input('addressId');
-            $order->save();
-            $orderDetails = $request->input('detail');
+            if (Auth::check()) {
 
-            foreach ($orderDetails as $detail) {
-                $orderDetail = new OrderDetail();
-                $orderDetail->orderId = $order->id;
-                $orderDetail->detailID = $detail['detailID'];
-                $orderDetail->quantity = $detail['quantity'];
-                $orderDetail->save();
-                $product = DB::table('product_details')->where('productDetailId', $detail['detailID'])->first();
-                DB::table('product_details')
-                    ->where('productDetailId', $detail['detailID'])
-                    ->update(['stock' => $product->stock - $detail['quantity']]);
+                $order = new Orders();
+                $order->userId = Auth::user()->id;
+                $order->status = 'Pending';
+                $order->totalPrice = $request->input('totalPrice');
+                $order->paymentMethod = $request->input('paymentMethod');
+                $order->addressID = $request->input('addressId');
+                $order->ship_to = $request->input('ship_to');
+                $order->save();
+                $orderDetails = $request->input('detail');
+
+                foreach ($orderDetails as $detail) {
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->orderId = $order->id;
+                    $orderDetail->detailID = $detail['detailID'];
+                    $orderDetail->quantity = $detail['quantity'];
+                    $orderDetail->save();
+                    $product = DB::table('product_details')->where('productDetailId', $detail['detailID'])->first();
+                    DB::table('product_details')
+                        ->where('productDetailId', $detail['detailID'])
+                        ->update(['stock' => $product->stock - $detail['quantity']]);
+                }
+
+
+                $cart = Auth::user()->cart;
+                Belong::where('cartID', $cart->id)->delete();
+
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
+                    'data' => $order
+                ], 200);
+            } else {
+                $order = new Orders();
+                $order->status = 'Pending';
+                $order->totalPrice = $request->input('totalPrice');
+                $order->paymentMethod = $request->input('paymentMethod');
+                $order->ship_to = $request->input('ship_to');
+                $order->save();
+                $orderDetails = $request->input('detail');
+
+                foreach ($orderDetails as $detail) {
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->orderId = $order->id;
+                    $orderDetail->detailID = $detail['detailID'];
+                    $orderDetail->quantity = $detail['quantity'];
+                    $orderDetail->save();
+                    $product = DB::table('product_details')->where('productDetailId', $detail['detailID'])->first();
+                    DB::table('product_details')
+                        ->where('productDetailId', $detail['detailID'])
+                        ->update(['stock' => $product->stock - $detail['quantity']]);
+                }
+                return response()->json([
+                    'statusCode' => 200,
+                    'Message' => 'Success!',
+                    'data' => $order
+                ], 200);
             }
-            $cart = Auth::user()->cart;
-            Belong::where('cartID', $cart->id)->delete();
-            return response()->json([
-                'statusCode' => 200,
-                'Message' => 'Success!',
-                'data' => $order
-            ], 200);
         } catch (QueryException $e) {
             return response()->json([
                 'statusCode' => 400,
