@@ -15,9 +15,9 @@ This is a Laravel(1) simple website used for fashion accessories e-commerce.
 
 ## Website interface
 
-<img src="https://i.imgur.com/xeCEYEZ.jpg">
-<img src="https://i.imgur.com/o4HgctC.png">
-<img src="https://i.imgur.com/AAkIktT.png">
+<img src="https://i.imgur.com/POKU3As.jpg">
+<img src="https://i.imgur.com/0U2Ktg9.jpg">
+<img src="https://i.imgur.com/UcnoiTf.jpg">
 
 ## Installation
 
