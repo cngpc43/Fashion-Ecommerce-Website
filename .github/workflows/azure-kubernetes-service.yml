@@ -35,11 +35,11 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: "your-azure-container-registry"
-  CONTAINER_NAME: "your-container-name"
-  RESOURCE_GROUP: "your-resource-group"
-  CLUSTER_NAME: "your-cluster-name"
-  DEPLOYMENT_MANIFEST_PATH: "your-deployment-manifest-path"
+  AZURE_CONTAINER_REGISTRY: "fashionwebprodacr"
+  CONTAINER_NAME: "laravel-ecommerce-web"
+  RESOURCE_GROUP: "Final_assignment_resource"
+  CLUSTER_NAME: "fashion-ecommerce-stg-aks"
+  DEPLOYMENT_MANIFEST_PATH: "./deployment.yaml"
 
 jobs:
   buildImage:
