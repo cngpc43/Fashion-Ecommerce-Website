@@ -40,7 +40,7 @@ env:
   RESOURCE_GROUP: "Final_assignment_resource"
   CLUSTER_NAME: "fashion-ecommerce-stg-aks"
   DEPLOYMENT_MANIFEST_PATH: "./deployment.yaml"
-
+  IMAGE_PULL_SECRET_NAME: "auth_acr"
 jobs:
   buildImage:
     permissions:
@@ -87,7 +87,7 @@ jobs:
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.25'
+          kubelogin-version: 'v0.1.3' 
 
       # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
       - name: Get K8s context
