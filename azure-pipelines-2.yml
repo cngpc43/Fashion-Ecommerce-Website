@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '553d9a11-13c8-46dc-8cf0-c4a2fb16cf57'
   imageRepository: 'fashionecommercewebsite'
   containerRegistry: 'fashionwebprodacr.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: './dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'fashionwebprodacr5c1d-auth'
 
