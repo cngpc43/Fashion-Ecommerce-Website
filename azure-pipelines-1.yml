@@ -15,7 +15,7 @@ steps:
     containerRegistry: 'azure-devops-acr' 
     repository: $(imageName)
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile' 
+    Dockerfile: './dockerfile' 
     tags: |
       latest
       $(Build.BuildId)
